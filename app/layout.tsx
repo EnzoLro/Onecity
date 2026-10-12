@@ -1,18 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Parkinsans } from "next/font/google";
+import { inter, parkinsans } from "./fonts";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
-
-const parkinsans = Parkinsans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-parkinsans",
-});
 
 export const metadata: Metadata = {
   title: "OneCity",
