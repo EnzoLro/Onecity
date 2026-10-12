@@ -1,6 +1,6 @@
-# Waitity
+# OneCity
 
-Technical foundation for the Waitity website.
+Technical foundation for the OneCity website.
 
 ## Scripts
 
