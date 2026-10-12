@@ -1,9 +1,77 @@
 @import "tailwindcss";
 
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+
+  --color-onecity-primary: var(--color-primary);
+  --color-onecity-background: var(--color-background);
+  --color-onecity-surface: var(--color-surface);
+  --color-onecity-item-high: var(--color-item-high);
+  --color-onecity-item-mid: var(--color-item-mid);
+  --color-onecity-item-low: var(--color-item-low);
+
+  --spacing-13: var(--space-52);
+  --spacing-30: var(--space-120);
+  --spacing-40: var(--space-160);
+
+  --container-onecity: var(--container-max);
+
+  --breakpoint-md: 38.75rem;
+  --breakpoint-lg: 64rem;
+
+  --radius-none: 0;
+}
+
 :root {
   color-scheme: light;
-  background: #ffffff;
-  color: #171717;
+  --color-primary: #4f3c26;
+  --color-background: #f8f7f6;
+  --color-surface: #ffffff;
+  --color-item-high: rgb(79 60 38 / 100%);
+  --color-item-mid: rgb(79 60 38 / 80%);
+  --color-item-low: rgb(79 60 38 / 64%);
+
+  --font-display: var(--font-parkinsans), var(--font-inter), Arial, sans-serif;
+  --font-body: var(--font-inter), Arial, sans-serif;
+
+  --space-0: 0;
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-52: 3.25rem;
+  --space-64: 4rem;
+  --space-80: 5rem;
+  --space-120: 7.5rem;
+  --space-160: 10rem;
+
+  --container-max: 87.5rem;
+  --container-padding: 1.5rem;
+  --container-padding-mobile: 1.5rem;
+  --container-padding-desktop: 3.75rem;
+
+  --radius-none: 0;
+
+  --text-display-size: 2.75rem;
+  --text-display-line-height: 1.04;
+  --text-display-weight: 700;
+  --text-heading-size: 2.5rem;
+  --text-heading-line-height: 1.08;
+  --text-heading-weight: 700;
+  --text-subtitle-size: 0.875rem;
+  --text-subtitle-line-height: 1.4;
+  --text-subtitle-weight: 300;
+  --text-body-lg-size: 1.125rem;
+  --text-body-lg-line-height: 1.55;
+  --text-body-size: 1rem;
+  --text-body-line-height: 1.6;
+
+  background: var(--color-background);
+  color: var(--color-item-high);
 }
 
 * {
@@ -17,5 +85,67 @@ body {
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background: var(--color-background);
+  color: var(--color-item-high);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+.onecity-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+.onecity-text-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display-size);
+  font-weight: var(--text-display-weight);
+  line-height: var(--text-display-line-height);
+  letter-spacing: 0;
+}
+
+.onecity-text-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-size);
+  font-weight: var(--text-heading-weight);
+  line-height: var(--text-heading-line-height);
+  letter-spacing: 0;
+}
+
+.onecity-text-subtitle {
+  font-size: var(--text-subtitle-size);
+  font-weight: var(--text-subtitle-weight);
+  line-height: var(--text-subtitle-line-height);
+  letter-spacing: 0;
+}
+
+.onecity-text-body-lg {
+  font-size: var(--text-body-lg-size);
+  line-height: var(--text-body-lg-line-height);
+  letter-spacing: 0;
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --container-padding: var(--container-padding-desktop);
+  }
 }
