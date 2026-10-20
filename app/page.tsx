@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Button, Container, Section, StyledLink, Text } from "@/components/ui";
+import { Accordion, Button, Container, Section, Slider, StyledLink, TestimonialCard, Text } from "@/components/ui";
+import { previewFaq, previewTestimonial } from "@/data/interactive-preview";
 
 export default function Home() {
   return (
@@ -65,6 +66,27 @@ export default function Home() {
             <Text variant="subtitle">Texte secondaire — 14 px</Text>
             <Text variant="body-lg">Texte d’introduction — 18 px</Text>
             <Text>Texte courant — 16 px</Text>
+          </div>
+        </Container>
+      </Section>
+      <Section id="interactifs" spacing="compact" aria-labelledby="interactifs-title">
+        <Container className="space-y-10">
+          <div>
+            <Text as="h2" variant="heading" id="interactifs-title">Composants interactifs</Text>
+            <Text className="mt-4 max-w-3xl">Aperçu technique ENZ-52. Les textes proviennent de Figma. Cinq réponses et les avis définitifs restent à valider avant publication.</Text>
+          </div>
+          <div className="max-w-[700px] space-y-6">
+            <Text as="h3" className="font-semibold">FAQ — accordéon</Text>
+            <Accordion items={previewFaq} defaultOpenId="types-programmes" headingLevel={4} />
+          </div>
+          <div className="max-w-[1000px] space-y-6">
+            <Text as="h3" className="font-semibold">Avis — slider</Text>
+            <Text>Le premier écran reprend l’avis de la maquette, dont la validation reste à confirmer. Les deux suivants servent uniquement à tester la navigation.</Text>
+            <Slider label="Aperçu technique du slider d’avis" items={[
+              { id: "figma", content: <TestimonialCard {...previewTestimonial} /> },
+              { id: "test-2", content: <div className="flex h-full min-h-72 items-center bg-onecity-surface p-6 md:p-20"><Text>Écran de test 2 — aucun deuxième avis fourni. Utilisez les points, les flèches du clavier sur le slider ou le balayage tactile.</Text></div> },
+              { id: "test-3", content: <div className="flex h-full min-h-72 items-center bg-onecity-surface p-6 md:p-20"><Text>Écran de test 3 — aucun troisième avis fourni. Début et Fin permettent de rejoindre le premier et le dernier écran au clavier.</Text></div> },
+            ]} />
           </div>
         </Container>
       </Section>

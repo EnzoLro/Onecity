@@ -24,3 +24,18 @@ Import depuis `@/components/ui`. L’aperçu interactif est disponible sur `/#pr
 - Focus clavier visible, hover, état appuyé, opacité désactivée et respect de la réduction des animations. Les états hover/appuyé et ghost complètent les états normaux Figma ; ils utilisent la palette primaire existante.
 
 Les classes de mise en page peuvent être ajoutées avec `className`. Les valeurs communes se trouvent dans `app/globals.css` ; éviter de répéter les styles des variantes dans les sections de page.
+
+## Composants interactifs — ENZ-52
+
+Aperçu : `/#interactifs`. Sources Figma : FAQ `4035:801`, avis `4035:779`.
+
+```tsx
+<Accordion items={[{ id: "question", question: "Question validée", answer: <p>Réponse validée</p> }]} defaultOpenId="question" headingLevel={3} />
+<Slider label="Avis clients" items={avis.map((avis) => ({ id: avis.id, content: <TestimonialCard {...avis} /> }))} />
+```
+
+- `Accordion` : `items` avec `id` stable et unique, `question`, `answer` (`ReactNode`). Zéro ou une réponse ouverte ; `defaultOpenId` définit l’état initial, sinon tout est fermé. `headingLevel` (2, 3 ou 4 ; 3 par défaut) adapte la hiérarchie. Tab pour naviguer, Entrée/Espace pour ouvrir et fermer. Chaque bouton expose `aria-expanded` et `aria-controls` ; les réponses fermées sont masquées et non accessibles au clavier.
+- `Slider` : `items` avec `id` stable et unique et `content` (`ReactNode`), `label` accessible obligatoire. Points cliquables, défilement tactile natif avec ancrage, flèches gauche/droite et Début/Fin lorsque la zone défilante a le focus. Les diapositives inactives sont `inert` et `aria-hidden` ; le changement est annoncé discrètement. Pas de lecture automatique, pas de boucle, pas d’animation imposée. Les touches des contenus interactifs restent libres. Redimensionnement : la diapositive active reste alignée. Collection vide : rien ; une diapositive : commandes masquées. Pour remplacer entièrement une collection et réinitialiser son état, changer la `key` du composant.
+- `TestimonialCard` : présentation serveur de l’avis (`quote`, `author`, `location`, `image: { src, alt }`). Image à gauche sur tablette/desktop, au-dessus sur mobile. L’image de la maquette est décorative (`alt=""`).
+- Focus visible ; zones tactiles des points de 44 px (espacées davantage que dans Figma pour rester utilisables). Les fichiers Figma sont locaux dans `public/brand/interactive`. Aucun package ajouté.
+- `data/interactive-preview.ts` contient uniquement le contenu extrait de la maquette et signale explicitement les réponses manquantes. Les diapositives 2 et 3 de l’aperçu sont des écrans de test, pas des avis clients. La validation éditoriale doit précéder l’intégration sur une page commerciale.
