@@ -1,0 +1,115 @@
+.home-hero {
+  background: var(--color-background);
+  overflow-x: clip;
+}
+
+.home-hero__introduction {
+  padding: var(--space-80) var(--space-12) max(var(--space-120), calc(9vw - 16.08px));
+}
+
+.home-hero__container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  align-items: end;
+  gap: var(--space-80);
+  max-width: 1200px;
+  padding-inline: 0;
+}
+
+.home-hero__heading,
+.home-hero__content {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.home-hero__heading { gap: var(--space-16); }
+.home-hero__content { gap: var(--space-24); }
+
+.home-hero__eyebrow {
+  max-width: 100%;
+  border-left: 4px solid var(--color-primary);
+  padding: var(--space-4) var(--space-12);
+  background: rgb(79 60 38 / 8%);
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.home-hero__description { line-height: normal; }
+
+.home-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.home-hero__visual {
+  position: relative;
+  height: 14.881vw;
+  pointer-events: none;
+}
+
+.home-hero__panorama {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.home-hero__background {
+  position: absolute;
+  top: -58.41%;
+  left: 0.02%;
+  width: 99.96%;
+  height: 165.26%;
+}
+
+.home-hero__cutout {
+  position: absolute;
+  bottom: -7.009%;
+  left: 33.499%;
+  width: 33.001%;
+  height: 165.573%;
+}
+
+@media (max-width: 63.999rem) {
+  .home-hero__introduction {
+    padding: var(--space-52) var(--container-padding-mobile) var(--space-120);
+  }
+
+  .home-hero__container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-24);
+  }
+
+  .home-hero__content { max-width: 40rem; }
+  .home-hero__visual { height: 180px; }
+
+  .home-hero__background {
+    top: auto;
+    bottom: 0;
+    left: 50%;
+    width: auto;
+    max-width: none;
+    height: 270px;
+    transform: translateX(-50%);
+  }
+
+  .home-hero__cutout {
+    bottom: -11.43px;
+    left: 50%;
+    width: 361.6px;
+    max-width: none;
+    height: 270px;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 29.999rem) {
+  .home-hero__heading .onecity-text-display { font-size: 2rem; }
+  .home-hero__actions { width: 100%; }
+  .home-hero__actions a { width: 100%; }
+  .home-hero__visual { clip-path: inset(-100px 0 -16px); }
+}
