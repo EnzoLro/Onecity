@@ -37,6 +37,7 @@ export function Slider({ items, label, className }: SliderProps) {
     <section aria-label={label} aria-roledescription="carrousel" className={cn("min-w-0 bg-onecity-primary/4 p-2", className)}>
       <div
         ref={viewport}
+        role="group"
         tabIndex={items.length > 1 ? 0 : undefined}
         aria-label="Diapositives — flèches gauche et droite pour naviguer"
         className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-onecity-primary"

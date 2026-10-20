@@ -41,7 +41,7 @@ export function Accordion({ items, defaultOpenId, headingLevel = 3, className }:
                 <Image src={`/brand/interactive/accordion-${open ? "close" : "open"}.svg`} width={24} height={24} alt="" className="shrink-0" />
               </button>
             </Heading>
-            <div id={panelId} aria-labelledby={triggerId} hidden={!open} className="px-6 pb-6 text-base font-light leading-[normal] text-onecity-primary wrap-anywhere">
+            <div id={panelId} role="region" aria-labelledby={triggerId} hidden={!open} className="px-6 pb-6 text-base font-light leading-[normal] text-onecity-primary wrap-anywhere">
               {item.answer}
             </div>
           </div>
