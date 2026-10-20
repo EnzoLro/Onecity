@@ -6,7 +6,7 @@ export function PendingContentPage({ title }: { title: string }) {
     <main id="main-content" tabIndex={-1}>
       <Section spacing="compact">
         <Container>
-          <Text as="h1" variant="heading">{title}</Text>
+          <Text as="h1" variant="heading" className="[overflow-wrap:anywhere]">{title}</Text>
           <Text className="mt-6">Contenu à venir.</Text>
           <StyledLink href="/" className="mt-8">Retour à l’accueil</StyledLink>
         </Container>
