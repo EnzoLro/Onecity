@@ -9,3 +9,17 @@ Desktop à partir de 1 024 px : logo 177 × 40, conteneur 1 400 px avec marges i
 Mobile : disclosure natif `details`/`summary`, sans dépendance ; Enter/Espace ouvre le menu, Tab parcourt les liens, Échap ferme le menu et rend le focus au déclencheur. Un clic ferme le menu. La navigation reste dans le flux sans overlay ni piège de focus. Header non sticky, comportement validé par Enzo.
 
 Les routes `/projets/c-premium`, `/projets/central-avenue`, `/projets/breuil` sont des structures initiales avec titre et contact seulement. Leurs présentations seront intégrées ticket par ticket à partir des maquettes déjà créées par Enzo, lors du travail sur les pages de détail. Le contact utilise l’e-mail déjà présent dans le site.
+
+# Footer global — ENZ-51
+
+Source : [Figma 4037:1610](https://www.figma.com/design/xaXG28sdrzFhLXaDCoZxEo/Onecity-Website?node-id=4037-1610&m=dev).
+
+`SiteFooter` est un Server Component monté après le contenu dans le layout racine. Il réutilise `Container`, les tokens, les projets et le contact de `data/navigation.ts`. Les coordonnées validées par Enzo et les destinations sociales fournies par Enzo sont regroupées dans `data/footer.ts`. Le lien « À propos » est retiré à sa demande. Aucun CTA supplémentaire n’est prévu dans cette maquette.
+
+Les six SVG du footer sont les exports locaux de Figma, dans `public/brand/footer/` : symbole et texte du logo à leurs dimensions natives, Instagram et LinkedIn en 24 × 24, séparateur et grand motif décoratif. Aucun asset temporaire Figma n’est chargé à l’exécution. Le grand motif est masqué aux technologies d’assistance et recadré dans le footer.
+
+Desktop à partir de 1 200 px : quatre colonnes, contenu de 1 280 px, padding vertical de 80 px et hauteur minimale de 760 px comme la maquette. Tablette : marque au-dessus des trois colonnes. Mobile : blocs empilés, liens légaux repliables sur plusieurs lignes. Liens avec focus visible ; téléphone et e-mail utilisent `tel:` et `mailto:`. Les réseaux et le crédit auteur s’ouvrent dans un nouvel onglet avec indication accessible.
+
+À la demande d’Enzo, les pages `/mentions-legales`, `/politique-de-confidentialite` et `/parametres-cookies` existent avec la mention « Contenu à venir » et `noindex`. Elles partagent `PendingContentPage` et les primitives de typographie, section et bouton. Aucun contenu juridique ni gestionnaire de consentement n’a été inventé : leur implémentation reste prévue dans ENZ-77. Les libellés légaux sont traduits en français (le lien « Terms of Service » devient « Mentions légales » conformément au périmètre ENZ-77).
+
+Validation : lint et build ; rendu à 320, 375, 390, 620, 768, 1 024, 1 200 et 1 512 px sans overflow ; liens internes en HTTP 200 et footer présent ; assets chargés ; navigation clavier avec focus visible ; aucune erreur JavaScript détectée.

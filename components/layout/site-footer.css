@@ -1,0 +1,69 @@
+.site-footer {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding-block: var(--space-52) 0;
+  background: var(--color-background);
+  color: var(--color-primary);
+  font-weight: 300;
+  line-height: normal;
+}
+
+.site-footer__container {
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer__content,
+.site-footer__brand,
+.site-footer__columns,
+.site-footer__credits,
+.site-footer__credits-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-footer__content,
+.site-footer__columns { gap: var(--space-32); }
+.site-footer__brand { gap: var(--space-24); }
+.site-footer__brand p { max-width: 25rem; font-size: var(--text-subtitle-size); color: #333; }
+.site-footer__logo { display: flex; align-items: center; gap: 14.184px; width: 229.49px; max-width: 100%; }
+.site-footer__logo img { flex-shrink: 0; }
+.site-footer p { margin: 0; }
+.site-footer h2 { margin: 0 0 var(--space-24); font-size: var(--text-subtitle-size); font-weight: 600; line-height: 1; }
+.site-footer ul { padding: 0; margin: 0; list-style: none; }
+.site-footer li + li { margin-top: var(--space-12); }
+.site-footer a { overflow-wrap: anywhere; }
+.site-footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.site-footer a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.site-footer__socials { display: flex; gap: var(--space-12); }
+.site-footer__socials li + li { margin: 0; }
+.site-footer__socials a { display: flex; align-items: center; min-height: 24px; }
+.site-footer address { display: flex; flex-direction: column; gap: var(--space-12); font-style: normal; }
+.site-footer__credits { gap: var(--space-32); margin-top: var(--space-40); }
+.site-footer__divider { height: 1px; background: url("/brand/footer/divider.svg") center / 100% 1px no-repeat; }
+.site-footer__credits-row { gap: var(--space-24); font-size: var(--text-subtitle-size); }
+.site-footer__legal-links { display: flex; flex-wrap: wrap; gap: var(--space-24); }
+.site-footer__legal-links li + li { margin: 0; }
+.site-footer__author a { text-decoration: underline; text-underline-offset: 2px; }
+.site-footer__decoration { position: absolute; z-index: 0; bottom: 0; left: 0; width: 100%; height: 12rem; background: url("/brand/footer/footer-mark.svg") left top / 100% auto no-repeat; pointer-events: none; }
+.site-footer::after { content: ""; display: block; height: 15rem; }
+
+@media (min-width: 38.75rem) {
+  .site-footer__columns { display: grid; grid-template-columns: 1fr 1fr minmax(14rem, 1.2fr); }
+  .site-footer__credits-row { flex-direction: row; flex-wrap: wrap; align-items: start; }
+  .site-footer .site-footer__author { margin-left: auto; text-align: right; }
+}
+
+@media (min-width: 75rem) {
+  .site-footer { min-height: 760px; padding-block: var(--space-80); }
+  .site-footer__container { max-width: 1408px; padding-inline: var(--space-64); }
+  .site-footer__content { flex-direction: row; }
+  .site-footer__brand { flex: 0 0 400px; }
+  .site-footer__columns { flex: 1; min-width: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .site-footer__navigation h2 { min-height: 28px; }
+  .site-footer__credits-row { gap: var(--space-32); flex-wrap: nowrap; }
+  .site-footer__credits-row > p { flex: 1; }
+  .site-footer__decoration { top: 375.684px; bottom: auto; height: 1217px; }
+  .site-footer::after { display: none; }
+}
