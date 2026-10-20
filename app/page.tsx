@@ -73,7 +73,7 @@ export default function Home() {
         <Container className="space-y-10">
           <div>
             <Text as="h2" variant="heading" id="interactifs-title">Composants interactifs</Text>
-            <Text className="mt-4 max-w-3xl">Aperçu technique ENZ-52. Les textes proviennent de Figma. Cinq réponses et les avis définitifs restent à valider avant publication.</Text>
+            <Text className="mt-4 max-w-3xl">Aperçu technique ENZ-52. Les six réponses de FAQ et l’avis fictif sont repris de Figma, y compris les blocs de réponse masqués.</Text>
           </div>
           <div className="max-w-[700px] space-y-6">
             <Text as="h3" className="font-semibold">FAQ — accordéon</Text>
@@ -81,12 +81,11 @@ export default function Home() {
           </div>
           <div className="max-w-[1000px] space-y-6">
             <Text as="h3" className="font-semibold">Avis — slider</Text>
-            <Text>Le premier écran reprend l’avis de la maquette, dont la validation reste à confirmer. Les deux suivants servent uniquement à tester la navigation.</Text>
-            <Slider label="Aperçu technique du slider d’avis" items={[
-              { id: "figma", content: <TestimonialCard {...previewTestimonial} /> },
-              { id: "test-2", content: <div className="flex h-full min-h-72 items-center bg-onecity-surface p-6 md:p-20"><Text>Écran de test 2 — aucun deuxième avis fourni. Utilisez les points, les flèches du clavier sur le slider ou le balayage tactile.</Text></div> },
-              { id: "test-3", content: <div className="flex h-full min-h-72 items-center bg-onecity-surface p-6 md:p-20"><Text>Écran de test 3 — aucun troisième avis fourni. Début et Fin permettent de rejoindre le premier et le dernier écran au clavier.</Text></div> },
-            ]} />
+            <Text>Avis fictif de la maquette, répété sur trois diapositives pour tester la navigation. Aucun avis supplémentaire n’a été rédigé.</Text>
+            <Slider label="Aperçu technique du slider d’avis fictifs" items={[1, 2, 3].map((number) => ({
+              id: `figma-test-${number}`,
+              content: <TestimonialCard {...previewTestimonial} />,
+            }))} />
           </div>
         </Container>
       </Section>
