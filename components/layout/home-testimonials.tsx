@@ -19,7 +19,6 @@ export function HomeTestimonials({ items, notice }: { items: readonly Testimonia
           </Text>
         </div>
         <div className="home-testimonials__content">
-          {notice ? <Text className="home-testimonials__notice">{notice}</Text> : null}
           <Slider
             label={notice ? "Démonstration du carrousel — avis fictif" : "Témoignages clients"}
             items={items.map(({ id, ...testimonial }) => ({ id, content: <TestimonialCard {...testimonial} /> }))}

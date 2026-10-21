@@ -67,3 +67,33 @@ Le choix est effectué côté serveur : seules les valeurs `VERCEL_ENV=preview` 
 Pour publier de vrais témoignages, renseigner `approvedTestimonials` avec un identifiant unique, le texte exact validé, l’identité publiable, le projet habité dans `location` et une image autorisée. La collection validée remplace alors automatiquement la démonstration. Un seul avis masque les commandes, une collection vide masque la section.
 
 Vérification : `node --test tests/testimonials.test.mjs` couvre l’exclusion des faux avis en production et l’avertissement en Preview/développement. Contrôle navigateur à 320, 375, 390, 619, 620, 768, 1023, 1024, 1200, 1512 et 1920 px : images chargées, absence de débordement, navigation flèches/Début/Fin, clic, défilement, redimensionnement, diapositives inactives inaccessibles et aucune erreur JavaScript. Lint et compilation Webpack ; Turbopack local ne peut pas créer le processus PostCSS dans l’environnement d’exécution.
+
+## HomeProjects — ENZ-56
+
+Section `#nos-projets`, après `DesignApproach`, issue de Figma `4035:640`.
+`data/project-catalog.ts` rassemble les cartes publiables, réutilise les identités de
+`data/navigation.ts` et les faits confirmés de `data/c-premium.ts`. Les contenus de
+Central Avenue (Hardricourt, 10 T2 de 34 et 42 m², rénovation / transformation, livré
+en 2024) et les visuels/icônes locaux viennent de la maquette. Le troisième projet
+Breuil reste exclu en attendant ses contenus définitifs, conformément au ticket.
+
+La grille utilise les cartes disponibles : deux colonnes dès 768 px, une colonne
+en dessous. Elle accueillera un troisième projet validé sans modifier le composant.
+Le titre conserve Parkinsans, comme les sections précédentes du site ; les couleurs
+reprennent les tokens marron existants. L’illustration C’Premium visible dans Figma
+recouvre entièrement une autre image de fond : seul le visuel supérieur est utilisé.
+
+C’Premium affiche le statut commercial et les liens vers le contact existant et sa
+page. Central Avenue affiche uniquement le CTA « Découvrir » vers sa page existante,
+conformément à la précision d’Enzo ; le contact reste réservé au projet en commercialisation.
+Les pictogrammes sont décoratifs, les faits restent lisibles sous forme de liste et
+les liens conservent le focus visible des primitives existantes.
+
+
+## Corrections ENZ-58 demandées par Enzo — 21 octobre 2026
+
+La branche ENZ-58 était partie d’ENZ-55 sans les commits ENZ-56. La branche distante ENZ-56, y compris la correction Central Avenue, est intégrée : `HomeProjects` remplace le repère provisoire et précède `HomeTestimonials`. Les contenus et assets ENZ-56 sont conservés.
+
+À la demande d’Enzo, la phrase visible de démonstration est retirée de l’accueil Preview ; le choix serveur excluant les avis fictifs de production reste en place. Le Slider partagé utilise une transition glissée native (instantanée avec réduction des mouvements), des points de 8 px séparés visuellement de 4 px, deux flèches accessibles de 44 px aux extrémités de la barre et des zones souris latérales sur les quarts gauche et droit de la carte. Les contrôles sont désactivés aux bornes, sans boucle. Le texte reste sélectionnable et les éléments interactifs ne sont pas interceptés.
+
+Vérifications complémentaires : projets présents avant les avis, mention visible absente, mesure des 4 px entre points, mouvement intermédiaire mesuré pendant la transition, clic sur les zones latérales et curseur directionnel, flèches aux bornes et réduction des mouvements.
