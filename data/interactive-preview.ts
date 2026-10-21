@@ -1,4 +1,5 @@
-import type { AccordionItem, TestimonialCardProps } from "@/components/ui";
+import type { AccordionItem } from "@/components/ui";
+export { figmaTestimonial as previewTestimonial } from "./testimonials";
 
 // Source: Figma 4035:801, including the hidden Answer layers 4035:814–4035:843.
 export const previewFaq: readonly AccordionItem[] = [
@@ -15,11 +16,3 @@ export const previewFaq: readonly AccordionItem[] = [
     ["nouveaux-programmes", "Comment être informé des nouveaux programmes immobiliers One City ?", "Vous pouvez consulter régulièrement nos projets ou contacter directement notre équipe pour connaître les programmes actuellement en commercialisation et les futures opportunités immobilières dans les Yvelines et en Île-de-France."],
   ].map(([id, question, answer]) => ({ id, question, answer })),
 ];
-
-// Source: Figma 4035:780. The user confirmed that testimonials are fictional for now.
-export const previewTestimonial: TestimonialCardProps = {
-  quote: "« On remarque vite que les choix ont été faits pour le confort au quotidien. L’agencement est pratique, les volumes sont agréables et le logement est très confortable, notamment sur le plan thermique. »",
-  author: "Sophie Lambert",
-  location: "Breuil-Bois-Robert",
-  image: { src: "/brand/interactive/testimonial-interior.png", alt: "" },
-};

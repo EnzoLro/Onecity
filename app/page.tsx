@@ -1,6 +1,8 @@
 import { HomeHero } from "@/components/layout/home-hero";
 import { FeaturedProject } from "@/components/layout/featured-project";
 import { DesignApproach } from "@/components/layout/design-approach";
+import { HomeTestimonials } from "@/components/layout/home-testimonials";
+import { getHomeTestimonials } from "@/data/testimonials";
 import { Container, Section, Text } from "@/components/ui";
 
 export default function Home() {
@@ -15,6 +17,7 @@ export default function Home() {
           <Text className="mt-4">Contenu à venir</Text>
         </Container>
       </Section>
+      <HomeTestimonials {...getHomeTestimonials(process.env.VERCEL_ENV, process.env.NODE_ENV)} />
     </main>
   );
 }
