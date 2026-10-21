@@ -30,12 +30,11 @@ export function DesignApproach() {
           <Text variant="body-lg" className="design-approach__introduction">{designApproach.introduction}</Text>
         </div>
         <div className="design-approach__mosaic">
-          {designApproach.cards.slice(0, 3).map((card) => <ApproachCard key={card.id} card={card} />)}
+          {designApproach.cards.map((card) => <ApproachCard key={card.id} card={card} />)}
           <div className="design-approach__statement">
             <Text variant="body-lg">{designApproach.statement.introduction}</Text>
             <Text className="design-approach__statement-title">{designApproach.statement.title}</Text>
           </div>
-          {designApproach.cards.slice(3).map((card) => <ApproachCard key={card.id} card={card} />)}
         </div>
       </Container>
     </section>
