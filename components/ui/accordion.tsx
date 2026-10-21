@@ -3,6 +3,7 @@
 import { useId, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/classnames";
+import "./accordion.css";
 
 export type AccordionItem = { id: string; question: string; answer: ReactNode };
 export type AccordionProps = {
@@ -35,14 +36,26 @@ export function Accordion({ items, defaultOpenId, headingLevel = 3, className }:
                 aria-expanded={open}
                 aria-controls={panelId}
                 onClick={() => setOpenId(open ? undefined : item.id)}
-                className="flex w-full items-center gap-6 px-6 py-5 text-left text-base font-semibold leading-[normal] text-black hover:bg-onecity-primary/4 focus-visible:relative focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-onecity-primary"
+                className="flex w-full items-center gap-6 px-6 py-5 text-left text-base font-semibold leading-[normal] text-black focus-visible:relative focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-onecity-primary"
               >
                 <span className="min-w-0 flex-1 wrap-anywhere">{item.question}</span>
                 <Image src={`/brand/interactive/accordion-${open ? "close" : "open"}.svg`} width={24} height={24} alt="" className="shrink-0" />
               </button>
             </Heading>
-            <div id={panelId} role="region" aria-labelledby={triggerId} hidden={!open} className="px-6 pb-6 text-base font-light leading-[normal] text-onecity-primary wrap-anywhere">
-              {item.answer}
+            <div
+              id={panelId}
+              role="region"
+              aria-labelledby={triggerId}
+              aria-hidden={!open}
+              inert={!open}
+              data-open={open}
+              className="onecity-accordion-panel"
+            >
+              <div className="onecity-accordion-panel__clip">
+                <div className="px-6 pb-6 text-base font-light leading-[normal] text-onecity-primary wrap-anywhere">
+                  {item.answer}
+                </div>
+              </div>
             </div>
           </div>
         );

@@ -1,0 +1,21 @@
+.onecity-accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows 280ms ease, visibility 0s 280ms;
+}
+
+.onecity-accordion-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.onecity-accordion-panel__clip {
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onecity-accordion-panel { transition: none; }
+}
