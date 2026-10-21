@@ -71,7 +71,7 @@ reprennent les tokens marron existants. L’illustration C’Premium visible dan
 recouvre entièrement une autre image de fond : seul le visuel supérieur est utilisé.
 
 C’Premium affiche le statut commercial et les liens vers le contact existant et sa
-page. Central Avenue n’affiche pas encore de CTA de découverte : sa route actuelle
-est une ébauche sans fiche projet. Ajouter `detailHref` quand cette fiche est prête.
+page. Central Avenue affiche uniquement le CTA « Découvrir » vers sa page existante,
+conformément à la précision d’Enzo ; le contact reste réservé au projet en commercialisation.
 Les pictogrammes sont décoratifs, les faits restent lisibles sous forme de liste et
 les liens conservent le focus visible des primitives existantes.

@@ -31,7 +31,7 @@ export const projectCatalog: ProjectCard[] = [
     status: "Projet réalisé",
     transaction: "Vente",
     commercializing: false,
-    // The existing route is a scaffold, so no discovery CTA until its detail is ready.
+    detailHref: projects[1].href,
     image: { src: "/brand/projects/central-avenue.png", alt: "Maquette architecturale de Central Avenue à Hardricourt" },
     facts: [
       { id: "location", label: "Hardricourt · 78", icon: "location" },
