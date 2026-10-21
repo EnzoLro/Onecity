@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { Container, StyledLink, Text } from "@/components/ui";
-import { cPremium, type ProjectFact } from "@/data/c-premium";
+import { cPremium, cPremiumConditions, type ProjectFact } from "@/data/c-premium";
 import { contact } from "@/data/navigation";
+import { ProjectCondition } from "./project-condition";
 import "./featured-project.css";
 
 /** Featured project from Figma 4035:543; content shared with the project route. */
@@ -17,20 +18,17 @@ export function FeaturedProject({ detail = false }: { detail?: boolean }) {
           </div>
           {cPremium.facts.length > 0 && (
             <ul className="featured-project__facts" aria-label="Caractéristiques du projet">
-              {cPremium.facts.map((fact: ProjectFact) => (
-                <li key={fact.id}>
-                  <span className="featured-project__icon" aria-hidden="true">
+              {cPremium.facts.map((fact: ProjectFact) => {
+                const icon = <span className="featured-project__icon" aria-hidden="true">
                     <Image src={`/brand/c-premium/${fact.icon}.svg`} alt="" width={fact.icon === "document" ? 17.0531 : 24} height={fact.icon === "document" ? 19.8652 : 24} />
-                  </span>
-                  <span>
-                    {fact.condition ? (
-                      <a className="featured-project__condition-link" href={`${detail ? "" : cPremium.href}#${fact.condition}`} aria-label={`${fact.label} : consulter les conditions`}>
-                        {fact.label}<sup>{fact.marker}</sup>
-                      </a>
-                    ) : fact.label}
-                  </span>
-                </li>
-              ))}
+                  </span>;
+                const condition = cPremiumConditions.find(({ id }) => id === fact.condition);
+                return (
+                  <li key={fact.id}>
+                    {condition ? <ProjectCondition label={fact.label} marker={fact.marker} text={condition.text} icon={icon} /> : <>{icon}<span>{fact.label}</span></>}
+                  </li>
+                );
+              })}
             </ul>
           )}
           <StyledLink href={detail ? contact.href : cPremium.href} variant="primary" size="large" className="featured-project__cta">{detail ? contact.label : cPremium.cta}</StyledLink>
