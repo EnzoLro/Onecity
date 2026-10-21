@@ -53,3 +53,25 @@ Source : [Figma 4035:609](https://www.figma.com/design/xaXG28sdrzFhLXaDCoZxEo/On
 `DesignApproach` est un Server Component placé après C’Premium sur l’accueil. Il réutilise `Container`, `Text`, les espacements et les couleurs existants. Le titre utilise Parkinsans, déjà chargé par le layout, et le bandeau utilise le marron primaire de la charte pour son texte, ses bordures et son fond à 8 %, conformément à la correction demandée par Enzo. La mosaïque desktop conserve ses trois colonnes, sa hauteur de 529 px, ses gouttières de 8 px et la position des quatre images originales. À moins de 1024 px, les cartes passent en une colonne ; de 620 à 1023 px, chaque carte conserve son image à gauche du texte ; en dessous, image puis texte sont empilés. Le bloc « Chaque projet est unique. Notre exigence reste la même. » vient après les quatre cartes dans le contenu et conclut la section sur mobile et tablette ; sa position centrale desktop est conservée par la grille. Cette adaptation responsive est une décision d’intégration à partir de la maquette desktop.
 
 Les quatre visuels et l’ensemble des textes Figma ont été confirmés par Enzo le 21 octobre 2026. Ils sont centralisés dans `data/design-approach.ts`, sans ajout de promesse commerciale. Les images originales sont stockées dans `public/brand/design-approach`, avec dimensions natives, alternatives descriptives, `sizes` responsive et optimisation par `next/image`. Aucun appel à une URL Figma temporaire à l’exécution. Les cartes partagent un seul composant ; la section utilise un H2 et quatre H3 nommés.
+
+
+## HomeProjects — ENZ-56
+
+Section `#nos-projets`, après `DesignApproach`, issue de Figma `4035:640`.
+`data/project-catalog.ts` rassemble les cartes publiables, réutilise les identités de
+`data/navigation.ts` et les faits confirmés de `data/c-premium.ts`. Les contenus de
+Central Avenue (Hardricourt, 10 T2 de 34 et 42 m², rénovation / transformation, livré
+en 2024) et les visuels/icônes locaux viennent de la maquette. Le troisième projet
+Breuil reste exclu en attendant ses contenus définitifs, conformément au ticket.
+
+La grille utilise les cartes disponibles : deux colonnes dès 768 px, une colonne
+en dessous. Elle accueillera un troisième projet validé sans modifier le composant.
+Le titre conserve Parkinsans, comme les sections précédentes du site ; les couleurs
+reprennent les tokens marron existants. L’illustration C’Premium visible dans Figma
+recouvre entièrement une autre image de fond : seul le visuel supérieur est utilisé.
+
+C’Premium affiche le statut commercial et les liens vers le contact existant et sa
+page. Central Avenue n’affiche pas encore de CTA de découverte : sa route actuelle
+est une ébauche sans fiche projet. Ajouter `detailHref` quand cette fiche est prête.
+Les pictogrammes sont décoratifs, les faits restent lisibles sous forme de liste et
+les liens conservent le focus visible des primitives existantes.
