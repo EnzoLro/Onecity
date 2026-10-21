@@ -35,3 +35,13 @@ Desktop à partir de 1 200 px : quatre colonnes, contenu de 1 280 px, padding ve
 À la demande d’Enzo, les pages `/mentions-legales`, `/politique-de-confidentialite` et `/parametres-cookies` existent avec la mention « Contenu à venir » et `noindex`. Elles partagent `PendingContentPage` et les primitives de typographie, section et bouton. Aucun contenu juridique ni gestionnaire de consentement n’a été inventé : leur implémentation reste prévue dans ENZ-77. Les libellés légaux sont traduits en français (le lien « Terms of Service » devient « Mentions légales » conformément au périmètre ENZ-77).
 
 Validation : lint et build ; rendu à 320, 375, 390, 620, 768, 1 024, 1 200 et 1 512 px sans overflow ; liens internes en HTTP 200 et footer présent ; assets chargés ; navigation clavier avec focus visible ; aucune erreur JavaScript détectée.
+
+# Projet à la une C’Premium — ENZ-54
+
+Source : [Figma 4035:543](https://www.figma.com/design/xaXG28sdrzFhLXaDCoZxEo/Onecity-Website?node-id=4035-543&m=dev).
+
+`FeaturedProject` reprend le bandeau, le titre, l’accroche, les six caractéristiques, le CTA et le visuel de la maquette. Il réutilise `Container`, `Text`, `StyledLink` et les tokens existants. Desktop : conteneur 1400 px avec marges internes 60 px, gap 80 px, visuel 560 × 550 px ; mobile : texte puis visuel, CTA pleine largeur sur petit écran. Les exports Figma originaux sont locaux dans `public/brand/c-premium`, avec optimisation du visuel par `next/image`. Les icônes conservent leurs dimensions natives.
+
+Enzo a confirmé le 21 octobre 2026 : commercialisation en cours, Breuil-Bois-Robert (78), deux T4 de 98 et 103 m², DPE A, prix à partir de 3 400 €/m². Il a fourni les textes des conditions PTZ et Jeanbrun. Ces données sont centralisées dans `data/c-premium.ts` et utilisées par l’accueil et `/projets/c-premium`. Les lignes PTZ et Jeanbrun portent des renvois distincts `*` et `**`, liens accessibles vers les conditions intégrales sur la page projet. Les conditions reprennent le texte fourni, sans ajout fiscal ou juridique.
+
+À la demande d’Enzo, la page C’Premium affiche aussi ces informations, le même visuel et le contact existant. Cette présentation réutilise la section validée ; elle ne remplace pas l’intégration ultérieure d’une éventuelle maquette complète de page projet. Les autres pages projet conservent leurs structures initiales.
