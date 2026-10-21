@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useState, type ReactNode } from "react";
 
-/** Inline disclosure on touch screens; hover card on desktop with keyboard dismissal. */
+/** Text-only hover card; clicking pins the description inline on every screen. */
 export function ProjectCondition({ label, marker, text, icon }: { label: string; marker?: string; text: string; icon: ReactNode }) {
   const id = useId();
   const [clicked, setClicked] = useState(false);
@@ -22,18 +22,18 @@ export function ProjectCondition({ label, marker, text, icon }: { label: string;
   }, [open]);
 
   return (
-    <div className="project-condition" onPointerEnter={(event) => {
-      if (event.pointerType === "mouse" && window.matchMedia("(min-width: 64rem) and (hover: hover)").matches) setHovered(true);
-    }} onPointerLeave={() => setHovered(false)} onBlur={(event) => {
-      if (!event.currentTarget.contains(event.relatedTarget)) setClicked(false);
-    }}>
-      <button type="button" id={`${id}-trigger`} aria-expanded={open} aria-controls={`${id}-description`} className="project-condition__trigger" onClick={() => {
-        setHovered(false);
-        setClicked(!open);
-      }}>
+    <div className="project-condition" data-inline={clicked}>
+      <div className="project-condition__heading">
         {icon}
-        <span>{label}<sup>{marker}</sup></span>
-      </button>
+        <button type="button" id={`${id}-trigger`} aria-expanded={open} aria-controls={`${id}-description`} className="project-condition__trigger" onPointerEnter={(event) => {
+          if (event.pointerType === "mouse" && window.matchMedia("(min-width: 64rem) and (hover: hover) and (pointer: fine)").matches) setHovered(true);
+        }} onPointerLeave={() => setHovered(false)} onClick={() => {
+          setHovered(false);
+          setClicked(!clicked);
+        }}>
+          <span>{label}<sup>{marker}</sup></span>
+        </button>
+      </div>
       <div id={`${id}-description`} role="region" aria-labelledby={`${id}-trigger`} hidden={!open} className="project-condition__description">
         <p>{text}</p>
       </div>
