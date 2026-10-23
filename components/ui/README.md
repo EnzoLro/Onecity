@@ -1,6 +1,6 @@
 # Primitives OneCity
 
-Import depuis `@/components/ui`. L’aperçu interactif est disponible sur `/#primitives`.
+Import depuis `@/components/ui`. L’aperçu interactif est disponible sur `/apercu-composants#primitives`.
 
 ```tsx
 <Section aria-labelledby="projects-title">
@@ -17,7 +17,7 @@ Import depuis `@/components/ui`. L’aperçu interactif est disponible sur `/#pr
 
 - `Container` : centré, largeur maximale 1 400 px, marges internes 24 px puis 60 px à partir de 1 024 px ; élément `div` par défaut, personnalisable avec `as`.
 - `Section` : élément `section` par défaut. Espacements verticaux `compact` (52/80 px), `default` (80/120 px), `spacious` (120/160 px), mobile/desktop.
-- `Text` : variantes `display`, `heading`, `subtitle`, `body-lg`, `body`. `as` définit la sémantique indépendamment du style ; `p` par défaut. Titres en Inter gras, capitales et approche −3 %, d’après la maquette principale.
+- `Text` : rôles partagés définis dans `app/globals.css`. `as` définit la sémantique indépendamment du style ; `p` par défaut. Titres en Parkinsans semi-bold (600), tous les autres textes en Inter, conformément au choix d’Enzo pour ENZ-60. Aucune section ne redéfinit les familles, tailles ou graisses.
 - `Button` et `StyledLink` partagent leurs styles : `primary` (fond primaire, texte blanc), `secondary` (fond blanc, bordure et texte primaires), `ghost` (transparent), `inverse` (blanc sur fond primaire, comme le CTA Figma). Tailles `default` et `large`.
 - `Button` utilise `type="button"` par défaut. Utiliser `type="submit"` dans un formulaire. Pour la navigation, utiliser `StyledLink` avec `href`.
 - `disabled` désactive les boutons nativement ; les liens désactivés n’ont plus de destination, portent `aria-disabled` et sortent du parcours Tab. Les attributs HTML, événements et refs natifs sont transmis.
@@ -27,7 +27,7 @@ Les classes de mise en page peuvent être ajoutées avec `className`. Les valeur
 
 ## Composants interactifs — ENZ-52
 
-Aperçu : `/#interactifs`. Sources Figma : FAQ `4035:801`, avis `4035:779`.
+Aperçu : `/apercu-composants#interactifs`. Sources Figma : FAQ `4035:801`, avis `4035:779`.
 
 ```tsx
 <Accordion items={[{ id: "question", question: "Question validée", answer: <p>Réponse validée</p> }]} defaultOpenId="question" headingLevel={3} />
@@ -47,3 +47,23 @@ Aperçu : `/#interactifs`. Sources Figma : FAQ `4035:801`, avis `4035:779`.
 Les identifiants, questions et réponses en texte simple de `data/faq.ts` sont réutilisables pour le SEO technique, sans dépendance à React. Aucun balisage JSON-LD n’est ajouté par ce ticket. Les textes sont ceux de Figma, sans ajout commercial ; leur validation éditoriale reste à obtenir avant publication en production. Vérifier notamment la mention de location dans l’introduction et la promesse de disponibilités sur toutes les pages programme, encore partiellement provisoires.
 
 Les contrôles actifs (boutons, liens avec destination et disclosures) utilisent le curseur pointeur via les styles de base globaux. Les contrôles désactivés sont exclus et les curseurs spécifiques du slider sont conservés.
+
+## Rôles typographiques partagés — ENZ-60
+
+| Variante `Text` | Usage | Police / graisse | Taille desktop / mobile |
+| --- | --- | --- | --- |
+| `display` | Titre principal H1 | Parkinsans 600 | 44 / 32 px |
+| `heading` | Titre de section H2 | Parkinsans 600 | 40 / 32 px |
+| `heading-sm` | Titre intermédiaire | Parkinsans 600 | 32 px |
+| `title` | Titre de carte / condition | Parkinsans 600 | 18 px |
+| `title-sm` | Petit titre / question FAQ | Parkinsans 600 | 16 px |
+| `caption-title` | Titre de colonne du footer | Parkinsans 600 | 14 px |
+| `eyebrow` | Bandeau de section | Inter 400 | 14 px, capitales, approche 3 % |
+| `body-lg` | Description de section | Inter 400 | 18 px |
+| `body` | Texte courant / réponse / citation | Inter 400 | 16 px, interligne 1,6 |
+| `small` / `subtitle` | Légende / texte secondaire | Inter 400 | 14 px, interligne 1,6 |
+| `label` | Action / statut / caractéristique / auteur | Inter 600 | 16 px |
+
+Le seuil mobile commun est 620 px. Les titres principaux et de section gardent les capitales ; les petits titres gardent leur casse éditoriale. La classe partagée `onecity-text-navigation` couvre les liens du header (Inter 16 px, 600 pour le lien courant). Les boutons et les composants interactifs consomment les mêmes rôles. Les couleurs, alignements et largeurs restent définis par la mise en page.
+
+Les exemples de chaque rôle sont visibles dans `/apercu-composants#typographie`. Pour une modification de typographie, changer le rôle partagé ; ne pas ajouter une exception locale à une section.

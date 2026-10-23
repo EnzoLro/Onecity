@@ -30,13 +30,7 @@
   border-left: 4px solid var(--color-primary);
   padding: var(--space-4) var(--space-12);
   background: rgb(79 60 38 / 8%);
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
 }
-
-.home-hero__description { line-height: normal; }
 
 .home-hero__actions {
   display: flex;
@@ -106,7 +100,6 @@
 }
 
 @media (max-width: 29.999rem) {
-  .home-hero__heading .onecity-text-display { font-size: 2rem; }
   .home-hero__actions { width: 100%; }
   .home-hero__actions a { width: 100%; }
   .home-hero__visual { clip-path: inset(-100px 0 -16px); }

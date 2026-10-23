@@ -2,7 +2,7 @@ import type { ComponentPropsWithRef } from "react";
 import { cn } from "@/lib/classnames";
 
 const interactiveBase =
-  "inline-flex max-w-full items-center justify-center gap-2 rounded-none border text-center font-sans text-base font-semibold leading-[normal] transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50";
+  "inline-flex max-w-full items-center justify-center gap-2 rounded-none border text-center onecity-text-label transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50";
 
 const interactiveVariants = {
   primary: "border-transparent bg-onecity-primary text-onecity-surface hover:bg-onecity-primary-hover active:bg-onecity-primary-active focus-visible:outline-onecity-primary",

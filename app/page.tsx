@@ -1,4 +1,5 @@
 import { HomeFaq } from "@/components/layout/home-faq";
+import { HomeCta } from "@/components/layout/home-cta";
 import { HomeHero } from "@/components/layout/home-hero";
 import { FeaturedProject } from "@/components/layout/featured-project";
 import { DesignApproach } from "@/components/layout/design-approach";
@@ -15,6 +16,7 @@ export default function Home() {
       <HomeProjects />
       <HomeTestimonials {...getHomeTestimonials(process.env.VERCEL_ENV, process.env.NODE_ENV)} />
       <HomeFaq />
+      <HomeCta />
     </main>
   );
 }

@@ -29,14 +29,14 @@ export function Accordion({ items, defaultOpenId, headingLevel = 3, className }:
         const panelId = `${instanceId}-panel-${index}`;
         return (
           <div key={item.id} className="min-w-0 bg-onecity-surface">
-            <Heading>
+            <Heading className="onecity-text-title-sm">
               <button
                 type="button"
                 id={triggerId}
                 aria-expanded={open}
                 aria-controls={panelId}
                 onClick={() => setOpenId(open ? undefined : item.id)}
-                className="flex w-full items-center gap-6 px-6 py-5 text-left text-base font-semibold leading-[normal] text-black focus-visible:relative focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-onecity-primary"
+                className="flex w-full items-center gap-6 px-6 py-5 text-left onecity-text-title-sm text-black focus-visible:relative focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-onecity-primary"
               >
                 <span className="min-w-0 flex-1 wrap-anywhere">{item.question}</span>
                 <Image src="/brand/interactive/accordion-open.svg" width={24} height={24} alt="" className="onecity-accordion-icon shrink-0" />
@@ -52,7 +52,7 @@ export function Accordion({ items, defaultOpenId, headingLevel = 3, className }:
               className="onecity-accordion-panel"
             >
               <div className="onecity-accordion-panel__clip">
-                <div className="px-6 pb-6 text-base font-light leading-[normal] text-onecity-primary wrap-anywhere">
+                <div className="px-6 pb-6 onecity-text-body text-onecity-primary wrap-anywhere">
                   {item.answer}
                 </div>
               </div>

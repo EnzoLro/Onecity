@@ -5,8 +5,6 @@
   padding-block: var(--space-52) 0;
   background: var(--color-background);
   color: var(--color-primary);
-  font-weight: 300;
-  line-height: normal;
 }
 
 .site-footer__container {
@@ -26,11 +24,11 @@
 .site-footer__content,
 .site-footer__columns { gap: var(--space-32); }
 .site-footer__brand { gap: var(--space-24); }
-.site-footer__brand p { max-width: 25rem; font-size: var(--text-subtitle-size); color: #333; }
+.site-footer__brand p { max-width: 25rem; color: #333; }
 .site-footer__logo { display: flex; align-items: center; gap: 14.184px; width: 229.49px; max-width: 100%; }
 .site-footer__logo img { flex-shrink: 0; }
 .site-footer p { margin: 0; }
-.site-footer h2 { margin: 0 0 var(--space-24); font-size: var(--text-subtitle-size); font-weight: 600; line-height: 1; }
+.site-footer h2 { margin: 0 0 var(--space-24); }
 .site-footer ul { padding: 0; margin: 0; list-style: none; }
 .site-footer li + li { margin-top: var(--space-12); }
 .site-footer a { overflow-wrap: anywhere; }
@@ -42,7 +40,7 @@
 .site-footer address { display: flex; flex-direction: column; gap: var(--space-12); font-style: normal; }
 .site-footer__credits { gap: var(--space-32); margin-top: var(--space-40); }
 .site-footer__divider { height: 1px; background: url("/brand/footer/divider.svg") center / 100% 1px no-repeat; }
-.site-footer__credits-row { gap: var(--space-24); font-size: var(--text-subtitle-size); }
+.site-footer__credits-row { gap: var(--space-24); }
 .site-footer__legal-links { display: flex; flex-wrap: wrap; gap: var(--space-24); }
 .site-footer__legal-links li + li { margin: 0; }
 .site-footer__author a { text-decoration: underline; text-underline-offset: 2px; }

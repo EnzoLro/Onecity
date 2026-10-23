@@ -12,8 +12,8 @@ function ApproachCard({ card }: { card: ApproachCard }) {
         <Image {...card.image} sizes="(max-width: 619px) calc(100vw - 64px), (max-width: 1023px) 40vw, (max-width: 1399px) 30vw, 416px" />
       </div>
       <div className="design-approach__copy">
-        <Text as="h3" id={`approach-${card.id}`} className="design-approach__card-title">{card.title}</Text>
-        <Text className="design-approach__description">{card.description}</Text>
+        <Text as="h3" variant="title-sm" id={`approach-${card.id}`} className="design-approach__card-title">{card.title}</Text>
+        <Text variant="small" className="design-approach__description">{card.description}</Text>
       </div>
     </article>
   );
@@ -25,7 +25,7 @@ export function DesignApproach() {
     <section className="design-approach" aria-labelledby="design-approach-title">
       <Container className="design-approach__container">
         <div className="design-approach__heading">
-          <Text variant="subtitle" className="design-approach__label">{designApproach.label}</Text>
+          <Text variant="eyebrow" className="design-approach__label">{designApproach.label}</Text>
           <Text as="h2" variant="heading" id="design-approach-title">{designApproach.title}</Text>
           <Text variant="body-lg" className="design-approach__introduction">{designApproach.introduction}</Text>
         </div>
@@ -33,7 +33,7 @@ export function DesignApproach() {
           {designApproach.cards.map((card) => <ApproachCard key={card.id} card={card} />)}
           <div className="design-approach__statement">
             <Text variant="body-lg">{designApproach.statement.introduction}</Text>
-            <Text className="design-approach__statement-title">{designApproach.statement.title}</Text>
+            <Text variant="heading-sm" className="design-approach__statement-title">{designApproach.statement.title}</Text>
           </div>
         </div>
       </Container>

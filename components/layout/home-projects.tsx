@@ -7,17 +7,17 @@ import "./home-projects.css";
 function ProjectCard({ project }: { project: ProjectCard }) {
   return (
     <article className="home-projects__card" aria-labelledby={`project-${project.slug}`}>
-      <p className="home-projects__status" data-commercializing={project.commercializing}>{project.status}</p>
+      <Text variant="label" className="home-projects__status" data-commercializing={project.commercializing}>{project.status}</Text>
       <div className="home-projects__image">
         <Image {...project.image} fill sizes="(max-width: 767px) calc(100vw - 64px), (max-width: 1399px) 50vw, 628px" />
       </div>
       <div className="home-projects__name">
-        <Text as="h3" id={`project-${project.slug}`}>{project.label}</Text>
-        <Text>{project.transaction}</Text>
+        <Text as="h3" variant="title" id={`project-${project.slug}`}>{project.label}</Text>
+        <Text variant="small">{project.transaction}</Text>
       </div>
       <ul className="home-projects__facts">
         {project.facts.map((fact) => (
-          <li key={fact.id}>
+          <li key={fact.id} className="onecity-text-label">
             <span className={`home-projects__icon home-projects__icon--${fact.icon}`} aria-hidden="true">
               <Image src={`/brand/projects/${fact.icon}.svg`} alt="" width={fact.icon === "document" ? 17.0531 : 24} height={fact.icon === "document" ? 19.8652 : 24} />
             </span>
@@ -42,7 +42,7 @@ export function HomeProjects() {
       <Container className="home-projects__container">
         <div className="home-projects__header">
           <div className="home-projects__heading">
-            <Text variant="subtitle" className="home-projects__label">{projectsSection.label}</Text>
+            <Text variant="eyebrow" className="home-projects__label">{projectsSection.label}</Text>
             <Text as="h2" variant="heading" id="projects-title">{projectsSection.title[0]}<br />{projectsSection.title[1]}</Text>
           </div>
           <Text variant="body-lg" className="home-projects__introduction">{projectsSection.introduction}</Text>

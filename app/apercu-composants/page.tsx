@@ -22,7 +22,7 @@ export default function ComponentPreview() {
               priority
               className="mb-10 h-10 w-auto"
             />
-            <Text variant="subtitle" className="mb-4 text-onecity-item-mid">
+            <Text variant="eyebrow" className="mb-4 text-onecity-item-mid">
               Fondations
             </Text>
             <Text as="h1" variant="display">
@@ -54,7 +54,7 @@ export default function ComponentPreview() {
           <div className="grid gap-8 md:grid-cols-3">
             {(["primary", "secondary", "ghost"] as const).map((variant) => (
               <div key={variant} className="flex flex-col items-start gap-4">
-                <Text as="h3" className="font-semibold capitalize">{variant}</Text>
+                <Text as="h3" variant="title-sm" className="capitalize">{variant}</Text>
                 <Button variant={variant}>Nous contacter</Button>
                 <Button variant={variant} disabled>Indisponible</Button>
                 <StyledLink href="#typographie" variant={variant}>Voir la typographie</StyledLink>
@@ -69,7 +69,13 @@ export default function ComponentPreview() {
           <div id="typographie" className="space-y-6">
             <Text as="h2" variant="heading">Typographie</Text>
             <Text as="h3" variant="display">Des logements pensés dans les moindres détails.</Text>
-            <Text variant="subtitle">Texte secondaire — 14 px</Text>
+            <Text variant="heading-sm">Titre intermédiaire — Parkinsans semi-bold, 32 px</Text>
+            <Text variant="title">Titre de carte — Parkinsans semi-bold, 18 px</Text>
+            <Text variant="title-sm">Petit titre / question — Parkinsans semi-bold, 16 px</Text>
+            <Text variant="caption-title">Titre de colonne — Parkinsans semi-bold, 14 px</Text>
+            <Text variant="eyebrow">Bandeau de section — Inter, 14 px</Text>
+            <Text variant="small">Légende — Inter, 14 px</Text>
+            <Text variant="label">Libellé d’action — Inter semi-bold, 16 px</Text>
             <Text variant="body-lg">Texte d’introduction — 18 px</Text>
             <Text>Texte courant — 16 px</Text>
           </div>
@@ -82,11 +88,11 @@ export default function ComponentPreview() {
             <Text className="mt-4 max-w-3xl">Aperçu technique ENZ-52. Les six réponses de FAQ et l’avis fictif sont repris de Figma, y compris les blocs de réponse masqués.</Text>
           </div>
           <div className="max-w-[700px] space-y-6">
-            <Text as="h3" className="font-semibold">FAQ — accordéon</Text>
+            <Text as="h3" variant="title-sm">FAQ — accordéon</Text>
             <Accordion items={previewFaq} defaultOpenId="types-programmes" headingLevel={4} />
           </div>
           <div className="max-w-[1000px] space-y-6">
-            <Text as="h3" className="font-semibold">Avis — slider</Text>
+            <Text as="h3" variant="title-sm">Avis — slider</Text>
             <Text>Avis fictif de la maquette, répété sur trois diapositives pour tester la navigation. Aucun avis supplémentaire n’a été rédigé.</Text>
             <Slider label="Aperçu technique du slider d’avis fictifs" items={[1, 2, 3].map((number) => ({
               id: `figma-test-${number}`,

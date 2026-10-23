@@ -6,16 +6,9 @@
   padding: var(--space-4) var(--space-12);
   background: color-mix(in srgb, var(--color-primary) 8%, transparent);
   color: var(--color-primary);
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
 }
-.home-testimonials__title { font-size: var(--text-heading-size); font-weight: 700; line-height: normal; text-transform: uppercase; }
+
 .home-testimonials__content { width: 100%; max-width: 800px; min-width: 0; }
 @media (max-width: 63.999rem) {
   .home-testimonials { padding-block: var(--space-64); }
-}
-@media (max-width: 38.749rem) {
-  .home-testimonials__title { font-size: 2rem; }
 }

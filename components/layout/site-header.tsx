@@ -39,7 +39,7 @@ export function SiteHeader({ projects, contact }: SiteHeaderProps) {
       <a
         key={href}
         href={href}
-        className="site-header__link"
+        className="site-header__link onecity-text-navigation"
         aria-current={active ? "page" : undefined}
         onClick={closeMenu}
       >
@@ -61,7 +61,7 @@ export function SiteHeader({ projects, contact }: SiteHeaderProps) {
           {contact.label}
         </StyledLink>
         <details ref={disclosure} className="site-header__mobile">
-          <summary ref={summary} className="site-header__toggle">Menu</summary>
+          <summary ref={summary} className="site-header__toggle onecity-text-small">Menu</summary>
           <nav className="site-header__panel" aria-label="Navigation mobile">
             {projectLinks}
             <StyledLink href={contact.href} variant="primary" className="site-header__contact" onClick={closeMenu}>

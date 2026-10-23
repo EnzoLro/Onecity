@@ -1,9 +1,6 @@
 import { Container, Slider, TestimonialCard, Text } from "@/components/ui";
 import type { Testimonial } from "@/data/testimonials";
-import { Roboto } from "next/font/google";
 import "./home-testimonials.css";
-
-const roboto = Roboto({ subsets: ["latin"], weight: "700", display: "swap" });
 
 /** Figma 4035:773. Only the caller decides which approved content can be shown. */
 export function HomeTestimonials({ items, notice }: { items: readonly Testimonial[]; notice?: string }) {
@@ -13,8 +10,8 @@ export function HomeTestimonials({ items, notice }: { items: readonly Testimonia
     <section className="home-testimonials" aria-labelledby="testimonials-title">
       <Container className="home-testimonials__container">
         <div className="home-testimonials__heading">
-          <Text variant="subtitle" className="home-testimonials__label">Leur expérience</Text>
-          <Text as="h2" id="testimonials-title" className={`home-testimonials__title ${roboto.className}`}>
+          <Text variant="eyebrow" className="home-testimonials__label">Leur expérience</Text>
+          <Text as="h2" id="testimonials-title" variant="heading">
             Pensés sur plan.<br />Appréciés au quotidien.
           </Text>
         </div>

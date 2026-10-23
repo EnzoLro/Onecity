@@ -12,8 +12,8 @@ export function FeaturedProject({ detail = false }: { detail?: boolean }) {
       <Container className="featured-project__container">
         <div className="featured-project__content">
           <div className="featured-project__heading">
-            <Text variant="subtitle" className="featured-project__status">{cPremium.status}</Text>
-            <Text as={detail ? "h1" : "h2"} variant="display" id="featured-project-title">{cPremium.label}</Text>
+            <Text variant="eyebrow" className="featured-project__status">{cPremium.status}</Text>
+            <Text as={detail ? "h1" : "h2"} variant={detail ? "display" : "heading"} id="featured-project-title">{cPremium.label}</Text>
             <Text variant="body-lg" className="featured-project__introduction">{cPremium.introduction}</Text>
           </div>
           {cPremium.facts.length > 0 && (
@@ -24,7 +24,7 @@ export function FeaturedProject({ detail = false }: { detail?: boolean }) {
                   </span>;
                 const condition = cPremiumConditions.find(({ id }) => id === fact.condition);
                 return (
-                  <li key={fact.id}>
+                  <li className="onecity-text-label" key={fact.id}>
                     {condition ? <ProjectCondition label={fact.label} marker={fact.marker} text={condition.text} icon={icon} /> : <>{icon}<span>{fact.label}</span></>}
                   </li>
                 );

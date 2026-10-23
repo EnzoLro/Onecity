@@ -7,6 +7,13 @@ const textVariants = {
   subtitle: "onecity-text-subtitle",
   "body-lg": "onecity-text-body-lg",
   body: "onecity-text-body",
+  eyebrow: "onecity-text-eyebrow",
+  "heading-sm": "onecity-text-heading-sm",
+  title: "onecity-text-title",
+  "title-sm": "onecity-text-title-sm",
+  small: "onecity-text-small",
+  label: "onecity-text-label",
+  "caption-title": "onecity-text-caption-title",
 } as const;
 
 type TextVariant = keyof typeof textVariants;

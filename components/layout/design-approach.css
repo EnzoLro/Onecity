@@ -11,18 +11,14 @@
   padding: var(--space-4) var(--space-12);
   background: color-mix(in srgb, var(--color-primary) 8%, transparent);
   color: var(--color-primary);
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
 }
-.design-approach__heading h2 { max-width: 766.293px; font-family: var(--font-parkinsans), var(--font-display); }
-.design-approach__introduction { max-width: 714.609px; line-height: normal; }
+.design-approach__heading h2 { max-width: 766.293px; }
+.design-approach__introduction { max-width: 714.609px; }
 .design-approach__mosaic {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  height: 529px;
+  grid-template-rows: auto minmax(min-content, 1fr) auto;
+  min-height: 529px;
   gap: var(--space-8);
   padding: var(--space-8);
   background: rgb(79 60 38 / 4%);
@@ -42,8 +38,7 @@
 .design-approach__copy { display: flex; flex: 1 1 0; min-width: 0; flex-direction: column; gap: var(--space-4); padding: var(--space-24); }
 .design-approach__card--comfort .design-approach__copy,
 .design-approach__card--transformation .design-approach__copy { flex: 0 0 auto; }
-.design-approach__card-title { font-size: 1rem; font-weight: 600; line-height: normal; }
-.design-approach__description { font-size: 0.875rem; font-weight: 300; line-height: normal; }
+
 .design-approach__statement {
   grid-area: 2 / 2 / 3 / 3;
   display: flex;
@@ -56,12 +51,11 @@
   color: var(--color-surface);
   text-align: center;
 }
-.design-approach__statement p { max-width: 238.152px; font-weight: 300; line-height: normal; }
-.design-approach__statement .design-approach__statement-title { font-size: 2rem; font-weight: 500; }
+.design-approach__statement p { max-width: 238.152px; }
 
 @media (max-width: 63.999rem) {
   .design-approach { padding-block: var(--space-64); }
-  .design-approach__mosaic { height: auto; grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .design-approach__mosaic { min-height: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
   .design-approach__card, .design-approach__statement { grid-area: auto; }
   .design-approach__card { flex-direction: row; }
   .design-approach__image { flex: 0 0 40%; min-height: 200px; }
@@ -70,7 +64,6 @@
 }
 
 @media (max-width: 38.749rem) {
-  .design-approach__heading h2 { font-size: 2rem; }
   .design-approach__card { flex-direction: column; }
   .design-approach__image { flex-basis: auto; min-height: 0; aspect-ratio: 3 / 2; }
   .design-approach__card .design-approach__copy { flex: 0 0 auto; }

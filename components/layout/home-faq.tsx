@@ -8,7 +8,7 @@ export function HomeFaq() {
     <Section id="faq" className="home-faq" aria-labelledby="faq-title">
       <Container className="home-faq__container">
         <div className="home-faq__heading">
-          <Text variant="subtitle" className="home-faq__label">{faqSection.label}</Text>
+          <Text variant="eyebrow" className="home-faq__label">{faqSection.label}</Text>
           <Text as="h2" variant="display" id="faq-title">{faqSection.title}</Text>
           <Text variant="body-lg" className="home-faq__introduction">{faqSection.introduction}</Text>
         </div>

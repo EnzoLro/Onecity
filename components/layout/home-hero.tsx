@@ -9,7 +9,7 @@ export function HomeHero({ projectsHref }: { projectsHref: string }) {
       <div className="home-hero__introduction">
         <Container className="home-hero__container">
           <div className="home-hero__heading">
-            <Text variant="subtitle" className="home-hero__eyebrow">
+            <Text variant="eyebrow" className="home-hero__eyebrow">
               Promotion &amp; valorisation immobilière dans les Yvelines
             </Text>
             <Text as="h1" variant="display" id="home-hero-title">

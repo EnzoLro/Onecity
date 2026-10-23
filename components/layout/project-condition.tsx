@@ -34,7 +34,7 @@ export function ProjectCondition({ label, marker, text, icon }: { label: string;
           <span>{label}<sup>{marker}</sup></span>
         </button>
       </div>
-      <div id={`${id}-description`} role="region" aria-labelledby={`${id}-trigger`} hidden={!open} className="project-condition__description">
+      <div id={`${id}-description`} role="region" aria-labelledby={`${id}-trigger`} hidden={!open} className="project-condition__description onecity-text-body">
         <p>{text}</p>
       </div>
     </div>
