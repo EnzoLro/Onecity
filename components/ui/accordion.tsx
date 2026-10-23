@@ -39,7 +39,7 @@ export function Accordion({ items, defaultOpenId, headingLevel = 3, className }:
                 className="flex w-full items-center gap-6 px-6 py-5 text-left text-base font-semibold leading-[normal] text-black focus-visible:relative focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-onecity-primary"
               >
                 <span className="min-w-0 flex-1 wrap-anywhere">{item.question}</span>
-                <Image src={`/brand/interactive/accordion-${open ? "close" : "open"}.svg`} width={24} height={24} alt="" className="shrink-0" />
+                <Image src="/brand/interactive/accordion-open.svg" width={24} height={24} alt="" className="onecity-accordion-icon shrink-0" />
               </button>
             </Heading>
             <div

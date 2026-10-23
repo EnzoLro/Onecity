@@ -107,6 +107,11 @@
     text-decoration: none;
   }
 
+  :where(button, [role="button"], summary, input[type="button"], input[type="submit"], input[type="reset"]):not(:disabled):not([aria-disabled="true"]),
+  a[href]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
   img,
   svg {
     display: block;

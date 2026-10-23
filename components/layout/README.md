@@ -2,7 +2,7 @@
 
 Source : [Figma 4035:529](https://www.figma.com/design/xaXG28sdrzFhLXaDCoZxEo/Onecity-Website?node-id=4035-529&m=dev).
 
-`HomeHero` est un Server Component qui réutilise `Container`, `Text` et `StyledLink` (styles de `Button`). Le Header est inchangé. Le H1, le descriptif et les deux libellés CTA reprennent la maquette, sans nouveau texte commercial. Desktop : contenu de 1200 px, colonnes séparées de 80 px, descriptif de 440 px, espacements verticaux de 80/120 px. Le panorama et le détourage originaux sont servis localement avec `next/image`, dimensions et `sizes` explicites, et préchargés. Le montage conserve les proportions au-delà de la largeur Figma de 1512 px.
+`HomeHero` est un Server Component qui réutilise `Container`, `Text` et `StyledLink` (styles de `Button`). Le Header est inchangé. Le H1, le descriptif et les deux libellés CTA reprennent la maquette, sans nouveau texte commercial. Le héros utilise désormais le même `Container` que les autres sections : largeur maximale de 1 400 px et marges internes communes de 24 px sur mobile / 60 px sur desktop. Desktop : colonnes séparées de 80 px, descriptif de 440 px, espacements verticaux de 80/120 px. Le panorama et le détourage originaux sont servis localement avec `next/image`, dimensions et `sizes` explicites, et préchargés. Le montage conserve les proportions au-delà de la largeur Figma de 1512 px.
 
 Aucune maquette mobile dédiée n’a été trouvée dans le fichier. Enzo a validé l’adaptation : titre, texte et CTA empilés, puis visuel recadré, avec boutons pleine largeur sur petit écran. Le débordement décoratif horizontal est coupé sans masquer le dépassement vertical de la maison.
 

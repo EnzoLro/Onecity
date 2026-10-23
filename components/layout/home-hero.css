@@ -4,7 +4,7 @@
 }
 
 .home-hero__introduction {
-  padding: var(--space-80) var(--space-12) max(var(--space-120), calc(9vw - 16.08px));
+  padding-block: var(--space-80) max(var(--space-120), calc(9vw - 16.08px));
 }
 
 .home-hero__container {
@@ -12,8 +12,6 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
   align-items: end;
   gap: var(--space-80);
-  max-width: 1200px;
-  padding-inline: 0;
 }
 
 .home-hero__heading,
@@ -76,7 +74,7 @@
 
 @media (max-width: 63.999rem) {
   .home-hero__introduction {
-    padding: var(--space-52) var(--container-padding-mobile) var(--space-120);
+    padding-block: var(--space-52) var(--space-120);
   }
 
   .home-hero__container {
