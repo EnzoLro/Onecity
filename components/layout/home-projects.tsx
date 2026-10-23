@@ -7,13 +7,13 @@ import "./home-projects.css";
 function ProjectCard({ project }: { project: ProjectCard }) {
   return (
     <article className="home-projects__card" aria-labelledby={`project-${project.slug}`}>
-      <Text variant="label" className="home-projects__status" data-commercializing={project.commercializing}>{project.status}</Text>
+      {project.status && <Text variant="label" className="home-projects__status" data-commercializing={project.commercializing}>{project.status}</Text>}
       <div className="home-projects__image">
         <Image {...project.image} fill sizes="(max-width: 767px) calc(100vw - 64px), (max-width: 1399px) 50vw, 628px" />
       </div>
       <div className="home-projects__name">
         <Text as="h3" variant="title" id={`project-${project.slug}`}>{project.label}</Text>
-        <Text variant="small">{project.transaction}</Text>
+        {project.transaction && <Text variant="small">{project.transaction}</Text>}
       </div>
       <ul className="home-projects__facts">
         {project.facts.map((fact) => (

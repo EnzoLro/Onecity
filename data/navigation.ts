@@ -1,9 +1,7 @@
-// Project names from Figma 4037:1290; contact address already used by the site.
-export const projects = [
-  { label: "C’Premium", slug: "c-premium", href: "/projets/c-premium" },
-  { label: "Central Avenue", slug: "central-avenue", href: "/projets/central-avenue" },
-  { label: "Breuil", slug: "breuil", href: "/projets/breuil" },
-] as const;
+import { programs, projectHref } from "./programs";
+
+// Navigation is a projection of the shared program registry.
+export const projects = programs.map(({ slug, label }) => ({ slug, label, href: projectHref(slug) }));
 
 export const contact = {
   label: "Nous contacter",

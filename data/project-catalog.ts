@@ -1,46 +1,31 @@
-import { projects } from "@/data/navigation";
-import { cPremium } from "@/data/c-premium";
+import { programs, projectHref, type ProjectFact } from "./programs";
 
 export type ProjectCard = {
   slug: string;
   label: string;
-  status: string;
-  transaction: string;
+  status?: string;
+  transaction?: string;
   commercializing: boolean;
-  detailHref?: string;
+  detailHref: string;
   image: { src: string; alt: string };
-  facts: { id: string; label: string; icon: "location" | "area" | "energy" | "price" | "document" | "key" }[];
+  facts: readonly ProjectFact[];
 };
 
-/** ENZ-56 / Figma 4035:640. Breuil awaits definitive content per the ticket. */
-export const projectCatalog: ProjectCard[] = [
-  {
-    slug: cPremium.slug,
-    label: cPremium.label,
-    status: cPremium.status,
-    transaction: "Vente",
-    commercializing: true,
-    detailHref: cPremium.href,
-    image: { src: "/brand/projects/c-premium.png", alt: "Maquette architecturale de C’Premium avec terrasses et jardins" },
-    // Reuse ENZ-54 confirmed facts; the compact card omits the eligibility disclosures.
-    facts: cPremium.facts.filter(({ id }) => ["location", "homes", "energy", "price"].includes(id)),
-  },
-  {
-    slug: projects[1].slug,
-    label: projects[1].label,
-    status: "Projet réalisé",
-    transaction: "Vente",
-    commercializing: false,
-    detailHref: projects[1].href,
-    image: { src: "/brand/projects/central-avenue.png", alt: "Maquette architecturale de Central Avenue à Hardricourt" },
-    facts: [
-      { id: "location", label: "Hardricourt · 78", icon: "location" },
-      { id: "homes", label: "10 appartements T2 | 34 m² & 42 m²", icon: "area" },
-      { id: "operation", label: "Rénovation / transformation", icon: "document" },
-      { id: "delivery", label: "Livré en 2024", icon: "key" },
-    ],
-  },
-];
+/** Only programs with approved card content appear on home. */
+export const projectCatalog: ProjectCard[] = programs.flatMap((program) => {
+  const card = program.editorial.card;
+  if (!card) return [];
+  return [{
+    slug: program.slug,
+    label: program.label,
+    status: program.commercial.status,
+    transaction: program.commercial.transaction,
+    commercializing: program.commercial.commercializing === true,
+    detailHref: projectHref(program.slug),
+    image: card.image,
+    facts: program.commercial.facts.filter(({ id }) => card.factIds.includes(id)),
+  }];
+});
 
 export const projectsSection = {
   label: "Nos réalisations",

@@ -22,3 +22,7 @@ The repository is connected to Vercel.
 
 Le rapport ENZ-61, les sources et les limites de contenu sont dans
 [`docs/qa-enz-61.md`](docs/qa-enz-61.md).
+
+## Données des programmes
+
+Le registre commun et son mode d’emploi sont décrits dans [`docs/programs.md`](docs/programs.md).
