@@ -32,3 +32,10 @@ Les données restent statiques dans le dépôt : aucun CMS, formulaire ou systè
 - `tests/home-qa.mjs` sur le build Preview local : 11 largeurs de 320 à 1920 px, routes, images, liens, navigation clavier et interactions existantes ; aucune erreur navigateur observée.
 
 La recette navigateur porte sur Chromium. Les limites de contenu listées dans `docs/qa-enz-61.md` restent applicables.
+
+
+## Page détail — ENZ-63
+
+`editorial.detail` contient les sections approuvées dans Figma : panorama, repères, présentation, logements, conception, localisation et contact. `hasDetailContent` sélectionne le gabarit réutilisable. Les deux logements et les surfaces structurées reprennent les valeurs validées sous ENZ-54 ; le résumé de surfaces est calculé depuis cette liste. Le prix structuré `commercial.price` alimente à la fois le libellé partagé et sa présentation détaillée. Aucun état de disponibilité, prix total, équipement précis ou adresse du programme n’est déduit.
+
+Le formulaire utilise les mêmes identifiants de logements côté serveur et navigateur. Les autres projets restent provisoires. Les coordonnées du contact viennent de `data/navigation.ts` et `data/footer.ts`. Les instructions Resend et les limites de recette sont dans `qa-enz-63.md`.

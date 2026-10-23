@@ -67,3 +67,5 @@ Les contrôles actifs (boutons, liens avec destination et disclosures) utilisent
 Le seuil mobile commun est 620 px. Les titres principaux et de section gardent les capitales ; les petits titres gardent leur casse éditoriale. La classe partagée `onecity-text-navigation` couvre les liens du header (Inter 16 px, 600 pour le lien courant). Les boutons et les composants interactifs consomment les mêmes rôles. Les couleurs, alignements et largeurs restent définis par la mise en page.
 
 Les exemples de chaque rôle sont visibles dans `/apercu-composants#typographie`. Pour une modification de typographie, changer le rôle partagé ; ne pas ajouter une exception locale à une section.
+
+ENZ-63 ajoute le rôle `statistic` : Inter 600, 24 px, pour les valeurs des repères projet. Les variantes existantes restent inchangées.

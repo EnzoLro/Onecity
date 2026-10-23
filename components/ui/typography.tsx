@@ -13,6 +13,7 @@ const textVariants = {
   "title-sm": "onecity-text-title-sm",
   small: "onecity-text-small",
   label: "onecity-text-label",
+  statistic: "onecity-text-statistic",
   "caption-title": "onecity-text-caption-title",
 } as const;
 

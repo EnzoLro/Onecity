@@ -49,3 +49,18 @@ test('Breuil stays provisional without unconfirmed commercial content or home ca
   assert.deepEqual(breuil.commercial, { facts: [], conditions: [] });
   assert.deepEqual(breuil.editorial, {});
 });
+
+
+test('detail assets exist and structured prices agree with the shared commercial facts', () => {
+  for (const program of programs) {
+    const detail = program.editorial.detail;
+    if (!detail) continue;
+    for (const image of [detail.hero.background, detail.hero.cutout, detail.overview.image, detail.design.image]) {
+      assert.ok(existsSync(new URL(`../public${image.src}`, import.meta.url)), image.src);
+      assert.ok(image.width > 0 && image.height > 0);
+    }
+    const price = program.commercial.price;
+    if (price) assert.equal(program.commercial.facts.find(({ id }) => id === 'price').label, `${price.prefix} ${price.amount}`);
+    assert.equal(new Set(detail.homes.items.map(({ id }) => id)).size, detail.homes.items.length);
+  }
+});

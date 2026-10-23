@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container, Section, StyledLink, Text } from "@/components/ui";
 import { contact } from "@/data/navigation";
-import { programs, getProgram, hasFeaturedContent } from "@/data/programs";
+import { programs, getProgram, hasFeaturedContent, hasDetailContent } from "@/data/programs";
 import { FeaturedProject } from "@/components/layout/featured-project";
 import { ProjectConditions } from "@/components/layout/project-conditions";
+import { ProjectDetail } from "@/components/layout/project-detail";
+import { isContactConfigured } from "@/lib/project-contact";
 
 export const dynamicParams = false;
 
@@ -21,12 +23,16 @@ async function getProject(params: ProjectPageProps["params"]) {
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const project = await getProject(params);
-  return { title: `${project.label} | OneCity` };
+  return { title: `${project.label} | OneCity`, ...(project.editorial.featured ? { description: project.editorial.featured.introduction } : {}) };
 }
 
-/** C’Premium shares its confirmed facts with home; other projects remain scaffolds. */
+/** Approved detail pages use the shared template; other projects retain their scaffolds. */
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const project = await getProject(params);
+
+  if (hasDetailContent(project)) {
+    return <ProjectDetail project={project} sendingEnabled={isContactConfigured({ apiKey: process.env.RESEND_API_KEY, from: process.env.RESEND_FROM })} />;
+  }
 
   if (hasFeaturedContent(project)) {
     return (

@@ -4,7 +4,7 @@ import { homeCta } from "@/data/home-cta";
 import "./home-cta.css";
 
 /** Final homepage contact section, from ENZ-60 / Figma 4035:844. */
-export function HomeCta() {
+export function HomeCta({ contactHref = homeCta.action.href }: { contactHref?: string } = {}) {
   return (
     <section className="home-cta" aria-labelledby="home-cta-title">
       <Container className="home-cta__container">
@@ -14,7 +14,7 @@ export function HomeCta() {
           <Text as="h2" variant="heading" id="home-cta-title" className="home-cta__title">{homeCta.title}</Text>
           <Text variant="body-lg" className="home-cta__description">{homeCta.description}</Text>
         </div>
-        <StyledLink href={homeCta.action.href} variant="inverse" className="home-cta__action">
+        <StyledLink href={contactHref} variant="inverse" className="home-cta__action">
           {homeCta.action.label}
         </StyledLink>
       </Container>

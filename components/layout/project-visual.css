@@ -1,0 +1,10 @@
+.project-visual { position: relative; height: 14.881vw; pointer-events: none; }
+.project-visual__panorama { position: absolute; inset: 0; overflow: hidden; }
+.project-visual__background { position: absolute; top: -58.41%; left: 0.02%; width: 99.96%; height: 165.26%; }
+.project-visual__cutout { position: absolute; bottom: -7.009%; left: 33.499%; width: 33.001%; height: 165.573%; }
+@media (max-width: 63.999rem) {
+  .project-visual { height: 180px; }
+  .project-visual__background { top: auto; bottom: 0; left: 50%; width: auto; max-width: none; height: 270px; transform: translateX(-50%); }
+  .project-visual__cutout { bottom: -11.43px; left: 50%; width: 361.6px; max-width: none; height: 270px; transform: translateX(-50%); }
+}
+@media (max-width: 29.999rem) { .project-visual { clip-path: inset(-100px 0 -16px); } }

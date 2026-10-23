@@ -26,3 +26,7 @@ Le rapport ENZ-61, les sources et les limites de contenu sont dans
 ## Données des programmes
 
 Le registre commun et son mode d’emploi sont décrits dans [`docs/programs.md`](docs/programs.md).
+
+## Page C’Premium
+
+La recette ENZ-63 et la configuration différée de Resend sont décrites dans [`docs/qa-enz-63.md`](docs/qa-enz-63.md).
