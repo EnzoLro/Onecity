@@ -7,8 +7,8 @@ import { projects, contact } from "@/data/navigation";
 import { footer } from "@/data/footer";
 
 export const metadata: Metadata = {
-  title: "OneCity",
-  description: "Technical foundation for the OneCity website.",
+  title: "One City Immobilier",
+  description: "De la conception aux finitions, One City Immobilier imagine des projets à taille humaine, pensés pour offrir plus de confort, de performance et de qualité au quotidien.",
 };
 
 export default function RootLayout({
