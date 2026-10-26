@@ -30,3 +30,5 @@ Le registre commun et son mode d’emploi sont décrits dans [`docs/programs.md`
 ## Page C’Premium
 
 La recette ENZ-63 et la configuration différée de Resend sont décrites dans [`docs/qa-enz-63.md`](docs/qa-enz-63.md).
+
+La recette responsive et contenu ENZ-64 est consignée dans [`docs/qa-enz-64.md`](docs/qa-enz-64.md).

@@ -5,10 +5,12 @@ import process from 'node:process';
 import { URL } from 'node:url';
 import console from 'node:console';
 import { mkdirSync } from 'node:fs';
+import { getProgram } from '../data/programs.ts';
 const { chromium } = createRequire(import.meta.url)('playwright');
 const base = process.argv[2] || 'http://localhost:3103';
 const screenshots = process.env.QA_SCREENSHOTS;
 const widths = [320, 375, 390, 619, 620, 768, 1023, 1024, 1200, 1512, 1920];
+const project = getProgram('c-premium');
 const browser = await chromium.launch({ headless: true });
 try {
   const page = await browser.newPage();
@@ -19,11 +21,27 @@ try {
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()); });
   page.on('response', (response) => { if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
   if (screenshots) mkdirSync(screenshots, { recursive: true });
+  // Compare the rendered home and detail, not only their shared source objects.
+  await page.goto(base);
+  const homeContent = await page.locator('main').innerText();
+  for (const fact of project.commercial.facts.filter(({ id }) => ['homes', 'energy', 'price', 'location'].includes(id))) {
+    assert.ok(homeContent.includes(fact.label), `home is missing ${fact.label}`);
+  }
   for (const width of widths) {
-    await page.setViewportSize({ width, height: 1000 });
+    await page.setViewportSize({ width, height: width <= 375 ? 667 : width === 390 ? 844 : 1000 });
     assert.equal((await page.goto(`${base}/projets/c-premium`)).status(), 200);
     await page.evaluate(() => document.fonts.ready);
     assert.equal(await page.locator('h1').count(), 1);
+    const content = await page.locator('main').innerText();
+    assert.doesNotMatch(content, /Orimaj|Lorem ipsum|TODO|contenu à venir/i);
+    for (const { value } of project.editorial.detail.highlights) assert.ok(content.includes(value), `detail is missing ${value}`);
+    const headings = await page.locator('main :is(h1,h2,h3,h4,h5,h6)').evaluateAll((items) => items.map((item) => ({ level: Number(item.tagName.slice(1)), text: item.textContent.trim() })));
+    assert.equal(headings[0].level, 1);
+    headings.forEach((heading, index) => {
+      assert.ok(heading.text, 'headings have a name');
+      if (index) assert.ok(heading.level <= headings[index - 1].level + 1, `skipped heading level: ${heading.text}`);
+    });
+    assert.equal(await page.getByRole('navigation', { name: 'Fil d’Ariane' }).locator('[aria-current="page"]').innerText(), project.label);
     assert.equal(await page.locator('main article').count(), 2);
     assert.equal(await page.getByRole('navigation', { name: 'Fil d’Ariane' }).getByRole('link', { name: 'Accueil' }).getAttribute('href'), '/');
     for (const img of await page.locator('main img').all()) { await img.scrollIntoViewIfNeeded(); await img.evaluate((image) => image.decode()); }
@@ -97,12 +115,29 @@ try {
     const dialog = page.locator('dialog[open]');
     assert.equal(await dialog.count(), 1);
     await dialog.locator('img').evaluate((image) => image.decode());
+    assert.equal(await dialog.getByRole('button', { name: 'Précédent', exact: true }).isDisabled(), true);
+    for (let step = 0; step < 5; step++) {
+      await page.keyboard.press('Tab');
+      // A native modal may hand focus to browser chrome (activeElement is body).
+      // No underlying page control must receive focus while it remains open.
+      assert.equal(await dialog.evaluate((element) => document.activeElement === document.body || element.contains(document.activeElement)), true, 'background page controls stay outside the tab sequence');
+    }
+    await dialog.getByRole('button', { name: 'Fermer', exact: true }).focus();
     await page.keyboard.press('ArrowRight');
     assert.match(await dialog.locator('img').getAttribute('alt'), /Détail de la maquette/);
-    await page.keyboard.press('Home');
+    assert.equal(await dialog.getByRole('button', { name: 'Suivant', exact: true }).isDisabled(), true);
+    await dialog.locator('img').evaluate((image) => image.decode());
+    assert.equal(await dialog.locator('img').evaluate((image) => getComputedStyle(image).objectFit), 'contain', 'gallery shows the full image without cropping');
+    await page.keyboard.press('ArrowLeft');
+    await dialog.getByRole('button', { name: 'Suivant', exact: true }).click();
+    await dialog.getByRole('button', { name: 'Précédent', exact: true }).click();
     await page.keyboard.press('Escape');
     assert.equal(await page.locator('dialog[open]').count(), 0);
     assert.equal(await openGallery.evaluate((button) => button === document.activeElement), true);
+    const secondGallery = page.locator('.project-gallery__open').nth(1);
+    await secondGallery.click();
+    await page.locator('dialog[open]').getByRole('button', { name: 'Fermer', exact: true }).click();
+    assert.equal(await secondGallery.evaluate((button) => button === document.activeElement), true);
     const disclosure = page.locator('.project-condition__trigger').first();
     await disclosure.focus();
     await page.keyboard.press('Enter');
@@ -112,6 +147,11 @@ try {
     await page.getByRole('link', { name: 'Recevoir les informations', exact: true }).click();
     assert.equal(new URL(page.url()).hash, '#demande-informations');
     assert.equal(await page.locator('#demande-informations').evaluate((element) => element.getBoundingClientRect().top < 250), true);
+    for (const link of await page.locator('main a[href="#demande-informations"]').all()) {
+      await link.click();
+      assert.equal(await page.locator('#demande-informations').evaluate((element) => element.getBoundingClientRect().top < 250), true);
+    }
+    assert.match(await page.locator('.project-contact__notice a').getAttribute('href'), /^mailto:projets@onecityimmobilier\.fr\?subject=/);
     assert.equal(await page.getByRole('button', { name: 'Envoyer ma demande' }).isDisabled(), true);
     for (const [area, id] of [[98, 't4-98'], [103, 't4-103']]) {
       await page.getByRole('link', { name: `Me renseigner sur ce T4 · ${area} m²`, exact: true }).click();
