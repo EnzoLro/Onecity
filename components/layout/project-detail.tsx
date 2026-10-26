@@ -4,6 +4,7 @@ import type { DetailProgram } from "@/data/programs";
 import { contact } from "@/data/navigation";
 import { footer } from "@/data/footer";
 import { ProjectGalleryImage } from "./project-gallery-image";
+import { ProjectLocalityMap } from "./project-locality-map";
 import { ProjectVisual } from "./project-visual";
 import { ProjectCondition } from "./project-condition";
 import { ProjectContactForm } from "./project-contact-form";
@@ -61,7 +62,43 @@ export function ProjectDetail({ project, sendingEnabled }: { project: DetailProg
         <div><ProjectGalleryImage images={gallery} index={1} sizes="(max-width: 1023px) calc(100vw - 48px), 480px" className="project-detail__design-image" />{energy && <div className="project-detail__energy"><span className="project-detail__energy-class" aria-hidden="true">{energy.label.replace("DPE ", "")}</span><div><Text variant="label">{energy.label}</Text><Text variant="small">{detail.design.energyNote}</Text></div></div>}</div>
         <div>{detail.design.principles.map(({ title, text }) => <div className="project-detail__principle" key={title}><Text as="h3" variant="title">{title}</Text><Text className="project-detail__muted">{text}</Text></div>)}</div>
       </div></Container></Section>
-      <Section spacing="compact" aria-labelledby="project-location-title"><Container className="project-detail__locality"><div className="project-detail__copy"><Heading {...detail.location} id="project-location-title" /><Text variant="body-lg">{detail.location.description}</Text><Text variant="small">{detail.location.note}</Text><StyledLink href={contactHref} variant="primary" size="large">{detail.location.action}</StyledLink></div><div className="project-detail__department"><p>{detail.location.department}</p><Text variant="eyebrow">{detail.location.territory}</Text></div></Container></Section>
+      {detail.amenities && (
+        <Section aria-labelledby="project-amenities-title" className="project-detail__amenities">
+          <Container className="project-detail__stack">
+            <Heading {...detail.amenities} id="project-amenities-title" />
+            <Text variant="body-lg">{detail.amenities.introduction}</Text>
+            <div className="project-detail__amenity-grid">
+              {detail.amenities.groups.map(({ title, items }) => (
+                <div className="project-detail__amenity-group" key={title}>
+                  <Text as="h3" variant="title">{title}</Text>
+                  <ul>{items.map((item) => <li key={item} className="onecity-text-body">{item}</li>)}</ul>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </Section>
+      )}
+      <Section spacing="compact" aria-labelledby="project-location-title">
+        <Container className="project-detail__locality">
+          <div className="project-detail__copy">
+            <Heading {...detail.location} id="project-location-title" />
+            <Text variant="body-lg">{detail.location.description}</Text>
+            {detail.location.access && (
+              <dl className="project-detail__access">
+                {detail.location.access.map(({ label, duration, mode }) => (
+                  <div key={label}>
+                    <dt className="onecity-text-label">{label}</dt>
+                    <dd><span className="onecity-text-statistic">{duration}</span><span className="onecity-text-small">{mode}</span></dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+            {detail.location.accessNote && <Text variant="small" className="project-detail__muted">{detail.location.accessNote}</Text>}
+            <StyledLink href={contactHref} variant="primary" size="large">{detail.location.action}</StyledLink>
+          </div>
+          {project.slug === "c-premium" ? <ProjectLocalityMap /> : <div className="project-detail__department"><p>{detail.location.department}</p><Text variant="eyebrow">{detail.location.territory}</Text></div>}
+        </Container>
+      </Section>
       <Section spacing="compact" id="demande-informations" aria-labelledby="project-contact-title"><Container className="project-detail__contact"><div className="project-detail__copy"><Heading {...detail.contact} id="project-contact-title" /><Text variant="body-lg">{detail.contact.introduction}</Text><address className="project-detail__coordinates onecity-text-body"><Text variant="label">One City Immobilier</Text><div className="project-detail__coordinate"><Image src="/brand/c-premium/map-pin.svg" alt="" width={20} height={20} /><p>{footer.address.map((line) => <span key={line}>{line}<br /></span>)}</p></div><div className="project-detail__coordinate"><Image src="/brand/c-premium/mail.svg" alt="" width={20} height={20} /><a href={contact.href}>{contact.href.replace("mailto:", "")}</a></div><div className="project-detail__coordinate"><Image src="/brand/c-premium/phone.svg" alt="" width={20} height={20} /><a href={footer.phone.href}>{footer.phone.label}</a></div></address></div><ProjectContactForm projectSlug={project.slug} projectLabel={project.label} homes={detail.homes.items} sendingEnabled={sendingEnabled} /></Container></Section>
       <HomeCta contactHref={contactHref} />
     </main>

@@ -66,3 +66,36 @@ node tests/home-qa.mjs http://localhost:3104
 ```
 
 Pour tester les états d’envoi sans e-mail réel : construire localement avec une configuration **factice uniquement** (`RESEND_API_KEY` et `RESEND_FROM`), lancer ce build sur localhost puis `node tests/project-form-qa.mjs http://localhost:PORT`. Le script refuse les hôtes distants et intercepte toutes les requêtes de contact. Ne jamais déployer cette configuration factice. Refaire ensuite un build local sans ces variables de test.
+
+## Complément du 26 octobre 2026 — prestations et carte interactive
+
+Enzo a fourni et confirmé les prestations pour **chacun des deux T4**, dont un garage et une place de parking par logement. Un bloc commun après « Notre manière de concevoir » regroupe : double orientation, terrasse, espace vert privatif, résidence sécurisée, vidéophone connecté, garage/parking, pompe à chaleur réversible, ballon thermodynamique, individualisation de l’eau, volets roulants électriques connectés, intérieur optimisé et personnalisable, placards aménagés selon plan, salle d’eau carrelée avec meuble vasque et radiateur sèche-serviettes. Aucun plan supplémentaire, dimension, orientation cardinale ou type de compteur n’est déduit.
+
+Les quatre temps d’accès viennent d’Enzo : gare SNCF de Mantes-la-Jolie environ 10 minutes en voiture, Express 78 et bus scolaire environ 2 minutes à pied, A13 environ 5 minutes en voiture. Ils restent indicatifs et ne sont pas présentés comme des itinéraires calculés.
+
+### Carte et sources géographiques
+
+Leaflet 1.9.4, importé à l’approche de la carte dans le viewport, affiche des points cliquables avec fiches, des contrôles de zoom, une vue quartier, une vue des accès et une vue du département 78 surligné. La molette ne zoome pas par défaut pour conserver le défilement de la page. Les mêmes fiches sont ouvrables par boutons et les marqueurs sont accessibles au clavier. Les textes de fiches sont injectés par `textContent`, sans HTML provenant des données.
+
+Adresses fournies par Enzo :
+
+- C’Premium : 15 route de Mantes, 78930 Breuil-Bois-Robert.
+- Express 78 : 3 rue d’Arnouville, même commune. Enzo a confirmé « rue » après que le géocodeur a signalé la différence avec « route » dicté initialement.
+- Bus scolaire : 3 place des Alliés, même commune.
+- Gare SNCF de Mantes-la-Jolie : point SNCF UIC 87381509, place du 8 mai 1945.
+
+Les trois adresses sont géocodées au numéro dans la commune INSEE 78104 par le [service officiel IGN / BAN](https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme/geocodage/). Les points bus représentent les adresses de repérage fournies, pas une vérification indépendante de la position des poteaux d’arrêt. Les coordonnées de gare proviennent du [référentiel SNCF](https://data.sncf.com/explore/dataset/liste-des-gares/), avec adresse contrôlée sur [Gares & Connexions](https://www.garesetconnexions.sncf/fr/gares-services/mantes-jolie). Aucun échangeur A13 arbitraire n’est placé sur la carte ; l’information de proximité est dans la liste.
+
+Les contours généralisés IGN / Etalab sont conservés localement depuis le [jeu de données officiel](https://www.data.gouv.fr/datasets/contours-administratifs). `data/geography/c-premium.json` archive les sources, coordonnées et résultats de géocodage. `node scripts/generate-location-map.mjs` régénère le contour et l’illustration SVG de repli. Les points sont dans `data/c-premium-map-points.ts`. Aucun appel au géocodeur pendant la navigation.
+
+Le fond provient des tuiles standard OpenStreetMap, avec attribution visible. Aucune clé requise ; disponibilité externe au mieux, sans garantie de service. Pas de géolocalisation de l’utilisateur ni de téléchargement en masse. Le chargement des tuiles transmet les informations normales de requête au fournisseur. Revoir cette dépendance et la documentation de confidentialité avant la publication finale du site.
+
+### Vérifications du complément
+
+- Lint, build avec Next.js 16.4.1 et 19 tests automatisés : OK.
+- La recette responsive de page couvre aussi les quatre points, leurs fiches, le clavier, les trois vues, le contour 78 et les dimensions des tuiles. Les tuiles sont interceptées dans ces tests répétitifs pour ne pas solliciter OpenStreetMap à chaque format.
+- Vérification séparée d’une vue réelle du quartier : tuiles chargées, dimensions 256 × 256, rendu inspecté. La classe racine ajoutée par Leaflet est conservée pendant les mises à jour React ; le confinement des tuiles et leur dimension sont vérifiés.
+- Régression accueil sur les onze formats après mise à jour de Next.js : OK.
+- Recette Chromium uniquement ; les temps de trajet ne sont pas recalculés.
+
+L’ajout de Leaflet a déclenché un audit des dépendances. Il a révélé des vulnérabilités préexistantes dans Next.js 16.3.8. Next.js est passé à 16.4.1, version corrigée selon les avis [GHSA-2464-fhr4-w9xw](https://github.com/advisories/GHSA-2464-fhr4-w9xw), [GHSA-673q-mjm6-r5xr](https://github.com/advisories/GHSA-673q-mjm6-r5xr) et [GHSA-p3m5-59mp-jv5r](https://github.com/advisories/GHSA-p3m5-59mp-jv5r). L’audit après mise à jour indique zéro vulnérabilité signalée.

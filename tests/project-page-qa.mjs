@@ -1,4 +1,4 @@
-/* global document, innerWidth, window */
+/* global document, innerWidth, window, getComputedStyle */
 import { createRequire } from 'node:module';
 import assert from 'node:assert/strict';
 import process from 'node:process';
@@ -12,6 +12,8 @@ const widths = [320, 375, 390, 619, 620, 768, 1023, 1024, 1200, 1512, 1920];
 const browser = await chromium.launch({ headless: true });
 try {
   const page = await browser.newPage();
+  // Do not repeatedly load public OSM tiles during automated responsive tests.
+  await page.route('https://tile.openstreetmap.org/**', (route) => route.fulfill({ contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><rect width="256" height="256" fill="#eeeae4"/></svg>' }));
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()); });
@@ -27,6 +29,27 @@ try {
     for (const img of await page.locator('main img').all()) { await img.scrollIntoViewIfNeeded(); await img.evaluate((image) => image.decode()); }
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `overflow ${width}`);
     assert.equal(await page.locator('main img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), true);
+    assert.equal(await page.locator('.project-detail__amenity-group li').count(), 14);
+    assert.equal(await page.locator('.project-detail__access > div').count(), 4);
+    await page.locator('.project-locality-map').scrollIntoViewIfNeeded();
+    const station = page.locator('.project-interactive-map__points').getByRole('button', { name: 'Gare SNCF de Mantes-la-Jolie', exact: true });
+    await station.waitFor();
+    await page.waitForFunction(() => ![...document.querySelectorAll('button')].find((button) => button.textContent === 'Gare SNCF de Mantes-la-Jolie')?.disabled);
+    assert.equal(await page.locator('.project-interactive-map__canvas').evaluate((element) => element.classList.contains('leaflet-container') && getComputedStyle(element).overflow === 'hidden'), true, 'Leaflet classes survive React updates and tiles remain clipped');
+    assert.equal(await page.locator('.leaflet-tile').first().evaluate((image) => image.getBoundingClientRect().width), 256, 'Map tiles retain their width despite the shared image reset');
+    const projectMarker = page.locator('.leaflet-marker-icon[title="C’Premium"]');
+    await projectMarker.focus();
+    await page.keyboard.press('Enter');
+    await page.locator('.leaflet-popup-content').filter({ hasText: '15 route de Mantes' }).waitFor();
+    await page.locator('.project-interactive-map__points').getByRole('button', { name: 'Bus Express 78', exact: true }).click();
+    await page.locator('.leaflet-popup-content').filter({ hasText: '3 rue d’Arnouville' }).waitFor();
+    await page.locator('.project-interactive-map__points').getByRole('button', { name: 'Bus scolaire', exact: true }).click();
+    await page.locator('.leaflet-popup-content').filter({ hasText: '3 place des Alliés' }).waitFor();
+    await station.click();
+    await page.locator('.leaflet-popup-content').filter({ hasText: 'Place du 8 mai 1945' }).waitFor();
+    await page.getByRole('button', { name: 'Les Yvelines · 78', exact: true }).click();
+    assert.equal(await page.locator('.leaflet-overlay-pane path').count(), 1);
+    await page.getByRole('button', { name: 'Le quartier', exact: true }).click();
     const openGallery = page.locator('.project-gallery__open').first();
     await openGallery.focus();
     await page.keyboard.press('Enter');
