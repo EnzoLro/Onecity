@@ -45,21 +45,61 @@ export function ProjectInteractiveMap({ fallback }: { fallback: ReactNode }) {
         boundary.bindTooltip("78 · Yvelines", { permanent: true, direction: "center", className: "project-map-department-label" });
         departmentBounds.current = boundary.getBounds();
         accessBounds.current = L.latLngBounds(points.map(({ latitude, longitude }) => [latitude, longitude]));
-        localBounds.current = L.latLngBounds(points.filter(({ id }) => id !== "gare").map(({ latitude, longitude }) => [latitude, longitude]));
+        localBounds.current = L.latLngBounds(points.filter(({ id }) => id !== "gare" && id !== "motorway").map(({ latitude, longitude }) => [latitude, longitude]));
         for (const point of points) {
           const popup = document.createElement("div");
           const title = document.createElement("strong");
           title.textContent = point.label;
           const description = document.createElement("p");
           description.textContent = point.description;
-          popup.append(title, description);
+          popup.className = "project-map-popup";
+          popup.tabIndex = 0;
+          popup.setAttribute("role", "group");
+          popup.setAttribute("aria-label", point.label);
+          popup.append(title);
+          if (point.access) {
+            const access = document.createElement("p");
+            access.className = "project-map-popup__access";
+            access.textContent = point.access;
+            popup.append(access);
+          }
+          popup.append(description);
+          for (const section of point.sections ?? []) {
+            const heading = document.createElement("p");
+            heading.className = "project-map-popup__heading";
+            heading.textContent = section.title;
+            const list = document.createElement("ul");
+            for (const item of section.items) {
+              const row = document.createElement("li");
+              row.textContent = item;
+              list.append(row);
+            }
+            popup.append(heading, list);
+          }
+          if (point.note) {
+            const note = document.createElement("p");
+            note.className = "project-map-popup__note";
+            note.textContent = point.note;
+            popup.append(note);
+          }
           L.marker([point.latitude, point.longitude], {
-            icon: L.divIcon({ className: "project-map-marker", html: `<span aria-hidden="true">${point.id === "project" ? "C" : point.id === "gare" ? "G" : "B"}</span>`, iconSize: [32, 32], iconAnchor: [16, 16] }),
+            icon: L.divIcon({ className: "project-map-marker", html: `<span aria-hidden="true">${point.id === "project" ? "C" : point.id === "gare" ? "G" : point.id === "motorway" ? "A" : "B"}</span>`, iconSize: [32, 32], iconAnchor: [16, 16] }),
             title: point.label, alt: point.label, keyboard: true,
-          }).bindPopup(popup, { maxWidth: 270 }).addTo(instance);
+          }).bindPopup(popup, { minWidth: Math.min(190, Math.max(160, element!.clientWidth - 60)), maxWidth: Math.max(160, Math.min(300, element!.clientWidth - 60)), maxHeight: 240, autoPanPadding: L.point(16, 16) }).addTo(instance);
         }
         instance.fitBounds(localBounds.current, { padding: [55, 55], maxZoom: 16 });
-        resize = new ResizeObserver(() => instance?.invalidateSize());
+        resize = new ResizeObserver(() => {
+          instance?.invalidateSize();
+          const width = Math.max(160, Math.min(300, element!.clientWidth - 60));
+          instance?.eachLayer((layer) => {
+            const bound = layer.getPopup();
+            if (bound) {
+              bound.options.maxWidth = width;
+              bound.options.minWidth = Math.min(190, width);
+              if (bound.isOpen()) bound.update();
+            }
+          });
+        });
         resize.observe(element!);
         setReady(true);
       } catch {

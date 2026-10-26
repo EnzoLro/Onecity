@@ -157,3 +157,11 @@
 .project-interactive-map__tabs [aria-selected="true"] { border-bottom-color: var(--color-primary); color: var(--color-primary); font-weight: 600; }
 .project-interactive-map__tabs [role="tab"]:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -4px; }
 .project-interactive-map__tabs [role="tab"]:disabled { opacity: 0.5; }
+
+.project-map-popup { outline-offset: 3px; }
+.project-interactive-map__canvas:has(.leaflet-popup) .leaflet-control-zoom { visibility: hidden; }
+.project-interactive-map .project-map-popup__access { font-weight: 600; }
+.project-interactive-map .project-map-popup__heading { margin-top: 14px; font-weight: 600; }
+.project-map-popup ul { display: grid; gap: 6px; margin-top: 6px; padding-left: 16px; list-style: disc; }
+.project-interactive-map .project-map-popup__note { font-size: 12px; color: var(--color-item-mid); }
+.project-interactive-map .leaflet-popup-scrolled { border: 0; padding-right: 8px; }

@@ -5,6 +5,9 @@ export type ProjectMapPoint = {
   latitude: number;
   longitude: number;
   description: string;
+  access?: string;
+  sections?: readonly { title: string; items: readonly string[] }[];
+  note?: string;
 };
 export const cPremiumMapPoints: readonly ProjectMapPoint[] = [
   {
@@ -15,16 +18,31 @@ export const cPremiumMapPoints: readonly ProjectMapPoint[] = [
   {
     id: "express", label: "Bus Express 78",
     latitude: 48.944136, longitude: 1.717669,
-    description: "3 rue d’Arnouville, 78930 Breuil-Bois-Robert. Repère de l’arrêt Express 78, à environ 2 minutes à pied du programme.",
+    description: "3 rue d’Arnouville, 78930 Breuil-Bois-Robert.",
+    access: "Environ 2 min à pied",
+    sections: [{ title: "En direction de", items: ["Gare de Mantes-la-Jolie", "Saint-Quentin-en-Yvelines", "Montigny-le-Bretonneux"] }],
   },
   {
     id: "school", label: "Bus scolaire",
     latitude: 48.94462, longitude: 1.716543,
-    description: "3 place des Alliés, 78930 Breuil-Bois-Robert. Arrêt de bus scolaire à environ 2 minutes à pied du programme.",
+    description: "3 place des Alliés, 78930 Breuil-Bois-Robert.",
+    access: "Environ 2 min à pied",
+    sections: [{ title: "Établissements desservis", items: ["Collège La Vaucouleurs", "Lycée Camille Claudel"] }],
   },
   {
     id: "gare", label: "Gare SNCF de Mantes-la-Jolie",
     latitude: 48.989327970210304, longitude: 1.70413070360608,
-    description: "Place du 8 mai 1945, Mantes-la-Jolie. Environ 10 minutes en voiture depuis le programme, selon les conditions de circulation.",
+    description: "Place du 8 mai 1945, Mantes-la-Jolie.",
+    access: "Environ 10 min en voiture",
+    sections: [{ title: "Liaisons", items: ["Trains directs vers Paris Saint-Lazare : environ 40 min selon les trains", "Ligne J", "Bus express 7820 (ancien A14) vers La Défense", "RER E (EOLE) : prolongement jusqu’à Mantes-la-Jolie prévu en 2027"] }],
+    note: "Durées indicatives, selon les horaires et les conditions de circulation.",
+  },
+  {
+    id: "motorway", label: "Accès A13 · Mantes Est",
+    latitude: 48.9755266, longitude: 1.7177955,
+    description: "Accès par le rond-point Clé des Champs, à proximité du Buffalo Grill de Mantes-la-Ville. Échangeur de Mantes Est (n°11).",
+    access: "Environ 5 min en voiture",
+    sections: [{ title: "En direction de", items: ["Paris : environ 56 km · 50 min", "Rouen : environ 85 km · 50 min"] }],
+    note: "Distances et durées indicatives, selon l’itinéraire et les conditions de circulation.",
   },
 ];

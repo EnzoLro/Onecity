@@ -46,17 +46,42 @@ try {
     await projectMarker.focus();
     await page.keyboard.press('Enter');
     await page.locator('.leaflet-popup-content').filter({ hasText: '15 route de Mantes' }).waitFor();
+    assert.equal(await page.locator('.leaflet-control-zoom').isVisible(), false, 'Zoom controls do not overlap the open popup');
     await page.locator('.leaflet-popup-close-button').click();
     await page.waitForFunction(() => document.querySelectorAll('.leaflet-popup').length === 0);
+    assert.equal(await page.locator('.leaflet-control-zoom').isVisible(), true);
     await page.locator('.leaflet-marker-icon[title="Bus Express 78"]').click();
     await page.locator('.leaflet-popup-content').filter({ hasText: '3 rue d’Arnouville' }).waitFor();
+    assert.match(await page.locator('.leaflet-popup-content').innerText(), /Saint-Quentin-en-Yvelines/);
+    assert.match(await page.locator('.leaflet-popup-content').innerText(), /Montigny-le-Bretonneux/);
     await page.locator('.leaflet-popup-close-button').click();
     await page.waitForFunction(() => document.querySelectorAll('.leaflet-popup').length === 0);
     await page.locator('.leaflet-marker-icon[title="Bus scolaire"]').click();
     await page.locator('.leaflet-popup-content').filter({ hasText: '3 place des Alliés' }).waitFor();
+    assert.match(await page.locator('.leaflet-popup-content').innerText(), /Collège La Vaucouleurs/);
+    assert.match(await page.locator('.leaflet-popup-content').innerText(), /Lycée Camille Claudel/);
     await page.getByRole('tab', { name: 'Les accès', exact: true }).click();
     await page.locator('.leaflet-marker-icon[title="Gare SNCF de Mantes-la-Jolie"]').click();
     await page.locator('.leaflet-popup-content').filter({ hasText: 'Place du 8 mai 1945' }).waitFor();
+    assert.match(await page.locator('.leaflet-popup-content').innerText(), /Paris Saint-Lazare.*40 min/);
+    assert.match(await page.locator('.leaflet-popup-content').innerText(), /7820.*ancien A14/);
+    assert.match(await page.locator('.leaflet-popup-content').innerText(), /RER E.*prévu en 2027/);
+    // Leaflet pans the map after opening a popup; wait for that movement to finish.
+    await page.waitForFunction(() => {
+      const popup = document.querySelector('.leaflet-popup');
+      if (!popup) return false;
+      const box = popup.getBoundingClientRect();
+      const frame = document.querySelector('.project-interactive-map__canvas').getBoundingClientRect();
+      return box.left >= frame.left - 2 && box.right <= frame.right + 2;
+    });
+    await page.locator('.leaflet-popup-close-button').click();
+    await page.waitForFunction(() => document.querySelectorAll('.leaflet-popup').length === 0);
+    // Opening the station pans the map; restore the access overview for the next point.
+    await page.getByRole('tab', { name: 'Les accès', exact: true }).click();
+    await page.locator('.leaflet-marker-icon[title="Accès A13 · Mantes Est"]').click();
+    await page.locator('.leaflet-popup-content').filter({ hasText: 'rond-point Clé des Champs' }).waitFor();
+    assert.match(await page.locator('.leaflet-popup-content').innerText(), /Paris.*56 km.*50 min/);
+    assert.match(await page.locator('.leaflet-popup-content').innerText(), /Rouen.*85 km.*50 min/);
     await neighborhood.focus();
     await page.keyboard.press('ArrowRight');
     assert.equal(await page.getByRole('tab', { name: 'Les accès', exact: true }).getAttribute('aria-selected'), 'true');

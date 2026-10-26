@@ -34,8 +34,12 @@ test('confirmed address and station markers use archived official coordinates in
   for (const point of points) assert.equal(inside([point.longitude, point.latitude], contour[0]), true, point.label);
 });
 
-test('the map does not invent an unconfirmed motorway junction or a duplicate commune/property marker', () => {
-  assert.equal(points.some(({ id }) => id === 'motorway' || id === 'commune'), false);
+test('the motorway marker uses the verified roundabout approach and no duplicate commune marker is added', () => {
+  assert.equal(points.some(({ id }) => id === 'commune'), false);
+  const motorway = points.find(({ id }) => id === 'motorway');
+  assert.deepEqual([motorway.longitude, motorway.latitude], source.motorway.point);
+  assert.ok(source.motorway.segments.length > 0);
+  assert.match(motorway.description, /rond-point Clé des Champs/);
   assert.equal(new Set(points.map(({ id }) => id)).size, points.length);
   assert.deepEqual(geometry.coordinates, source.addresses.project.geometry.coordinates);
   assert.ok(geometry.marker[0] > 0 && geometry.marker[0] < geometry.width);
