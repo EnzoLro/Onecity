@@ -1,11 +1,9 @@
 import { ProjectInteractiveMap } from "./project-interactive-map";
 import { cPremiumLocationMap as map } from "@/data/c-premium-location-map";
-import { StyledLink, Text } from "@/components/ui";
 
 /** Geographic overview and interactive map, using the confirmed development address. */
 export function ProjectLocalityMap() {
   const [x, y] = map.marker;
-  const [lon, lat] = map.coordinates;
   return (
     <figure className="project-locality-map">
       <ProjectInteractiveMap fallback={<svg viewBox={`0 0 ${map.width} ${map.height}`} role="img" aria-labelledby="locality-map-title locality-map-description" className="project-locality-map__drawing">
@@ -22,11 +20,6 @@ export function ProjectLocalityMap() {
         <rect x={x - 227} y={y - 60} width="210" height="40" rx="0" className="project-locality-map__label-background" />
         <text x={x - 122} y={y - 35} textAnchor="middle" className="project-locality-map__label">C’Premium</text>
       </svg>} />
-      <figcaption className="project-locality-map__caption">
-        <Text variant="small">C’Premium · 15 route de Mantes, Breuil-Bois-Robert.</Text>
-        <a href="https://www.data.gouv.fr/datasets/contours-administratifs" target="_blank" rel="noreferrer" className="onecity-text-small">Contours IGN / Etalab · Licence Ouverte</a>
-      </figcaption>
-      <StyledLink href={`https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=13/${lat}/${lon}`} variant="secondary" target="_blank" rel="noreferrer">Explorer les alentours<span className="sr-only"> sur OpenStreetMap (nouvel onglet)</span></StyledLink>
     </figure>
   );
 }

@@ -12,9 +12,8 @@ export type ProjectDetail = {
   hero: { background: ProjectImage & { width: number; height: number }; cutout: ProjectImage & { width: number; height: number } };
   highlights: readonly { label: string; value: string }[];
   overview: { label: string; title: string; paragraphs: readonly string[]; image: ProjectImage & { width: number; height: number } };
-  homes: { label: string; title: string; note: string; action: string; items: readonly { id: string; type: string; area: number; rooms: string }[] };
-  amenities?: { label: string; title: string; introduction: string; groups: readonly { title: string; items: readonly string[] }[] };
-  design: { label: string; title: string; image: ProjectImage & { width: number; height: number }; energyNote: string; principles: readonly { title: string; text: string }[] };
+  homes: { label: string; title: string; note: string; action: string; features?: readonly string[]; items: readonly { id: string; type: string; area: number; rooms: string }[] };
+  design: { label: string; title: string; image: ProjectImage & { width: number; height: number }; energyNote: string; principles: readonly { title: string; text: string; items?: readonly string[] }[] };
   location: { label: string; title: string; description: string; note: string; action: string; department: string; territory: string; access?: readonly { label: string; duration: string; mode: string }[]; accessNote?: string };
   eligibilityNote: string;
   contact: { label: string; title: string; introduction: string };
@@ -112,26 +111,15 @@ export const programs: readonly Program[] = [
           paragraphs: ["Avec ses deux logements T4, C’Premium traduit l’approche de One City Immobilier : concevoir des lieux de vie où confort, qualité et performance se répondent.", "De la conception aux finitions, chaque choix s’inscrit dans une même exigence : mieux vivre au quotidien."],
           image: { src: "/brand/c-premium/main-plan.png", width: 1200, height: 1117, alt: "Vue en plan de la maquette C’Premium, avec les logements et leurs extérieurs" },
         },
-        homes: { label: "Les logements", title: "Deux T4, votre prochain chez-vous.", note: "Échangeons sur ce logement et les informations détaillées du projet.", action: "Me renseigner sur ce T4", items: cPremiumHomes },
+        homes: { label: "Les logements", title: "Deux T4, votre prochain chez-vous.", note: "Échangeons sur ce logement et les informations détaillées du projet.", action: "Me renseigner sur ce T4", features: ["Double orientation", "Terrasse et espace vert privatif", "Un garage et une place de parking", "Résidence sécurisée", "Vidéophone connecté"], items: cPremiumHomes },
         design: {
           label: "Notre manière de concevoir", title: "Bien vivre aujourd’hui. Penser à demain.",
           image: { src: "/brand/c-premium/conception-detail.png", width: 600, height: 414, alt: "Détail de la maquette architecturale et de ses espaces lumineux" },
           energyNote: "La performance énergétique au cœur de C’Premium.",
           principles: [
-            { title: "Confort & lumière", text: "Lumière naturelle, isolation et équipements sont intégrés dès la conception pour penser le confort au quotidien." },
-            { title: "Des usages bien pensés", text: "Des volumes optimisés pour offrir plus de confort, sans perdre de mètres carrés inutilement." },
-            { title: "Une qualité durable", text: "Des matériaux choisis avec exigence pour conjuguer qualité, esthétique et pérennité." },
-          ],
-        },
-        // Supplied by Enzo on 26 October 2026; no layout/plan detail inferred.
-        amenities: {
-          label: "Les prestations", title: "Des atouts concrets pour votre quotidien.",
-          introduction: "Chaque T4 bénéficie de ces prestations, avec un garage et une place de parking par logement.",
-          groups: [
-            { title: "Lumière et extérieurs", items: ["Double orientation", "Terrasse", "Espace vert privatif"] },
-            { title: "Sécurité et stationnement", items: ["Résidence sécurisée", "Vidéophone connecté", "Garage et parking"] },
-            { title: "Confort thermique et équipements", items: ["Chauffage par pompe à chaleur réversible", "Ballon thermodynamique", "Individualisation de l’eau", "Volets roulants électriques connectés"] },
-            { title: "Un intérieur à votre mesure", items: ["Espace intérieur optimisé et personnalisable", "Placards aménagés selon plan", "Salle d’eau carrelée avec meuble vasque", "Radiateur sèche-serviettes dans la salle d’eau"] },
+            { title: "Confort & lumière", text: "Lumière naturelle, isolation et équipements sont intégrés dès la conception pour penser le confort au quotidien.", items: ["Chauffage par pompe à chaleur réversible", "Ballon thermodynamique", "Volets roulants électriques connectés"] },
+            { title: "Des usages bien pensés", text: "Des volumes optimisés pour offrir plus de confort, sans perdre de mètres carrés inutilement.", items: ["Espace intérieur optimisé et personnalisable", "Placards aménagés selon plan", "Individualisation de l’eau"] },
+            { title: "Une qualité durable", text: "Des matériaux choisis avec exigence pour conjuguer qualité, esthétique et pérennité.", items: ["Salle d’eau carrelée avec meuble vasque", "Radiateur sèche-serviettes dans la salle d’eau"] },
           ],
         },
         location: {

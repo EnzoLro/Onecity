@@ -49,6 +49,7 @@ export function ProjectDetail({ project, sendingEnabled }: { project: DetailProg
           <div className="project-detail__home-type"><Text as="h3" variant="label" id={`home-${home.id}`}>LOGEMENT {home.type}<span className="sr-only"> · {home.area} m²</span></Text><Image src="/brand/c-premium/move-diagonal.svg" alt="" width={20} height={20} /></div>
           <p className="project-detail__area">{home.area}<span>m²</span></p>
           <div className="project-detail__home-facts"><Text>{home.rooms}</Text>{energy && <Text variant="label">{energy.label}</Text>}</div>
+          {detail.homes.features && <ul className="project-detail__home-features">{detail.homes.features.map((feature) => <li className="onecity-text-body" key={feature}>{feature}</li>)}</ul>}
           <Text variant="small" className="project-detail__muted">{detail.homes.note}</Text>
           <StyledLink href={`?logement=${home.id}${contactHref}`} variant="secondary" size="large" aria-label={`${detail.homes.action} · ${home.area} m²`} data-home-interest={home.id}>{detail.homes.action}</StyledLink>
         </article>)}</div>
@@ -60,24 +61,8 @@ export function ProjectDetail({ project, sendingEnabled }: { project: DetailProg
       </Container></Section>
       <Section aria-labelledby="project-design-title"><Container className="project-detail__stack"><Heading {...detail.design} id="project-design-title" /><div className="project-detail__design">
         <div><ProjectGalleryImage images={gallery} index={1} sizes="(max-width: 1023px) calc(100vw - 48px), 480px" className="project-detail__design-image" />{energy && <div className="project-detail__energy"><span className="project-detail__energy-class" aria-hidden="true">{energy.label.replace("DPE ", "")}</span><div><Text variant="label">{energy.label}</Text><Text variant="small">{detail.design.energyNote}</Text></div></div>}</div>
-        <div>{detail.design.principles.map(({ title, text }) => <div className="project-detail__principle" key={title}><Text as="h3" variant="title">{title}</Text><Text className="project-detail__muted">{text}</Text></div>)}</div>
+        <div>{detail.design.principles.map(({ title, text, items }) => <div className="project-detail__principle" key={title}><Text as="h3" variant="title">{title}</Text><Text className="project-detail__muted">{text}</Text>{items && <ul className="project-detail__principle-features">{items.map((item) => <li key={item} className="onecity-text-body">{item}</li>)}</ul>}</div>)}</div>
       </div></Container></Section>
-      {detail.amenities && (
-        <Section aria-labelledby="project-amenities-title" className="project-detail__amenities">
-          <Container className="project-detail__stack">
-            <Heading {...detail.amenities} id="project-amenities-title" />
-            <Text variant="body-lg">{detail.amenities.introduction}</Text>
-            <div className="project-detail__amenity-grid">
-              {detail.amenities.groups.map(({ title, items }) => (
-                <div className="project-detail__amenity-group" key={title}>
-                  <Text as="h3" variant="title">{title}</Text>
-                  <ul>{items.map((item) => <li key={item} className="onecity-text-body">{item}</li>)}</ul>
-                </div>
-              ))}
-            </div>
-          </Container>
-        </Section>
-      )}
       <Section spacing="compact" aria-labelledby="project-location-title">
         <Container className="project-detail__locality">
           <div className="project-detail__copy">

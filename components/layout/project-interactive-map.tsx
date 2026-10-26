@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import type { Map as LeafletMap, Marker, LatLngBounds } from "leaflet";
-import { Button, Text } from "@/components/ui";
+import type { Map as LeafletMap, LatLngBounds } from "leaflet";
+import { Text } from "@/components/ui";
 import { cPremiumLocationMap as geometry } from "@/data/c-premium-location-map";
 import { cPremiumMapPoints as points } from "@/data/c-premium-map-points";
 import "leaflet/dist/leaflet.css";
@@ -11,14 +11,14 @@ import "leaflet/dist/leaflet.css";
 export function ProjectInteractiveMap({ fallback }: { fallback: ReactNode }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<LeafletMap | null>(null);
-  const markers = useRef(new Map<string, Marker>());
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const departmentBounds = useRef<LatLngBounds | null>(null);
   const accessBounds = useRef<LatLngBounds | null>(null);
   const localBounds = useRef<LatLngBounds | null>(null);
   const [ready, setReady] = useState(false);
   const [tileError, setTileError] = useState(false);
   const [failed, setFailed] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [activeView, setActiveView] = useState(0);
 
   useEffect(() => {
     const element = container.current;
@@ -35,6 +35,8 @@ export function ProjectInteractiveMap({ fallback }: { fallback: ReactNode }) {
         if (cancelled) return;
         instance = L.map(element!, { scrollWheelZoom: false, minZoom: 7, maxZoom: 18 });
         map.current = instance;
+        instance.attributionControl.setPrefix(false);
+        instance.attributionControl.addAttribution('Contours © <a href="https://www.data.gouv.fr/datasets/contours-administratifs">IGN / Etalab</a>');
         L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
           maxZoom: 19,
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -51,13 +53,10 @@ export function ProjectInteractiveMap({ fallback }: { fallback: ReactNode }) {
           const description = document.createElement("p");
           description.textContent = point.description;
           popup.append(title, description);
-          const marker = L.marker([point.latitude, point.longitude], {
+          L.marker([point.latitude, point.longitude], {
             icon: L.divIcon({ className: "project-map-marker", html: `<span aria-hidden="true">${point.id === "project" ? "C" : point.id === "gare" ? "G" : "B"}</span>`, iconSize: [32, 32], iconAnchor: [16, 16] }),
             title: point.label, alt: point.label, keyboard: true,
           }).bindPopup(popup, { maxWidth: 270 }).addTo(instance);
-          marker.on("popupopen", () => setSelected(point.id));
-          marker.on("popupclose", () => setSelected((value) => value === point.id ? null : value));
-          markers.current.set(point.id, marker);
         }
         instance.fitBounds(localBounds.current, { padding: [55, 55], maxZoom: 16 });
         resize = new ResizeObserver(() => instance?.invalidateSize());
@@ -79,38 +78,41 @@ export function ProjectInteractiveMap({ fallback }: { fallback: ReactNode }) {
       resize?.disconnect();
       instance?.remove();
       map.current = null;
-      markers.current.clear();
     };
   }, []);
 
-  function view(bounds: LatLngBounds | null, maxZoom: number) {
+  function selectView(index: number) {
+    const bounds = [localBounds.current, accessBounds.current, departmentBounds.current][index];
     if (map.current && bounds) {
       map.current.closePopup();
-      map.current.fitBounds(bounds, { padding: [30, 30], maxZoom, animate: false });
-      setSelected(null);
+      map.current.fitBounds(bounds, { padding: [30, 30], maxZoom: [16, 13, 9][index], animate: false });
+      setActiveView(index);
     }
   }
 
   return (
     <div className="project-interactive-map">
-      <div className="project-interactive-map__views">
-        <Button variant="secondary" disabled={!ready} onClick={() => view(localBounds.current, 16)}>Le quartier</Button>
-        <Button variant="secondary" disabled={!ready} onClick={() => view(accessBounds.current, 13)}>Les accès</Button>
-        <Button variant="secondary" disabled={!ready} onClick={() => view(departmentBounds.current, 9)}>Les Yvelines · 78</Button>
+      <div className="project-interactive-map__tabs" role="tablist" aria-label="Vues de la carte">
+        {["Le quartier", "Les accès", "Les Yvelines"].map((label, index) => (
+          <button key={label} ref={(element) => { tabs.current[index] = element; }} type="button" role="tab" id={`map-view-${index}`} aria-selected={activeView === index} aria-controls="project-map-panel" tabIndex={activeView === index ? 0 : -1} disabled={!ready} onClick={() => selectView(index)} onKeyDown={(event) => {
+            let next: number;
+            if (event.key === "ArrowRight") next = (index + 1) % 3;
+            else if (event.key === "ArrowLeft") next = (index + 2) % 3;
+            else if (event.key === "Home") next = 0;
+            else if (event.key === "End") next = 2;
+            else return;
+            event.preventDefault();
+            selectView(next);
+            tabs.current[next]?.focus();
+          }}>{label}</button>
+        ))}
       </div>
-      <div className="project-interactive-map__frame">
+      <div className="project-interactive-map__frame" id="project-map-panel" role="tabpanel" aria-labelledby={`map-view-${activeView}`}>
         {!ready && <div className="project-interactive-map__fallback">{fallback}</div>}
         <div ref={container} className="project-interactive-map__canvas" data-ready={ready} role="region" aria-label="Carte interactive de Breuil-Bois-Robert et de ses accès" />
       </div>
       {tileError && <Text variant="small" role="status">Le fond de carte est momentanément indisponible. Les points restent consultables ; vous pouvez aussi explorer les alentours sur OpenStreetMap.</Text>}
       {failed && <Text variant="small" role="status">La carte interactive n’a pas pu être chargée. Le repère communal reste disponible ci-dessus.</Text>}
-      <div className="project-interactive-map__points" aria-label="Points d’intérêt">
-        {points.map((point) => <Button key={point.id} variant="secondary" disabled={!ready} aria-pressed={selected === point.id} onClick={() => {
-          map.current?.setView([point.latitude, point.longitude], 14, { animate: false });
-          markers.current.get(point.id)?.openPopup();
-        }}>{point.label}</Button>)}
-      </div>
-      <Text variant="small" className="project-detail__muted">Cliquez sur un point pour découvrir ses informations. Utilisez les boutons + et − pour zoomer.</Text>
     </div>
   );
 }

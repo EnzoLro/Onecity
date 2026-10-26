@@ -99,3 +99,15 @@ Le fond provient des tuiles standard OpenStreetMap, avec attribution visible. Au
 - Recette Chromium uniquement ; les temps de trajet ne sont pas recalculés.
 
 L’ajout de Leaflet a déclenché un audit des dépendances. Il a révélé des vulnérabilités préexistantes dans Next.js 16.3.8. Next.js est passé à 16.4.1, version corrigée selon les avis [GHSA-2464-fhr4-w9xw](https://github.com/advisories/GHSA-2464-fhr4-w9xw), [GHSA-673q-mjm6-r5xr](https://github.com/advisories/GHSA-673q-mjm6-r5xr) et [GHSA-p3m5-59mp-jv5r](https://github.com/advisories/GHSA-p3m5-59mp-jv5r). L’audit après mise à jour indique zéro vulnérabilité signalée.
+
+## Ajustement éditorial et carte épurée — 26 octobre 2026
+
+À la demande d’Enzo, suppression de la section autonome « Les prestations ». Aucun contenu confirmé n’est supprimé : orientation, terrasse/espace vert privatif, garage/place de parking, résidence sécurisée et vidéophone sont présentés dans chacune des deux cartes T4 (`homes.features`). PAC réversible, ballon thermodynamique, volets connectés, intérieur personnalisable, placards selon plan, individualisation de l’eau et équipements de salle d’eau sont répartis dans les trois blocs existants de conception (`design.principles[].items`).
+
+La carte ne présente plus de boutons de points d’intérêt, de texte d’instruction, de légende d’adresse, de paragraphe de sources ou de lien « Explorer les alentours ». Les quatre points restent cliquables et accessibles au clavier. Les crédits de source sont regroupés dans la petite attribution intégrée au fond de carte.
+
+Les vues « Le quartier », « Les accès » et « Les Yvelines » forment des onglets avec sélection visible, `tablist`, `tab`, `tabpanel`, `aria-selected`, tabulation sur l’onglet actif et navigation par flèches gauche/droite, Début/Fin. Le panneau cartographique et ses points sont conservés lors des changements.
+
+Le fond OpenStreetMap reste identique. Les styles CARTO Positron (clair), Voyager (coloré) et Dark Matter (sombre) ont été présentés comme possibilités, sans changement de fournisseur. Leur [offre actuelle](https://www.carto.com/basemaps/) requiert une clé ; aucun compte, abonnement ou service supplémentaire n’a été créé.
+
+Validation : lint, build et 19 tests passent. La recette de page vérifie aussi la nouvelle répartition des contenus, l’absence des éléments supprimés, les quatre fiches après fermeture de la précédente, la sélection et le focus clavier des onglets sur onze largeurs de 320 à 1920 px. Captures mobile/desktop des logements, de la conception et de la carte inspectées. Tuiles interceptées pour les tests répétitifs ; fournisseur de fond inchangé.
