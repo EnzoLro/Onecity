@@ -80,8 +80,8 @@ export const programs: readonly Program[] = [
     slug: "c-premium",
     label: "C’Premium",
     seo: {
-      title: "C’Premium : deux T4 à Breuil-Bois-Robert (78) | One City Immobilier",
-      description: "Découvrez C’Premium à Breuil-Bois-Robert, dans les Yvelines : deux logements T4 de 98 et 103 m², avec terrasse et espace vert privatif.",
+      title: "Achat appartement T4 près de Mantes-la-Jolie (78) | C’Premium",
+      description: "Achetez votre appartement T4 à Breuil-Bois-Robert, près de Mantes-la-Jolie (Yvelines, 78) : 98 ou 103 m², terrasse et espace vert privatif.",
       indexable: true,
     },
     commercial: {
@@ -100,7 +100,7 @@ export const programs: readonly Program[] = [
       conditions: cPremiumConditions,
     },
     editorial: {
-      // Exact copy and assets from Figma 4036:1540, approved by Enzo for ENZ-63.
+      // Figma 4036:1540 approved for ENZ-63; overview/location wording revised with Enzo under ENZ-74.
       detail: {
         hero: {
           background: { src: "/brand/hero/architectural-model-background.png", width: 3642, height: 896, alt: "Maquette architecturale d’une maison avec jardin sur une table de travail" },
@@ -114,7 +114,10 @@ export const programs: readonly Program[] = [
         ],
         overview: {
           label: "Le projet", title: "À taille humaine. Pensé dans les détails.",
-          paragraphs: ["Avec ses deux logements T4, C’Premium traduit l’approche de One City Immobilier : concevoir des lieux de vie où confort, qualité et performance se répondent.", "De la conception aux finitions, chaque choix s’inscrit dans une même exigence : mieux vivre au quotidien."],
+          paragraphs: [
+            "Achetez votre appartement T4 à Breuil-Bois-Robert, près de Mantes-la-Jolie (Yvelines, 78). C’Premium propose deux logements de 98 et 103 m², avec terrasse et espace vert privatif.",
+            "Pour votre résidence principale ou un projet d’investissement immobilier, découvrez des lieux de vie où confort, qualité et performance se répondent. De la conception aux finitions, chaque choix s’inscrit dans une même exigence : mieux vivre au quotidien.",
+          ],
           image: { src: "/brand/c-premium/main-plan.png", width: 1200, height: 1117, alt: "Vue en plan de la maquette C’Premium, avec les logements et leurs extérieurs" },
         },
         homes: { label: "Les logements", title: "Deux T4, votre prochain chez-vous.", note: "Échangeons sur ce logement et les informations détaillées du projet.", action: "Me renseigner sur ce T4", features: ["Double orientation", "Terrasse et espace vert privatif", "Un garage et une place de parking", "Résidence sécurisée", "Vidéophone connecté"], items: cPremiumHomes },
@@ -130,7 +133,7 @@ export const programs: readonly Program[] = [
         },
         location: {
           label: "L’adresse du projet", title: "Breuil-Bois-Robert",
-          description: "C’Premium prend place au 15 route de Mantes, à Breuil-Bois-Robert, dans les Yvelines. Un projet à taille humaine, ancré dans le territoire de One City Immobilier.",
+          description: "C’Premium prend place au 15 route de Mantes, à Breuil-Bois-Robert, près de Mantes-la-Jolie (Yvelines, 78). Un projet à taille humaine, ancré dans le territoire de One City Immobilier.",
           note: "Pour connaître son implantation et découvrir le projet en détail, échangez avec notre équipe.",
           action: "Parlons de C’Premium", department: "78", territory: "Les Yvelines",
           access: [

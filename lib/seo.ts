@@ -19,13 +19,13 @@ export function getSeoConfig(env: SeoEnvironment = process.env) {
 export const pageSeo = {
   home: {
     path: "/",
-    title: "Promotion immobilière dans les Yvelines (78) | One City Immobilier",
-    description: "Découvrez les programmes de One City Immobilier dans les Yvelines : C’Premium à Breuil-Bois-Robert et la réalisation Central Avenue à Hardricourt.",
+    title: "Achat de logements dans les Yvelines (78) | One City Immobilier",
+    description: "Votre achat de logement dans les Yvelines (78) : découvrez C’Premium près de Mantes-la-Jolie et nos réalisations, dont Central Avenue à Hardricourt.",
   },
   contact: {
     path: "/contact",
-    title: "Contact C’Premium à Breuil-Bois-Robert | One City Immobilier",
-    description: "Une question sur C’Premium, un logement qui vous intéresse ? Échangez avec One City Immobilier sur votre futur logement à Breuil-Bois-Robert.",
+    title: "Contact C’Premium à Breuil-Bois-Robert (78) | One City Immobilier",
+    description: "Parlons de votre achat d’appartement à Breuil-Bois-Robert, près de Mantes-la-Jolie (Yvelines, 78). Contactez One City Immobilier pour découvrir C’Premium.",
   },
 } as const;
 

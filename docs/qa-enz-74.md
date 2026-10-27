@@ -60,3 +60,14 @@ Pour un futur programme, ajouter des métadonnées fondées sur les contenus con
 ## Pré-production
 
 Vercel Preview, projet `onecity` (`prj_qLtBXANTv9l137eATtpYv8l4WaYv`), équipe `team_sM8AwN8VRDfmEBgCGypTu1sk`, branche `codex/enz-74-seo`. Le domaine canonique et la sélection des pages indexables ont été confirmés par Enzo avant le déploiement final.
+
+## Ajustement éditorial — intention d’achat
+
+Le 27 octobre 2026, Enzo a préféré les propositions centrées sur l’achat près de Mantes-la-Jolie et demandé d’associer aussi Yvelines/78. Il indique une commercialisation principalement comme appartements et une cible couvrant résidence principale et investissement. Les textes utilisent donc « appartement T4 », sans ajouter de qualification « neuf », « duplex » ou « maison », de disponibilité ou de promesse de rendement.
+
+- Accueil : « Achat de logements dans les Yvelines (78) | One City Immobilier » ; description orientée achat, C’Premium près de Mantes-la-Jolie et Central Avenue comme réalisation.
+- C’Premium : « Achat appartement T4 près de Mantes-la-Jolie (78) | C’Premium » ; description précisant Breuil-Bois-Robert, Mantes-la-Jolie (Yvelines, 78), les surfaces et les extérieurs déjà validés.
+- Contact : ajout du 78 au titre et description orientée achat d’appartement dans le même secteur.
+- Texte visible : présentation du programme et localisation cohérentes avec les métadonnées, adresse exacte conservée et mention des deux usages d’achat.
+
+Open Graph et Twitter reprennent automatiquement ces nouveaux titres/descriptions. Images, canoniques et règles d’indexation sont conservées. Aucun volume de recherche n’a été mesuré et aucun classement n’est garanti. La balise `meta keywords` n’est pas ajoutée.
