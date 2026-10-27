@@ -42,7 +42,8 @@
 .project-detail__contact { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); align-items: start; gap: var(--space-80); }
 .project-detail__coordinates { display: flex; flex-direction: column; gap: var(--space-24); font-style: normal; padding-top: 20px; overflow-wrap: anywhere; }
 .project-detail__coordinates a:hover { text-decoration: underline; }
-.project-contact { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-24); padding: var(--space-32); background: #f1eeea; min-width: 0; }
+.project-contact-shell { min-width: 0; padding: var(--space-8); background: #f1eeea; }
+.project-contact { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-24); padding: var(--space-32); background: white; min-width: 0; }
 .project-contact__title, .project-contact__row { display: flex; width: 100%; gap: var(--space-16); }
 .project-contact__title { justify-content: space-between; flex-wrap: wrap; }
 .project-contact__row > label { flex: 1; }

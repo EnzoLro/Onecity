@@ -44,20 +44,22 @@ export function ProjectContactForm({ projectSlug, projectLabel, homes, sendingEn
   }
 
   return (
-    <form className="project-contact" onSubmit={submit} aria-label={`Demande d’informations ${projectLabel}`} aria-busy={status === "pending"}>
-      <div className="project-contact__title"><Text variant="label">Votre demande · {projectLabel}</Text><Text variant="small">* Champs requis</Text></div>
-      <Text variant="small" className="project-detail__muted">Laissez-nous vos coordonnées et dites-nous ce que vous recherchez.</Text>
-      {!sendingEnabled && <Text variant="small" className="project-contact__notice">L’envoi du formulaire n’est pas encore activé. Vous pouvez nous écrire à <a href={`${contact.href}?subject=${encodeURIComponent(`Demande d’informations · ${projectLabel}`)}`}>{contact.href.replace("mailto:", "")}</a>.</Text>}
-      <input type="hidden" name="project" value={projectSlug} />
-      <div className="project-contact__row"><label>Prénom *<input name="firstName" autoComplete="given-name" required pattern=".*\S.*" title="Saisissez au moins un caractère autre qu’une espace." maxLength={80} placeholder="Votre prénom" /></label><label>Nom *<input name="lastName" autoComplete="family-name" required pattern=".*\S.*" title="Saisissez au moins un caractère autre qu’une espace." maxLength={80} placeholder="Votre nom" /></label></div>
-      <div className="project-contact__row"><label>E-mail *<input type="email" name="email" autoComplete="email" required maxLength={254} placeholder="vous@exemple.fr" /></label><label>Téléphone<input type="tel" name="phone" autoComplete="tel" maxLength={40} placeholder="Votre numéro" /></label></div>
-      <fieldset><legend>Je suis intéressé(e) par</legend><div className="project-contact__options">{[...homes.map(({ id, type, area }) => ({ value: id, label: `${type} · ${area} m²` })), { value: "unsure", label: "À définir ensemble" }].map(({ value, label }) => <label key={value}><input type="radio" name="interest" value={value} checked={interest === value} onChange={() => setInterest(value)} /><span>{label}</span></label>)}</div></fieldset>
-      <label>Votre message<textarea name="message" maxLength={5000} rows={4} placeholder="Dites-nous en quelques mots ce que vous recherchez…" /></label>
-      <div className="project-contact__trap" aria-hidden="true"><label>Site internet<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
-      <label className="project-contact__consent"><input type="checkbox" name="consent" value="yes" required /><span>J’accepte que One City Immobilier utilise ces informations pour me recontacter au sujet de ma demande. *</span></label>
-      <Button type="submit" size="large" disabled={!sendingEnabled || status === "pending"}>{status === "pending" ? "Envoi en cours…" : "Envoyer ma demande"}</Button>
-      <p role="status" aria-live="polite" className="onecity-text-small">{feedback}</p>
-      <Text variant="small" className="project-detail__muted">Vos informations sont destinées au traitement de votre demande. Consultez notre <a href="/politique-de-confidentialite">politique de confidentialité</a> pour en savoir plus.</Text>
-    </form>
+    <div className="project-contact-shell">
+      <form className="project-contact" onSubmit={submit} aria-label={`Demande d’informations ${projectLabel}`} aria-busy={status === "pending"}>
+        <div className="project-contact__title"><Text variant="label">Votre demande · {projectLabel}</Text><Text variant="small">* Champs requis</Text></div>
+        <Text variant="small" className="project-detail__muted">Laissez-nous vos coordonnées et dites-nous ce que vous recherchez.</Text>
+        {!sendingEnabled && <Text variant="small" className="project-contact__notice">L’envoi du formulaire n’est pas encore activé. Vous pouvez nous écrire à <a href={`${contact.href}?subject=${encodeURIComponent(`Demande d’informations · ${projectLabel}`)}`}>{contact.href.replace("mailto:", "")}</a>.</Text>}
+        <input type="hidden" name="project" value={projectSlug} />
+        <div className="project-contact__row"><label>Prénom *<input name="firstName" autoComplete="given-name" required pattern=".*\S.*" title="Saisissez au moins un caractère autre qu’une espace." maxLength={80} placeholder="Votre prénom" /></label><label>Nom *<input name="lastName" autoComplete="family-name" required pattern=".*\S.*" title="Saisissez au moins un caractère autre qu’une espace." maxLength={80} placeholder="Votre nom" /></label></div>
+        <div className="project-contact__row"><label>E-mail *<input type="email" name="email" autoComplete="email" required maxLength={254} placeholder="vous@exemple.fr" /></label><label>Téléphone<input type="tel" name="phone" autoComplete="tel" maxLength={40} placeholder="Votre numéro" /></label></div>
+        <fieldset><legend>Je suis intéressé(e) par</legend><div className="project-contact__options">{[...homes.map(({ id, type, area }) => ({ value: id, label: `${type} · ${area} m²` })), { value: "unsure", label: "À définir ensemble" }].map(({ value, label }) => <label key={value}><input type="radio" name="interest" value={value} checked={interest === value} onChange={() => setInterest(value)} /><span>{label}</span></label>)}</div></fieldset>
+        <label>Votre message<textarea name="message" maxLength={5000} rows={4} placeholder="Dites-nous en quelques mots ce que vous recherchez…" /></label>
+        <div className="project-contact__trap" aria-hidden="true"><label>Site internet<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
+        <label className="project-contact__consent"><input type="checkbox" name="consent" value="yes" required /><span>J’accepte que One City Immobilier utilise ces informations pour me recontacter au sujet de ma demande. *</span></label>
+        <Button type="submit" size="large" disabled={!sendingEnabled || status === "pending"}>{status === "pending" ? "Envoi en cours…" : "Envoyer ma demande"}</Button>
+        <p role="status" aria-live="polite" className="onecity-text-small">{feedback}</p>
+        <Text variant="small" className="project-detail__muted">Vos informations sont destinées au traitement de votre demande. Consultez notre <a href="/politique-de-confidentialite">politique de confidentialité</a> pour en savoir plus.</Text>
+      </form>
+    </div>
   );
 }

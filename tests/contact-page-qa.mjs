@@ -23,6 +23,25 @@ try {
     assert.equal(await page.locator('h1').count(), 1);
     assert.doesNotMatch(await page.locator('main').innerText(), /Contenu à venir|Lorem ipsum|Orimaj/);
     assert.equal(await page.locator('main form').count(), 1);
+    assert.deepEqual(await page.locator('main > section').evaluateAll((sections) => sections.map((section) => section.id || section.className)), ['demande-informations', 'home-testimonials', 'faq']);
+    assert.equal(await page.locator('.contact-page__channels > div').count(), 2);
+    assert.equal(await page.locator('main .project-visual, main .contact-page__project, main .contact-page__invitation').count(), 0);
+    assert.equal(await page.locator('main a[href^="/projets/"]').count(), 0);
+    assert.equal(await page.locator('.project-contact-shell').evaluate((element) => ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'].every((side) => getComputedStyle(element)[side] === '8px')), true);
+    assert.equal(await page.locator('.project-contact').evaluate((element) => getComputedStyle(element).backgroundColor), 'rgb(255, 255, 255)');
+    const faq = page.locator('.home-faq button[aria-expanded]');
+    assert.equal(await faq.count(), 6);
+    await faq.nth(1).focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await faq.nth(1).getAttribute('aria-expanded'), 'true');
+    assert.equal(await faq.first().getAttribute('aria-expanded'), 'false');
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const slider = page.locator('.home-testimonials [tabindex="0"]');
+    await slider.focus();
+    await page.keyboard.press('End');
+    await page.waitForFunction(() => document.querySelector('.home-testimonials .slider__dot:last-child')?.getAttribute('aria-current') === 'true');
+    await page.keyboard.press('Home');
+    await page.waitForFunction(() => document.querySelector('.home-testimonials .slider__dot:first-child')?.getAttribute('aria-current') === 'true');
     assert.equal(await page.locator('[name="project"]').inputValue(), 'c-premium');
     for (const img of await page.locator('main img').all()) { await img.scrollIntoViewIfNeeded(); await img.evaluate((image) => image.decode()); }
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `overflow at ${width}`);

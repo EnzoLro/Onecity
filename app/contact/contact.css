@@ -1,20 +1,5 @@
-.contact-page__caption { display: flex; justify-content: space-between; gap: var(--space-24); padding-top: var(--space-24); color: var(--color-item-mid); }
-.contact-page__caption .onecity-text-eyebrow { color: var(--color-primary); }
 .contact-page__channels { display: grid; width: 100%; padding-top: var(--space-12); font-style: normal; overflow-wrap: anywhere; }
 .contact-page__channels > div { display: grid; gap: var(--space-12); padding-block: var(--space-24); border-top: 1px solid rgb(79 60 38 / 15%); }
 .contact-page__channels .onecity-text-eyebrow { display: flex; align-items: center; gap: var(--space-12); }
 .contact-page__channels :is(.onecity-text-small, .onecity-text-eyebrow) { color: var(--color-item-mid); }
 .contact-page__channels a:hover { text-decoration: underline; }
-.contact-page__project { background: white; }
-.contact-page__project-grid { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: var(--space-80); align-items: center; }
-.contact-page__plan { width: 100%; height: auto; aspect-ratio: 560 / 380; object-fit: cover; }
-.contact-page__project figcaption { margin-top: var(--space-12); color: var(--color-item-mid); }
-.contact-page__facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-24); width: 100%; padding-block: 20px; border-block: 1px solid rgb(79 60 38 / 15%); }
-.contact-page__facts dt { color: var(--color-item-mid); margin-bottom: var(--space-8); }
-.contact-page__invitation { padding-block: var(--space-64); background: var(--color-primary); color: white; }
-.contact-page__invitation > div { display: flex; flex-direction: column; align-items: center; gap: var(--space-24); text-align: center; }
-.contact-page__invitation h2 { max-width: 820px; }
-.contact-page__invitation .onecity-text-body { max-width: 720px; }
-@media (max-width: 74.999rem) { .contact-page__project-grid { gap: var(--space-40); } }
-@media (max-width: 63.999rem) { .contact-page__project-grid { grid-template-columns: minmax(0, 1fr); } .contact-page__project figure { max-width: 560px; } }
-@media (max-width: 38.749rem) { .contact-page__caption { flex-direction: column; gap: var(--space-12); } .contact-page__facts { grid-template-columns: minmax(0, 1fr); } }
