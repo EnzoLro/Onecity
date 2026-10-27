@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button, Text } from "@/components/ui";
+import { trackForm } from "@/lib/analytics-client";
 import { contact } from "@/data/navigation";
 import type { ProjectDetail } from "@/data/programs";
 
@@ -9,6 +10,7 @@ export function ProjectContactForm({ projectSlug, projectLabel, homes, sendingEn
   const [interest, setInterest] = useState("unsure");
   const [status, setStatus] = useState<"idle" | "pending" | "success" | "error">("idle");
   const [feedback, setFeedback] = useState("");
+  const started = useRef(false);
   const requestKey = useRef<{ payload: string; key: string } | null>(null);
 
   useEffect(() => {
@@ -32,6 +34,8 @@ export function ProjectContactForm({ projectSlug, projectLabel, homes, sendingEn
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.message || "Votre demande n’a pas pu être envoyée. Veuillez réessayer ou nous contacter par e-mail.");
+      trackForm("generate_lead", projectSlug, String(payload.interest));
+      started.current = false;
       setStatus("success");
       setFeedback("Votre demande a été transmise à notre équipe.");
       form.reset();
@@ -45,7 +49,7 @@ export function ProjectContactForm({ projectSlug, projectLabel, homes, sendingEn
 
   return (
     <div className="project-contact-shell">
-      <form className="project-contact" onSubmit={submit} aria-label={`Demande d’informations ${projectLabel}`} aria-busy={status === "pending"}>
+      <form className="project-contact" onSubmit={submit} onChange={() => { if (!started.current && trackForm("form_start", projectSlug)) started.current = true; }} aria-label={`Demande d’informations ${projectLabel}`} aria-busy={status === "pending"}>
         <div className="project-contact__title"><Text variant="label">Votre demande · {projectLabel}</Text><Text variant="small">* Champs requis</Text></div>
         <Text variant="small" className="project-detail__muted">Laissez-nous vos coordonnées et dites-nous ce que vous recherchez.</Text>
         {!sendingEnabled && <Text variant="small" className="project-contact__notice">L’envoi du formulaire n’est pas encore activé. Vous pouvez nous écrire à <a href={`${contact.href}?subject=${encodeURIComponent(`Demande d’informations · ${projectLabel}`)}`}>{contact.href.replace("mailto:", "")}</a>.</Text>}

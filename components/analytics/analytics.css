@@ -1,0 +1,5 @@
+.analytics-consent { position: fixed; z-index: 1000; bottom: 0; inset-inline: 0; display: grid; gap: 12px; padding: 24px; background: var(--color-surface); color: var(--color-primary); border-top: 1px solid currentColor; box-shadow: 0 -4px 20px rgb(0 0 0 / 10%); max-height: 80dvh; overflow-y: auto; }
+.analytics-consent__actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.analytics-consent a { text-decoration: underline; }
+.analytics-consent--settings { position: static; max-height: none; box-shadow: none; border: 0; padding: 24px var(--container-padding, 24px); }
+@media (min-width: 768px) { .analytics-consent { padding-inline: max(24px, calc((100vw - 1280px) / 2)); } }

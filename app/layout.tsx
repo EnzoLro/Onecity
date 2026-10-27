@@ -1,3 +1,5 @@
+import { Analytics } from "@/components/analytics/analytics";
+import { programs } from "@/data/programs";
 import type { Metadata } from "next";
 import { getSeoConfig, siteName } from "@/lib/seo";
 import { inter, parkinsans } from "./fonts";
@@ -30,6 +32,7 @@ export default function RootLayout({
         <SiteHeader projects={projects} contact={{ ...contact, href: contact.pageHref }} />
         {children}
         <SiteFooter {...footer} />
+        <Analytics environment={process.env.VERCEL_ENV} programs={programs.map((program) => ({ slug: program.slug, homes: program.editorial.detail?.homes.items.map(({ id }) => id) ?? [] }))} />
       </body>
     </html>
   );

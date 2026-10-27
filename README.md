@@ -42,3 +42,7 @@ La page contact C’Premium, les parcours T4 et la recette ENZ-68 sont décrits 
 Les règles d’indexation, le domaine canonique confirmé, les métadonnées et la recette ENZ-74 sont documentées dans [`docs/qa-enz-74.md`](docs/qa-enz-74.md). La Preview reste désindexée ; le domaine public est `https://www.onecityimmobilier.fr`.
 
 Les données structurées, leurs sources, les exclusions et la recette ENZ-75 sont décrites dans [`docs/qa-enz-75.md`](docs/qa-enz-75.md).
+
+## Analytics et consentement
+
+Le plan de mesure GA4 ENZ-76, les événements, la gestion du consentement, les réglages de la propriété et les limites de recette sont décrits dans [`docs/analytics-enz-76.md`](docs/analytics-enz-76.md). GA4 reste désactivé sur Preview ; le formulaire reste désactivé tant que Resend n’est pas configuré.
