@@ -46,3 +46,7 @@ Les données structurées, leurs sources, les exclusions et la recette ENZ-75 so
 ## Analytics et consentement
 
 Le plan de mesure GA4 ENZ-76, les événements, la gestion du consentement, les réglages de la propriété et les limites de recette sont décrits dans [`docs/analytics-enz-76.md`](docs/analytics-enz-76.md). GA4 reste désactivé sur Preview ; le formulaire reste désactivé tant que Resend n’est pas configuré.
+
+## Informations légales
+
+L’intégration de travail ENZ-77, les sources Pappers/site actuel, la recette et les informations restant à faire valider par One City sont décrites dans [`docs/qa-enz-77.md`](docs/qa-enz-77.md). Les pages restent désindexées et signalées comme documents de travail tant que cette validation manque.

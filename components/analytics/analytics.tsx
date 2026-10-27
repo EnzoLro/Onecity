@@ -60,6 +60,7 @@ function ConsentPanel({ choice, settings = false }: { choice: ReturnType<typeof 
         <Button variant="secondary" onClick={() => chooseConsent("refused")}>Refuser</Button>
         {!settings && <a href="/parametres-cookies" className="onecity-text-small">Paramètres des cookies</a>}
       </div>
+      <a href="/politique-de-confidentialite" className="onecity-text-small">Politique de confidentialité de One City — en attente de validation</a>
       <a href="https://policies.google.com/privacy?hl=fr" className="onecity-text-small" rel="noreferrer">Confidentialité chez Google</a>
 
     </section>
