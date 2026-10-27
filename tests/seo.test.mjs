@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { programs } from '../data/programs.ts';
-import { getSeoConfig, pageSeo, createPageMetadata, createProgramMetadata, createSitemap, createRobots, isProgramIndexable } from '../lib/seo.ts';
+import { canonicalOrigin, getSeoConfig, pageSeo, createPageMetadata, createProgramMetadata, createSitemap, createRobots, isProgramIndexable } from '../lib/seo.ts';
 
 const production = { VERCEL_ENV: 'production', SITE_URL: 'https://www.example.com' };
 const preview = { ...production, VERCEL_ENV: 'preview' };
 
-test('indexing requires an explicit HTTPS origin and the production environment', () => {
-  for (const env of [{}, { SITE_URL: production.SITE_URL }, { VERCEL_ENV: 'production' }, preview, { ...production, VERCEL_ENV: 'development' }]) {
+test('indexing requires production; the public origin is confirmed and overrides are validated', () => {
+  for (const env of [{}, { SITE_URL: production.SITE_URL }, preview, { ...production, VERCEL_ENV: 'development' }]) {
     assert.equal(getSeoConfig(env).indexable, false);
     assert.equal(createPageMetadata(pageSeo.home, env).robots.index, false);
     assert.deepEqual(createSitemap(programs, env), []);
@@ -17,6 +17,8 @@ test('indexing requires an explicit HTTPS origin and the production environment'
     assert.throws(() => getSeoConfig({ ...production, SITE_URL }));
   }
   assert.equal(getSeoConfig(production).indexable, true);
+  assert.equal(getSeoConfig({ VERCEL_ENV: 'production' }).origin, canonicalOrigin);
+  assert.equal(getSeoConfig({ VERCEL_ENV: 'production' }).indexable, true);
   assert.equal(getSeoConfig({ ...production, SITE_URL: production.SITE_URL + '/' }).origin, production.SITE_URL);
 });
 
@@ -29,7 +31,7 @@ test('canonical and social URLs always use the configured production origin', ()
     assert.match(metadata.openGraph.images[0].url, /^https:\/\/www.example.com\/brand\//);
     assert.equal(metadata.twitter.card, 'summary_large_image');
   }
-  assert.equal(createPageMetadata(pageSeo.home, {}).alternates, undefined);
+  assert.equal(createPageMetadata(pageSeo.home, {}).alternates.canonical, canonicalOrigin + '/');
 });
 
 test('only completed, explicitly approved programs enter the production sitemap', () => {

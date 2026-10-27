@@ -5,17 +5,15 @@ export const siteName = "One City Immobilier";
 
 type SeoEnvironment = { [key: string]: string | undefined; VERCEL_ENV?: string; SITE_URL?: string };
 
-/** A canonical origin is supplied explicitly; deployment hosts are never inferred. */
+/** Public domain confirmed by Enzo for ENZ-74; DNS migration is a separate step. */
+export const canonicalOrigin = "https://www.onecityimmobilier.fr";
+
 export function getSeoConfig(env: SeoEnvironment = process.env) {
-  let origin: string | undefined;
-  if (env.SITE_URL) {
-    const url = new URL(env.SITE_URL);
-    if (url.protocol !== "https:" || url.username || url.password || url.pathname !== "/" || url.search || url.hash) {
-      throw new Error("SITE_URL doit être une origine HTTPS, sans chemin, identifiants, paramètres ou fragment.");
-    }
-    origin = url.origin;
+  const url = new URL(env.SITE_URL ?? canonicalOrigin);
+  if (url.protocol !== "https:" || url.username || url.password || url.pathname !== "/" || url.search || url.hash) {
+    throw new Error("SITE_URL doit être une origine HTTPS, sans chemin, identifiants, paramètres ou fragment.");
   }
-  return { origin, indexable: env.VERCEL_ENV === "production" && Boolean(origin) };
+  return { origin: url.origin, indexable: env.VERCEL_ENV === "production" };
 }
 
 export const pageSeo = {
@@ -40,16 +38,16 @@ export function isProgramIndexable(program: Program) {
 
 export function createPageMetadata(page: PageSeo, env: SeoEnvironment = process.env): Metadata {
   const { origin, indexable } = getSeoConfig(env);
-  const url = origin ? new URL(page.path, origin).href : undefined;
+  const url = new URL(page.path, origin).href;
   const image = page.image ?? { src: "/brand/hero/architectural-model-background.png", alt: "Maquette architecturale d’une maison avec jardin" };
-  const images = origin ? [{ url: new URL(image.src, origin).href, alt: image.alt }] : undefined;
+  const images = [{ url: new URL(image.src, origin).href, alt: image.alt }];
   return {
     title: page.title,
     description: page.description,
-    alternates: url ? { canonical: url } : undefined,
+    alternates: { canonical: url },
     robots: { index: indexable && page.indexable !== false, follow: true },
     openGraph: { type: "website", locale: "fr_FR", siteName, title: page.title, description: page.description, url, images },
-    twitter: { card: "summary_large_image", title: page.title, description: page.description, images: images?.map(({ url }) => url) },
+    twitter: { card: "summary_large_image", title: page.title, description: page.description, images: images.map(({ url }) => url) },
   };
 }
 
@@ -65,14 +63,14 @@ export function createProgramMetadata(program: Program, env: SeoEnvironment = pr
 
 export function createSitemap(programs: readonly Program[], env: SeoEnvironment = process.env): MetadataRoute.Sitemap {
   const { origin, indexable } = getSeoConfig(env);
-  if (!origin || !indexable) return [];
+  if (!indexable) return [];
   return [pageSeo.home.path, pageSeo.contact.path, ...programs.filter(isProgramIndexable).map(({ slug }) => `/projets/${slug}`)]
     .map((path) => ({ url: new URL(path, origin).href }));
 }
 
 export function createRobots(env: SeoEnvironment = process.env): MetadataRoute.Robots {
   const { origin, indexable } = getSeoConfig(env);
-  return indexable && origin
+  return indexable
     ? { rules: { userAgent: "*", allow: "/", disallow: "/api/" }, sitemap: `${origin}/sitemap.xml` }
     : { rules: { userAgent: "*", disallow: "/" } };
 }

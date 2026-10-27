@@ -9,7 +9,7 @@ import { footer } from "@/data/footer";
 
 const seoConfig = getSeoConfig();
 export const metadata: Metadata = {
-  metadataBase: seoConfig.origin ? new URL(seoConfig.origin) : null,
+  metadataBase: new URL(seoConfig.origin),
   title: siteName,
   robots: { index: seoConfig.indexable, follow: true },
 };
