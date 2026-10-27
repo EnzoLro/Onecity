@@ -33,7 +33,7 @@ export function FeaturedProject({ detail = false, project = featuredProgram }: {
               })}
             </ul>
           )}
-          <StyledLink href={detail ? contact.href : projectHref(project.slug)} variant="primary" size="large" className="featured-project__cta">{detail ? contact.label : content.cta}</StyledLink>
+          <StyledLink href={detail ? `${contact.pageHref}?projet=${project.slug}#demande-informations` : projectHref(project.slug)} variant="primary" size="large" className="featured-project__cta">{detail ? contact.label : content.cta}</StyledLink>
         </div>
         <Image {...content.image} sizes="(max-width: 1023px) calc(100vw - 48px), (max-width: 1399px) 40vw, 560px" className="featured-project__image" />
       </Container>

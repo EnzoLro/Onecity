@@ -32,3 +32,7 @@ Le registre commun et son mode d’emploi sont décrits dans [`docs/programs.md`
 La recette ENZ-63 et la configuration différée de Resend sont décrites dans [`docs/qa-enz-63.md`](docs/qa-enz-63.md).
 
 La recette responsive et contenu ENZ-64 est consignée dans [`docs/qa-enz-64.md`](docs/qa-enz-64.md).
+
+## Page contact
+
+La page contact C’Premium, les parcours T4 et la recette ENZ-68 sont décrits dans [`docs/qa-enz-68.md`](docs/qa-enz-68.md). L’envoi Resend reste préparé et désactivé, selon la décision confirmée pour ce ticket.

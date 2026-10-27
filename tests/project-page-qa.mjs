@@ -144,28 +144,19 @@ try {
     assert.equal(await disclosure.getAttribute('aria-expanded'), 'true');
     await page.keyboard.press('Escape');
     assert.equal(await disclosure.getAttribute('aria-expanded'), 'false');
-    await page.getByRole('link', { name: 'Recevoir les informations', exact: true }).click();
-    assert.equal(new URL(page.url()).hash, '#demande-informations');
-    assert.equal(await page.locator('#demande-informations').evaluate((element) => element.getBoundingClientRect().top < 250), true);
-    for (const link of await page.locator('main a[href="#demande-informations"]').all()) {
-      await link.click();
-      assert.equal(await page.locator('#demande-informations').evaluate((element) => element.getBoundingClientRect().top < 250), true);
+    for (const link of await page.locator('main a[href^="/contact"]').all()) {
+      const destination = new URL(await link.getAttribute('href'), base);
+      assert.equal(destination.pathname, '/contact');
+      assert.equal(destination.searchParams.get('projet'), 'c-premium');
     }
-    assert.match(await page.locator('.project-contact__notice a').getAttribute('href'), /^mailto:projets@onecityimmobilier\.fr\?subject=/);
-    assert.equal(await page.getByRole('button', { name: 'Envoyer ma demande' }).isDisabled(), true);
+    if (screenshots && [375, 768, 1512].includes(width)) { await page.evaluate(() => window.scrollTo(0, 0)); await page.screenshot({ path: `${screenshots}/${width}.png`, fullPage: true }); }
     for (const [area, id] of [[98, 't4-98'], [103, 't4-103']]) {
       await page.getByRole('link', { name: `Me renseigner sur ce T4 · ${area} m²`, exact: true }).click();
+      await page.waitForURL('**/contact?**');
       await page.waitForFunction((value) => document.querySelector(`input[name="interest"][value="${value}"]`)?.checked, id);
       assert.equal(new URL(page.url()).hash, '#demande-informations');
+      await page.goto(`${base}/projets/c-premium`);
     }
-    await page.getByLabel('Prénom *', { exact: true }).fill('Recette');
-    await page.getByLabel('Nom *', { exact: true }).fill('Locale');
-    await page.getByLabel('E-mail *', { exact: true }).fill('qa@example.com');
-    await page.getByRole('radio', { name: 'À définir ensemble' }).check();
-    assert.equal(await page.getByRole('radio', { name: 'À définir ensemble' }).isChecked(), true);
-    await page.getByRole('checkbox').check();
-    assert.equal(await page.locator('.project-contact').evaluate((form) => form.checkValidity()), true);
-    if (screenshots && [375, 768, 1512].includes(width)) { await page.evaluate(() => window.scrollTo(0, 0)); await page.screenshot({ path: `${screenshots}/${width}.png`, fullPage: true }); }
     console.log(`PASS ${width}px: overflow, images, gallery, disclosures, CTA, form and T4 selection`);
   }
   for (const slug of ['central-avenue', 'breuil']) assert.equal((await page.goto(`${base}/projets/${slug}`)).status(), 200);

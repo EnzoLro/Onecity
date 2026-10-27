@@ -27,7 +27,7 @@ function ProjectCard({ project }: { project: ProjectCard }) {
       </ul>
       {(project.commercializing || project.detailHref) && (
         <div className="home-projects__actions">
-          {project.commercializing && <StyledLink href={contact.href} variant="primary">{contact.label}</StyledLink>}
+          {project.commercializing && <StyledLink href={`${contact.pageHref}?projet=${project.slug}#demande-informations`} variant="primary">{contact.label}</StyledLink>}
           {project.detailHref && <StyledLink href={project.detailHref} aria-label={`Découvrir ${project.label}`}>Découvrir</StyledLink>}
         </div>
       )}

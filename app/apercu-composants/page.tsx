@@ -64,7 +64,7 @@ export default function ComponentPreview() {
           </div>
           <div className="flex flex-wrap items-center gap-4 bg-onecity-primary p-6">
             <Text className="text-onecity-surface">CTA sur fond primaire</Text>
-            <StyledLink href="mailto:projets@onecityimmobilier.fr" variant="inverse">Nous contacter</StyledLink>
+            <StyledLink href="/contact" variant="inverse">Nous contacter</StyledLink>
           </div>
           <div id="typographie" className="space-y-6">
             <Text as="h2" variant="heading">Typographie</Text>

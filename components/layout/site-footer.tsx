@@ -42,7 +42,7 @@ export function SiteFooter({ address, phone, socialLinks, legalLinks }: SiteFoot
               <h2 className="onecity-text-caption-title" id="footer-navigation-title">Navigation</h2>
               <ul>
                 <li><a href="/">Accueil</a></li>
-                <li><a href={contact.href}>Contact</a></li>
+                <li><a href={contact.pageHref}>Contact</a></li>
               </ul>
             </nav>
             <nav aria-labelledby="footer-projects-title">

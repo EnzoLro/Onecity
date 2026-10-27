@@ -6,7 +6,6 @@ import { programs, getProgram, hasFeaturedContent, hasDetailContent } from "@/da
 import { FeaturedProject } from "@/components/layout/featured-project";
 import { ProjectConditions } from "@/components/layout/project-conditions";
 import { ProjectDetail } from "@/components/layout/project-detail";
-import { isContactConfigured } from "@/lib/project-contact";
 
 export const dynamicParams = false;
 
@@ -31,7 +30,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const project = await getProject(params);
 
   if (hasDetailContent(project)) {
-    return <ProjectDetail project={project} sendingEnabled={isContactConfigured({ apiKey: process.env.RESEND_API_KEY, from: process.env.RESEND_FROM })} />;
+    return <ProjectDetail project={project} />;
   }
 
   if (hasFeaturedContent(project)) {
@@ -48,7 +47,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <Section spacing="compact">
         <Container>
           <Text as="h1" variant="display">{project.label}</Text>
-          <StyledLink href={contact.href} variant="primary" className="mt-8">
+          <StyledLink href={contact.pageHref} variant="primary" className="mt-8">
             {contact.label}
           </StyledLink>
         </Container>

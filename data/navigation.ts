@@ -5,5 +5,6 @@ export const projects = programs.map(({ slug, label }) => ({ slug, label, href: 
 
 export const contact = {
   label: "Nous contacter",
+  pageHref: "/contact",
   href: "mailto:projets@onecityimmobilier.fr",
 } as const;

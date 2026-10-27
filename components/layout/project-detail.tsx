@@ -7,7 +7,6 @@ import { ProjectGalleryImage } from "./project-gallery-image";
 import { ProjectLocalityMap } from "./project-locality-map";
 import { ProjectVisual } from "./project-visual";
 import { ProjectCondition } from "./project-condition";
-import { ProjectContactForm } from "./project-contact-form";
 import { HomeCta } from "./home-cta";
 import "./featured-project.css";
 import "./project-detail.css";
@@ -17,13 +16,13 @@ function Heading({ label, title, id }: { label: string; title: string; id: strin
 }
 
 /** Project template driven by approved program content; unknown commercial data stays absent. */
-export function ProjectDetail({ project, sendingEnabled }: { project: DetailProgram; sendingEnabled: boolean }) {
+export function ProjectDetail({ project }: { project: DetailProgram }) {
   const { detail, featured } = project.editorial;
   const location = project.commercial.facts.find(({ id }) => id === "location");
   const energy = project.commercial.facts.find(({ id }) => id === "energy");
   const price = project.commercial.price;
   const gallery = [detail.overview.image, detail.design.image];
-  const contactHref = "#demande-informations";
+  const contactHref = `${contact.pageHref}?projet=${project.slug}#demande-informations`;
   return (
     <main id="main-content" tabIndex={-1} className="project-detail">
       <Container><nav aria-label="Fil d’Ariane" className="project-detail__breadcrumb onecity-text-small"><ol><li><a href="/">Accueil</a></li><li aria-hidden="true">/</li><li aria-current="page">{project.label}</li></ol></nav></Container>
@@ -51,7 +50,7 @@ export function ProjectDetail({ project, sendingEnabled }: { project: DetailProg
           <div className="project-detail__home-facts"><Text>{home.rooms}</Text>{energy && <Text variant="label">{energy.label}</Text>}</div>
           {detail.homes.features && <ul className="project-detail__home-features">{detail.homes.features.map((feature) => <li className="onecity-text-body" key={feature}>{feature}</li>)}</ul>}
           <Text variant="small" className="project-detail__muted">{detail.homes.note}</Text>
-          <StyledLink href={`?logement=${home.id}${contactHref}`} variant="secondary" size="large" aria-label={`${detail.homes.action} · ${home.area} m²`} data-home-interest={home.id}>{detail.homes.action}</StyledLink>
+          <StyledLink href={`${contact.pageHref}?projet=${project.slug}&logement=${home.id}#demande-informations`} variant="secondary" size="large" aria-label={`${detail.homes.action} · ${home.area} m²`} data-home-interest={home.id}>{detail.homes.action}</StyledLink>
         </article>)}</div>
         <div className="project-detail__eligibility">{project.commercial.facts.filter(({ condition }) => condition).map((fact) => {
           const condition = project.commercial.conditions.find(({ id }) => id === fact.condition);
@@ -84,7 +83,7 @@ export function ProjectDetail({ project, sendingEnabled }: { project: DetailProg
           {project.slug === "c-premium" ? <ProjectLocalityMap /> : <div className="project-detail__department"><p>{detail.location.department}</p><Text variant="eyebrow">{detail.location.territory}</Text></div>}
         </Container>
       </Section>
-      <Section spacing="compact" id="demande-informations" aria-labelledby="project-contact-title"><Container className="project-detail__contact"><div className="project-detail__copy"><Heading {...detail.contact} id="project-contact-title" /><Text variant="body-lg">{detail.contact.introduction}</Text><address className="project-detail__coordinates onecity-text-body"><Text variant="label">One City Immobilier</Text><div className="project-detail__coordinate"><Image src="/brand/c-premium/map-pin.svg" alt="" width={20} height={20} /><p>{footer.address.map((line) => <span key={line}>{line}<br /></span>)}</p></div><div className="project-detail__coordinate"><Image src="/brand/c-premium/mail.svg" alt="" width={20} height={20} /><a href={contact.href}>{contact.href.replace("mailto:", "")}</a></div><div className="project-detail__coordinate"><Image src="/brand/c-premium/phone.svg" alt="" width={20} height={20} /><a href={footer.phone.href}>{footer.phone.label}</a></div></address></div><ProjectContactForm projectSlug={project.slug} projectLabel={project.label} homes={detail.homes.items} sendingEnabled={sendingEnabled} /></Container></Section>
+      <Section spacing="compact" id="demande-informations" aria-labelledby="project-contact-title"><Container className="project-detail__contact"><div className="project-detail__copy"><Heading {...detail.contact} id="project-contact-title" /><Text variant="body-lg">{detail.contact.introduction}</Text><address className="project-detail__coordinates onecity-text-body"><Text variant="label">One City Immobilier</Text><div className="project-detail__coordinate"><Image src="/brand/c-premium/map-pin.svg" alt="" width={20} height={20} /><p>{footer.address.map((line) => <span key={line}>{line}<br /></span>)}</p></div><div className="project-detail__coordinate"><Image src="/brand/c-premium/mail.svg" alt="" width={20} height={20} /><a href={contact.href}>{contact.href.replace("mailto:", "")}</a></div><div className="project-detail__coordinate"><Image src="/brand/c-premium/phone.svg" alt="" width={20} height={20} /><a href={footer.phone.href}>{footer.phone.label}</a></div></address></div><StyledLink href={contactHref} variant="primary" size="large">Recevoir les informations sur {project.label}</StyledLink></Container></Section>
       <HomeCta contactHref={contactHref} />
     </main>
   );

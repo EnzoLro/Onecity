@@ -5,6 +5,7 @@ import { createRequire } from 'node:module';
 import assert from 'node:assert/strict';
 import process from 'node:process';
 import console from 'node:console';
+import { setTimeout } from 'node:timers';
 const { chromium } = createRequire(import.meta.url)('playwright');
 const base = process.argv[2] || 'http://localhost:3105';
 assert.match(base, /^http:\/\/(localhost|127\.0\.0\.1):\d+$/);
@@ -14,10 +15,11 @@ try {
   const requests = [];
   let fail = true;
   await page.route('**/api/project-contact', async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 400));
     requests.push({ payload: route.request().postDataJSON(), key: route.request().headers()['idempotency-key'] });
     await route.fulfill({ status: fail ? 502 : 200, contentType: 'application/json', body: JSON.stringify({ message: fail ? 'L’envoi a échoué. Veuillez réessayer.' : 'Votre demande a été transmise à notre équipe.' }) });
   });
-  await page.goto(`${base}/projets/c-premium?logement=t4-103#demande-informations`);
+  await page.goto(`${base}/contact?projet=c-premium&logement=t4-103#demande-informations`);
   const form = page.locator('.project-contact');
   await page.waitForFunction(() => document.querySelector('[name="interest"][value="t4-103"]').checked);
   await form.getByRole('button', { name: 'Envoyer ma demande' }).click();
@@ -27,6 +29,8 @@ try {
   await page.getByLabel('E-mail *', { exact: true }).fill('qa@example.com');
   await page.getByRole('checkbox').check();
   await form.getByRole('button', { name: 'Envoyer ma demande' }).click();
+  await form.getByRole('button', { name: 'Envoi en cours…' }).waitFor();
+  assert.equal(await form.getAttribute('aria-busy'), 'true');
   await form.getByRole('status').filter({ hasText: 'L’envoi a échoué' }).waitFor();
   assert.equal(await page.getByLabel('Prénom *', { exact: true }).inputValue(), 'Recette', 'Failed send preserves entered values');
   fail = false;

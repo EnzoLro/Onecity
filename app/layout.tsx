@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="fr" className={`${inter.variable} ${parkinsans.variable}`}>
       <body>
         <a href="#main-content" className="skip-link">Aller au contenu</a>
-        <SiteHeader projects={projects} contact={contact} />
+        <SiteHeader projects={projects} contact={{ ...contact, href: contact.pageHref }} />
         {children}
         <SiteFooter {...footer} />
       </body>
