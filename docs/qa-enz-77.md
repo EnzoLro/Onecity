@@ -75,6 +75,16 @@ Les scripts navigateur utilisent Playwright du runtime de recette via `NODE_PATH
 - Recette navigateur ENZ-76 Preview rejouée avec succès : choix mémorisés, valeurs invalides/expirées refusées, GA4 exclu et aucune erreur JavaScript.
 - Recettes HTTP SEO et JSON-LD réussies sur neuf pages.
 - Captures desktop et mobile inspectées ; la structure reprend les maquettes avec les exceptions de typographie/header déjà décidées dans le projet. Le document de confidentialité est plus long avec les descriptions techniques réelles.
-- Les contrôles ont été effectués sur le build local, pas sur un nouveau déploiement Vercel. La validation juridique et les réponses aux points manquants restent nécessaires avant de déclarer ENZ-77 terminé.
+- Les contrôles ont été effectués sur le build local puis sur la Preview Vercel ci-dessous. La validation juridique et les réponses aux points manquants restent nécessaires avant de déclarer ENZ-77 terminé.
 
 Branche de travail : `codex/enz-77-legal`, basée sur le travail livré d’ENZ-76. Aucune fusion dans `main`, aucun changement de configuration GA4/Resend ni déploiement en production.
+
+## Livraison en pré-production de recette
+
+Projet Vercel `onecity`, équipe `team_sM8AwN8VRDfmEBgCGypTu1sk`, cible Preview. Commit applicatif `160d7bbf758ca00a91c060f4c51bc53e47d62b5b`, déploiement `dpl_9ts6k2Zy64WVDjU76GK9GuGDVbfm`, statut `READY`, build Vercel terminé en 17 secondes.
+
+[Preview testée](https://onecity-ht8ii33ga-enzos-projects-9848f4b8.vercel.app) · [Mentions légales](https://onecity-ht8ii33ga-enzos-projects-9848f4b8.vercel.app/mentions-legales) · [Confidentialité](https://onecity-ht8ii33ga-enzos-projects-9848f4b8.vercel.app/politique-de-confidentialite) · [Alias de branche](https://onecity-git-codex-enz-77-legal-enzos-projects-9848f4b8.vercel.app)
+
+Recettes distantes ENZ-77, analytics Preview, SEO et JSON-LD réussies. Aucun appel Google, aucune erreur JavaScript et pas de débordement horizontal aux quatre largeurs. Une première exécution ENZ-77 a cliqué sur les réglages encore rendus côté serveur, avant l’affichage du choix mémorisé ; le test attend désormais le statut client « refusée », comme le scénario ENZ-76 existant. La réexécution complète réussit. Aucun comportement applicatif n’a été changé pour contourner le test.
+
+ENZ-77 reste **In Progress** pour la validation des contenus. Le déploiement sert à la recette des pages de travail, pas à affirmer leur conformité juridique complète. Le formulaire reste désactivé et la Preview reste désindexée.

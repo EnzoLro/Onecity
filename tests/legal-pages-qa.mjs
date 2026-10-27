@@ -48,8 +48,10 @@ try {
   await page.goto(base + '/politique-de-confidentialite#cookies');
   await page.locator('.legal-page__article a[href="/parametres-cookies"]').click();
   await page.locator('.analytics-consent--settings').waitFor();
+  // Wait for the persisted client choice: the server-rendered controls precede hydration.
+  await page.locator('.analytics-consent--settings [role="status"]').filter({ hasText: /refusée/ }).waitFor();
   await page.getByRole('button', { name: 'Accepter', exact: true }).click();
-  await page.locator('[role="status"]').filter({ hasText: /acceptée/ }).waitFor();
+  await page.locator('.analytics-consent--settings [role="status"]').filter({ hasText: /acceptée/ }).waitFor();
   await page.getByRole('link', { name: 'politique de confidentialité', exact: true }).click();
   await page.locator('#cookies').waitFor();
   assert.equal(new URL(page.url()).pathname, '/politique-de-confidentialite');
