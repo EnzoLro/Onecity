@@ -7,6 +7,7 @@ import { programs, getProgram, hasFeaturedContent, hasDetailContent } from "@/da
 import { FeaturedProject } from "@/components/layout/featured-project";
 import { ProjectConditions } from "@/components/layout/project-conditions";
 import { ProjectDetail } from "@/components/layout/project-detail";
+import { Breadcrumb } from "@/components/layout/breadcrumb";
 
 export const dynamicParams = false;
 
@@ -37,6 +38,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   if (hasFeaturedContent(project)) {
     return (
       <main id="main-content" tabIndex={-1}>
+        <Breadcrumb path={`/projets/${project.slug}`} label={project.label} />
         <FeaturedProject detail project={project} />
         <ProjectConditions conditions={project.commercial.conditions} />
       </main>
@@ -45,6 +47,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <main id="main-content" tabIndex={-1}>
+      <Breadcrumb path={`/projets/${project.slug}`} label={project.label} />
       <Section spacing="compact">
         <Container>
           <Text as="h1" variant="display">{project.label}</Text>

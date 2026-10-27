@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container } from "@/components/ui";
 import { contact, projects } from "@/data/navigation";
 import "./site-footer.css";
+import { organization } from "@/data/organization";
 
 type FooterLink = { label: string; href: string };
 
@@ -25,6 +26,7 @@ export function SiteFooter({ address, phone, socialLinks, legalLinks }: SiteFoot
               <Image src="/brand/footer/logo-wordmark.svg" alt="" width={150.291} height={43.801} />
             </a>
             <p className="onecity-text-small">Promotion immobilière et valorisation de biens dans les Yvelines et en Île-de-France.</p>
+            <p className="onecity-text-small">{organization.legalName} · SIREN {organization.siren}</p>
             {socialLinks.length > 0 && (
               <ul className="site-footer__socials" aria-label="Réseaux sociaux">
                 {socialLinks.map(({ label, href, icon }) => (

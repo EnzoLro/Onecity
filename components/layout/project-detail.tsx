@@ -10,6 +10,10 @@ import { ProjectCondition } from "./project-condition";
 import { HomeCta } from "./home-cta";
 import "./featured-project.css";
 import "./project-detail.css";
+import { Breadcrumb } from "./breadcrumb";
+import { JsonLd } from "./structured-data";
+import { createProgramStructuredData } from "@/lib/structured-data";
+import { getSeoConfig } from "@/lib/seo";
 
 function Heading({ label, title, id }: { label: string; title: string; id: string }) {
   return <div className="project-detail__heading"><Text variant="eyebrow" className="project-detail__label">{label}</Text><Text as="h2" variant="heading" id={id}>{title}</Text></div>;
@@ -23,9 +27,11 @@ export function ProjectDetail({ project }: { project: DetailProgram }) {
   const price = project.commercial.price;
   const gallery = [detail.overview.image, detail.design.image];
   const contactHref = `${contact.pageHref}?projet=${project.slug}#demande-informations`;
+  const structuredData = createProgramStructuredData(getSeoConfig().origin, project);
   return (
     <main id="main-content" tabIndex={-1} className="project-detail">
-      <Container><nav aria-label="Fil d’Ariane" className="project-detail__breadcrumb onecity-text-small"><ol><li><a href="/">Accueil</a></li><li aria-hidden="true">/</li><li aria-current="page">{project.label}</li></ol></nav></Container>
+      <Breadcrumb path={`/projets/${project.slug}`} label={project.label} />
+      {structuredData && <JsonLd data={structuredData} />}
       <section className="project-detail__hero" aria-labelledby="project-title">
         <Container className="project-detail__hero-content">
           <div className="project-detail__heading">

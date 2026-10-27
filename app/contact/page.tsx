@@ -11,6 +11,7 @@ import { getProgram, hasDetailContent } from "@/data/programs";
 import { isContactConfigured } from "@/lib/project-contact";
 import "@/components/layout/project-detail.css";
 import "./contact.css";
+import { Breadcrumb } from "@/components/layout/breadcrumb";
 
 export const metadata = createPageMetadata(pageSeo.contact);
 
@@ -23,6 +24,7 @@ export default function ContactPage() {
 
   return (
     <main id="main-content" tabIndex={-1} className="contact-page project-detail">
+      <Breadcrumb path="/contact" label="Contact" />
       <Section id="demande-informations" aria-labelledby="enquiry-title">
         <Container className="project-detail__contact">
           <div className="project-detail__copy">

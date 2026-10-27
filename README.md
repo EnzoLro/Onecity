@@ -40,3 +40,5 @@ La page contact C’Premium, les parcours T4 et la recette ENZ-68 sont décrits 
 ## SEO technique
 
 Les règles d’indexation, le domaine canonique confirmé, les métadonnées et la recette ENZ-74 sont documentées dans [`docs/qa-enz-74.md`](docs/qa-enz-74.md). La Preview reste désindexée ; le domaine public est `https://www.onecityimmobilier.fr`.
+
+Les données structurées, leurs sources, les exclusions et la recette ENZ-75 sont décrites dans [`docs/qa-enz-75.md`](docs/qa-enz-75.md).

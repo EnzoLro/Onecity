@@ -1,9 +1,11 @@
 import { Container, Section, StyledLink, Text } from "@/components/ui";
+import { Breadcrumb } from "./breadcrumb";
 
 /** Visible scaffold for pages whose editorial content has not been supplied. */
-export function PendingContentPage({ title }: { title: string }) {
+export function PendingContentPage({ title, path }: { title: string; path: string }) {
   return (
     <main id="main-content" tabIndex={-1}>
+      <Breadcrumb path={path} label={title} />
       <Section spacing="compact">
         <Container>
           <Text as="h1" variant="heading" className="[overflow-wrap:anywhere]">{title}</Text>

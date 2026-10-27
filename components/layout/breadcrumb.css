@@ -1,0 +1,4 @@
+.site-breadcrumb { padding-block: var(--space-8); }
+.site-breadcrumb ol { display: flex; flex-wrap: wrap; gap: var(--space-12); }
+.site-breadcrumb a { color: var(--color-item-mid); }
+.site-breadcrumb a:hover { text-decoration: underline; }

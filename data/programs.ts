@@ -23,6 +23,8 @@ export type Program = {
   slug: string;
   /** Existing public label; Breuil is provisional until its name is confirmed. */
   label: string;
+  /** ENZ-75: explicit semantic opt-in, using an address already visible on the detail page. */
+  structuredData?: { address: { streetAddress: string; addressLocality: string } };
   seo?: { title: string; description: string; indexable: boolean };
   commercial: {
     price?: { prefix: string; amount: string };
@@ -79,6 +81,7 @@ export const programs: readonly Program[] = [
   {
     slug: "c-premium",
     label: "C’Premium",
+    structuredData: { address: { streetAddress: "15 route de Mantes", addressLocality: "Breuil-Bois-Robert" } },
     seo: {
       title: "Achat appartement T4 près de Mantes-la-Jolie (78) | C’Premium",
       description: "Achetez votre appartement T4 à Breuil-Bois-Robert, près de Mantes-la-Jolie (Yvelines, 78) : 98 ou 103 m², terrasse et espace vert privatif.",
