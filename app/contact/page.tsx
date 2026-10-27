@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { createPageMetadata, pageSeo } from "@/lib/seo";
 import Image from "next/image";
 import { Container, Section, Text } from "@/components/ui";
 import { HomeTestimonials } from "@/components/layout/home-testimonials";
@@ -12,10 +12,7 @@ import { isContactConfigured } from "@/lib/project-contact";
 import "@/components/layout/project-detail.css";
 import "./contact.css";
 
-export const metadata: Metadata = {
-  title: "Contact — C’Premium | OneCity",
-  description: "Une question sur C’Premium, un logement qui vous intéresse ? Échangez avec One City Immobilier sur votre futur logement à Breuil-Bois-Robert.",
-};
+export const metadata = createPageMetadata(pageSeo.contact);
 
 /** ENZ-68: direct enquiry layout approved by Enzo, with shared testimonials and FAQ. */
 export default function ContactPage() {

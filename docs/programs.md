@@ -43,3 +43,7 @@ Le formulaire utilise les mêmes identifiants de logements côté serveur et nav
 Les prestations confirmées le 26 octobre sont réparties dans `editorial.detail.homes.features` (atouts répétés dans chaque carte T4) et `design.principles[].items` (équipements et finitions), sans section supplémentaire. `location.access` contient les temps d’accès indicatifs fournis par Enzo. La carte C’Premium conserve séparément ses sources géographiques et ses points dans `data/geography/c-premium.json` et `data/c-premium-map-points.ts`. Le programme est localisé au 15 route de Mantes ; les adresses du contact de l’entreprise restent distinctes.
 
 Les cinq points cartographiques (programme, deux bus, gare et approche A13) acceptent un temps d’accès, des sections de destinations et une note indicative. Les fiches distinguent le RER E prévu en 2027 des liaisons disponibles ; l’ancien bus A14 est identifié comme 7820. Les sources et les limites des estimations sont détaillées dans `docs/qa-enz-63.md`.
+
+## Indexation SEO — ENZ-74
+
+Le champ optionnel `seo` contient `title`, `description` et `indexable`. L’indexation exige un choix explicite (`indexable: true`) et une page détaillée (`editorial.detail`). Le sitemap utilise ce même filtre ; une nouvelle entrée provisoire n’est donc pas indexée automatiquement. Voir [la recette et la configuration du domaine](qa-enz-74.md).

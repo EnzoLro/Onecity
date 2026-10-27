@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import { Accordion, Button, Container, Section, Slider, StyledLink, TestimonialCard, Text } from "@/components/ui";
 import { previewFaq, previewTestimonial } from "@/data/interactive-preview";
 
-export const metadata: Metadata = {
-  title: "Aperçu des composants — OneCity",
-  robots: { index: false, follow: false },
-};
+export const metadata = createPageMetadata({
+  path: "/apercu-composants",
+  title: "Aperçu des composants | One City Immobilier",
+  description: "Aperçu technique des composants de l’interface One City Immobilier.",
+  indexable: false,
+});
 
 export default function ComponentPreview() {
   return (

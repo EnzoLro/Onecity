@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import { PendingContentPage } from "@/components/layout/pending-content-page";
 
-export const metadata: Metadata = { title: "Paramètres des cookies | OneCity", robots: { index: false } };
+export const metadata = createPageMetadata({ path: "/parametres-cookies", title: "Paramètres des cookies | One City Immobilier", description: "Paramètres des cookies de One City Immobilier. Contenu en cours de préparation.", indexable: false });
 
 export default function CookiesPage() {
   return <PendingContentPage title="Paramètres des cookies" />;

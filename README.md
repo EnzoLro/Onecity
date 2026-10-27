@@ -36,3 +36,7 @@ La recette responsive et contenu ENZ-64 est consignée dans [`docs/qa-enz-64.md`
 ## Page contact
 
 La page contact C’Premium, les parcours T4 et la recette ENZ-68 sont décrits dans [`docs/qa-enz-68.md`](docs/qa-enz-68.md). L’envoi Resend reste préparé et désactivé, selon la décision confirmée pour ce ticket.
+
+## SEO technique
+
+Les règles d’indexation, la configuration du domaine `SITE_URL`, les métadonnées et la recette ENZ-74 sont documentées dans [`docs/qa-enz-74.md`](docs/qa-enz-74.md). Sans domaine confirmé, l’indexation reste désactivée.

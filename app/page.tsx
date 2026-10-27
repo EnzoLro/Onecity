@@ -1,3 +1,4 @@
+import { createPageMetadata, pageSeo } from "@/lib/seo";
 import { HomeFaq } from "@/components/layout/home-faq";
 import { HomeCta } from "@/components/layout/home-cta";
 import { HomeHero } from "@/components/layout/home-hero";
@@ -6,6 +7,8 @@ import { DesignApproach } from "@/components/layout/design-approach";
 import { HomeTestimonials } from "@/components/layout/home-testimonials";
 import { getHomeTestimonials } from "@/data/testimonials";
 import { HomeProjects } from "@/components/layout/home-projects";
+
+export const metadata = createPageMetadata(pageSeo.home);
 
 export default function Home() {
   return (

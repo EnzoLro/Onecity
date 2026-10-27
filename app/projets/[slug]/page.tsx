@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createProgramMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { Container, Section, StyledLink, Text } from "@/components/ui";
 import { contact } from "@/data/navigation";
@@ -22,7 +23,7 @@ async function getProject(params: ProjectPageProps["params"]) {
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const project = await getProject(params);
-  return { title: `${project.label} | OneCity`, ...(project.editorial.featured ? { description: project.editorial.featured.introduction } : {}) };
+  return createProgramMetadata(project);
 }
 
 /** Approved detail pages use the shared template; other projects retain their scaffolds. */

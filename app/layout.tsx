@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getSeoConfig, siteName } from "@/lib/seo";
 import { inter, parkinsans } from "./fonts";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -6,9 +7,11 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { projects, contact } from "@/data/navigation";
 import { footer } from "@/data/footer";
 
+const seoConfig = getSeoConfig();
 export const metadata: Metadata = {
-  title: "One City Immobilier",
-  description: "De la conception aux finitions, One City Immobilier imagine des projets à taille humaine, pensés pour offrir plus de confort, de performance et de qualité au quotidien.",
+  metadataBase: seoConfig.origin ? new URL(seoConfig.origin) : null,
+  title: siteName,
+  robots: { index: seoConfig.indexable, follow: true },
 };
 
 export default function RootLayout({

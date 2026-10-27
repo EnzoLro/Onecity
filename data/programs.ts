@@ -23,6 +23,7 @@ export type Program = {
   slug: string;
   /** Existing public label; Breuil is provisional until its name is confirmed. */
   label: string;
+  seo?: { title: string; description: string; indexable: boolean };
   commercial: {
     price?: { prefix: string; amount: string };
     status?: string;
@@ -78,6 +79,11 @@ export const programs: readonly Program[] = [
   {
     slug: "c-premium",
     label: "C’Premium",
+    seo: {
+      title: "C’Premium : deux T4 à Breuil-Bois-Robert (78) | One City Immobilier",
+      description: "Découvrez C’Premium à Breuil-Bois-Robert, dans les Yvelines : deux logements T4 de 98 et 103 m², avec terrasse et espace vert privatif.",
+      indexable: true,
+    },
     commercial: {
       price: cPremiumPrice,
       status: "Commercialisation en cours",
