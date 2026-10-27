@@ -50,7 +50,7 @@ Dans le flux confirmé, les **mesures améliorées ont été désactivées** pou
 
 Événements clés créés et vérifiés dans l’administration, en mode « avec du code », sans règle de duplication côté GA4 : `generate_lead`, `click_phone`, `click_email`. Comptage une fois par événement ; aucune valeur monétaire par défaut. Les autres interactions restent des événements de parcours. Les événements clés déjà présents `close_convert_lead`, `purchase` et `qualify_lead` ne sont pas émis par le site et n’ont pas été modifiés.
 
-Dimensions personnalisées à portée événement : Programme (`program_id`), Logement (`home_id`), Formulaire (`form_id`). Elles permettent l’analyse des parcours et des conversions par programme ou logement sans données personnelles.
+Dimensions personnalisées à portée événement : Programme (`program_id`), Logement (`home_id`), Formulaire (`form_id`). Elles permettent l’analyse des parcours et des conversions par programme ou logement sans reprendre les données personnelles du formulaire.
 
 ## Environnements et limites de recette
 
@@ -58,7 +58,7 @@ GA4 ne peut démarrer que si `VERCEL_ENV=production` **et** si l’hôte est exa
 
 Il n’existe pas d’exception de tracking Preview ni de paramètre d’URL pour activer GA4. La recette automatique du comportement production utilise une origine publique simulée redirigée vers le serveur local et intercepte tous les appels Google. Elle ne transmet aucune donnée à la propriété.
 
-La configuration des événements clés est vérifiée dans GA4 ; **la réception réelle de ces événements par GA4 n’est pas validée par ces tests simulés**. Le flux indiquait aucune donnée reçue au moment de l’intervention. La recette Temps réel/DebugView devra être faite sur le site public lors de sa mise en production ou dans un futur contexte de test séparé explicitement choisi. L’envoi réel du formulaire attend aussi l’activation de Resend. Ne pas présenter ces limites comme une recette GA4 réelle réussie.
+La configuration des événements clés est vérifiée dans GA4 ; **la réception réelle de ces événements par GA4 n’est pas validée par ces tests simulés**. Le flux indiquait aucune donnée reçue au moment de l’intervention. Enzo a explicitement choisi le 27 octobre 2026 de réserver la réception réelle à la mise en production. La recette Temps réel/DebugView sera donc faite sur le site public à ce moment-là ; aucune session synthétique n’a été envoyée à la propriété pendant cette livraison. L’envoi réel du formulaire attend aussi l’activation de Resend. Ne pas présenter ces limites comme une recette GA4 réelle réussie.
 
 ## Vérifications
 
@@ -80,7 +80,11 @@ Pour la recette production simulée : arrêter le serveur Preview, construire av
 
 ## Livraison
 
-Branche `codex/enz-76-analytics`, basée sur ENZ-75. Cible Vercel Preview du projet `onecity`, équipe `team_sM8AwN8VRDfmEBgCGypTu1sk`. Aucune fusion dans `main` ni mise en production. Le build distant et la recette de l’URL seront contrôlés après le push.
+Branche `codex/enz-76-analytics`, basée sur ENZ-75. Cible Vercel Preview du projet `onecity`, équipe `team_sM8AwN8VRDfmEBgCGypTu1sk`. Aucune fusion dans `main` ni mise en production. Le commit applicatif `18b780f581ae6677f32fdf91e4f986ac7c4d8762` a été déployé avec succès : build Vercel terminé en 24 secondes, statut `READY`, déploiement `dpl_FeLrAsnT4TtpRNr8qMWHVoDgt7iv`.
+
+[Pré-production testée](https://onecity-6edk4gdc0-enzos-projects-9848f4b8.vercel.app) · [Alias de branche](https://onecity-git-codex-enz-76-analytics-enzos-projects-9848f4b8.vercel.app)
+
+Recette analytics distante réussie : bandeau et paramètres responsive, refus/acceptation mémorisés, invalidation des valeurs corrompues/expirées, aucune requête GA4 ni erreur navigateur. Le formulaire distant reste désactivé. Les vérifications SEO et données structurées existantes ont aussi été rejouées sur cette URL.
 
 ## Références Google
 
