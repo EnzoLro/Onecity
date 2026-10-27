@@ -33,6 +33,9 @@
 .legal-page__cta .legal-page__eyebrow { border: 0; padding: 0; background: transparent; }
 .legal-page__cta p:not(.legal-page__eyebrow) { max-width: 720px; line-height: 1.6; }
 .legal-page :where(h1, h2, h3, p, dd, dt, a) { overflow-wrap: anywhere; }
+@media (min-width: 64rem) {
+  .legal-page__contents { position: sticky; top: var(--space-24); align-self: start; max-height: calc(100dvh - 48px); overflow-y: auto; }
+}
 @media (max-width: 63.999rem) {
   .legal-page__hero-inner { grid-template-columns: 1fr; gap: 28px; padding-block: 48px 40px; }
   .legal-page__body { grid-template-columns: 1fr; gap: 40px; padding-block: 40px 64px; }

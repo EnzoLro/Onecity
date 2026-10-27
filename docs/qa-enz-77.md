@@ -19,6 +19,8 @@ Les notes partagées Linear n’ont pas été accessibles (`Tool get_agent_conte
 
 Composant serveur `LegalPage` : introduction, sommaire à ancres réelles, articles, listes de définitions, avertissement de validation et CTA vers C’Premium. Réutilisation des composants Container, Text et StyledLink, du header et du footer existants et de leurs assets locaux. Aucune nouvelle dépendance. Adaptation mobile : colonnes empilées et informations longues sécables.
 
+À la demande d’Enzo, le sommaire de gauche reste sticky pendant le défilement du contenu à partir de 1 024 px, avec un retrait de 24 px du haut. Sa hauteur est limitée à la fenêtre avec défilement interne sur les écrans bas. Il s’arrête à la fin du bloc éditorial ; sur mobile, le sommaire empilé reste dans le flux.
+
 Les choix typographiques globaux déjà confirmés sous ENZ-60 prévalent : titres Parkinsans semi-bold, textes Inter. Le header complet déjà validé remplace le logo isolé des maquettes. Les différences préexistantes du footer restent hors périmètre. Les contenus et la hauteur des documents varient avec les faits sourcés et les avertissements ; aucune fidélité pixel par pixel de texte provisoire n’est revendiquée.
 
 Mentions légales : identité sourcée, coordonnées existantes, hébergement identifié, rubriques de publication, droits et responsabilité. Les inconnues sont visibles ; aucun numéro professionnel, assureur, garantie, clause contractuelle ou titulaire de droits n’est fabriqué.
