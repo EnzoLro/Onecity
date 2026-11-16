@@ -53,14 +53,14 @@ function ConsentPanel({ choice, settings = false }: { choice: ReturnType<typeof 
   return (
     <section className={`analytics-consent${settings ? " analytics-consent--settings" : ""}`} aria-labelledby="analytics-consent-title" role="region">
       <h2 id="analytics-consent-title" className="onecity-text-label">Mesure d’audience</h2>
-      <p className="onecity-text-small">Avec votre accord, One City Immobilier utilise Google Analytics pour mesurer les visites et les interactions avec ses programmes et ses moyens de contact. Vous pouvez refuser et continuer à naviguer, ou modifier votre choix à tout moment dans les paramètres des cookies. Aucun outil publicitaire n’est activé.</p>
+      <p className="onecity-text-small">Avec votre accord, One City Immobilier utilise Google Analytics pour mesurer l’audience. Le refus n’empêche pas de naviguer et votre choix reste modifiable à tout moment. Aucun outil publicitaire n’est activé.</p>
       {settings && <p role="status" className="onecity-text-small">Votre choix : {choice === "accepted" ? "mesure d’audience acceptée" : choice === "refused" ? "mesure d’audience refusée" : "aucun accord donné"}. Il est mémorisé pendant six mois sur ce navigateur lorsque le stockage est disponible.</p>}
       <div className="analytics-consent__actions">
         <Button variant="secondary" onClick={() => chooseConsent("accepted")}>Accepter</Button>
         <Button variant="secondary" onClick={() => chooseConsent("refused")}>Refuser</Button>
         {!settings && <a href="/parametres-cookies" className="onecity-text-small">Paramètres des cookies</a>}
       </div>
-      <a href="/politique-de-confidentialite" className="onecity-text-small">Politique de confidentialité de One City — en attente de validation</a>
+      <a href="/politique-de-confidentialite" className="onecity-text-small">Politique de confidentialité</a>
       <a href="https://policies.google.com/privacy?hl=fr" className="onecity-text-small" rel="noreferrer">Confidentialité chez Google</a>
 
     </section>
