@@ -15,12 +15,24 @@ import { Breadcrumb } from "@/components/layout/breadcrumb";
 
 export const metadata = createPageMetadata(pageSeo.contact);
 
-/** ENZ-68: direct enquiry layout approved by Enzo, with shared testimonials and FAQ. */
+const TURNSTILE_TEST_SITE_KEY = "1x00000000000000000000AA";
+const TURNSTILE_TEST_SECRET = "1x0000000000000000000000000000000AA";
+
+/** ENZ-68/70: direct enquiry layout with Turnstile protected delivery. */
 export default function ContactPage() {
   const project = getProgram("c-premium");
   if (!project || !hasDetailContent(project)) throw new Error("Le contenu contact C’Premium est manquant.");
   const { detail } = project.editorial;
   const emailHref = `${contact.href}?subject=${encodeURIComponent(`Demande d’informations · ${project.label}`)}`;
+  const production = process.env.VERCEL_ENV === "production";
+  const turnstileSiteKey = production ? process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY : TURNSTILE_TEST_SITE_KEY;
+  const turnstileSecret = production ? process.env.TURNSTILE_SECRET_KEY : TURNSTILE_TEST_SECRET;
+  const sendingEnabled = Boolean(turnstileSiteKey) && isContactConfigured({
+    apiKey: process.env.RESEND_API_KEY,
+    from: process.env.RESEND_FROM,
+    recipient: process.env.CONTACT_TO_EMAIL,
+    turnstileSecret,
+  });
 
   return (
     <main id="main-content" tabIndex={-1} className="contact-page project-detail">
@@ -36,7 +48,13 @@ export default function ContactPage() {
               <div><Text variant="eyebrow"><Image src="/brand/contact/phone.svg" alt="" width={20} height={20} />Nous appeler</Text><a className="onecity-text-body-lg" href={footer.phone.href}>{footer.phone.label}</a><Text variant="small">Pour échanger directement avec notre équipe.</Text></div>
             </address>
           </div>
-          <ProjectContactForm projectSlug={project.slug} projectLabel={project.label} homes={detail.homes.items} sendingEnabled={isContactConfigured({ apiKey: process.env.RESEND_API_KEY, from: process.env.RESEND_FROM })} />
+          <ProjectContactForm
+            projectSlug={project.slug}
+            projectLabel={project.label}
+            homes={detail.homes.items}
+            sendingEnabled={sendingEnabled}
+            turnstileSiteKey={turnstileSiteKey || ""}
+          />
         </Container>
       </Section>
       <HomeTestimonials {...getHomeTestimonials(process.env.VERCEL_ENV, process.env.NODE_ENV)} />
