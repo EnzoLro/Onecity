@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return <LegalPage title="Politique de confidentialité" path="/politique-de-confidentialite" description="Retrouvez les informations relatives au traitement de vos données personnelles." introduction="Cette page décrit le fonctionnement technique vérifié du site. Les pratiques internes et les informations juridiques restent à faire valider par One City." sections={[
     { id: "responsable", title: "Responsable du traitement", content: <LegalDetails rows={[
       ["Responsable du traitement", <>{organization.legalName}<br />{footer.address.join(", ")}</>],
-      ["Contact données personnelles", <a href={contact.href}>{contact.href.replace("mailto:", "")}</a>], ["Délégué à la protection des données", "Désignation éventuelle et coordonnées à confirmer par One City"],
+      ["Contact données personnelles", <a href={contact.href}>{contact.href.replace("mailto:", "")}</a>], ["Délégué à la protection des données", "Aucun délégué à la protection des données n’est désigné à ce jour."],
     ]} /> },
     { id: "donnees", title: "Données collectées", content: <>
       <p>Le formulaire prévoit prénom, nom, e-mail, téléphone facultatif, programme, préférence de logement et message facultatif. Les champs marqués d’un astérisque sont requis pour une demande via ce formulaire. Lors de l’envoi, ces informations sont transmises au serveur One City puis à Resend afin d’acheminer la demande vers l’adresse de contact de One City. Les échanges ultérieurs par e-mail ou téléphone sont distincts.</p>
@@ -23,26 +23,26 @@ export default function PrivacyPage() {
     { id: "finalites", title: "Finalités et bases légales", content: <>
       <LegalDetails rows={[
         ["Mesurer l’audience et les interactions", "Google Analytics, facultatif, uniquement après consentement. Aucun outil publicitaire n’est activé par ce site."],
-        ["Répondre aux demandes de contact", "Traitement du formulaire puis par e-mail pour répondre à la demande du visiteur, sans prospection. Base légale à confirmer par One City."],
-        ["Fonctionnement du site et de la carte", "Hébergement Vercel, protection anti-spam Cloudflare Turnstile et fonds OpenStreetMap. Base légale et conditions applicables à confirmer par One City."],
+        ["Répondre aux demandes de contact", "Mesures précontractuelles prises à la demande du visiteur afin de répondre à sa demande concernant un programme immobilier."],
+        ["Fonctionnement et sécurité du site", "Intérêt légitime de One City à fournir, sécuriser et maintenir le site, notamment via Vercel, Cloudflare Turnstile et les fonds OpenStreetMap."],
       ]} />
       <p>Les demandes de contact servent uniquement à répondre à votre demande. Elles ne sont pas utilisées pour la prospection commerciale. Aucun abonnement à une newsletter n’est proposé par ce site.</p>
     </> },
     { id: "destinataires", title: "Destinataires et transferts", content: <>
       <p>Les services identifiés dans le site sont Vercel pour l’hébergement, Resend pour l’acheminement des demandes de contact, Cloudflare Turnstile pour la protection anti-spam, Google Analytics pour la mesure d’audience après accord et OpenStreetMap pour le fond de carte. Les liens Instagram et LinkedIn ouvrent des sites tiers ; aucun module social intégré n’est chargé.</p>
       <p>La carte charge des images depuis tile.openstreetmap.org lorsqu’elle approche de la zone visible. Ces requêtes communiquent au fournisseur l’adresse IP et les informations techniques habituelles du navigateur. Aucune géolocalisation du visiteur ni recherche d’adresse distante n’est utilisée.</p>
-      <p>Des traitements hors de l’Union européenne sont possibles avec certains prestataires. Vercel et Resend publient des avenants de traitement des données incluant des clauses contractuelles types pour les transferts concernés. Les garanties propres à Google, Cloudflare et OpenStreetMap ainsi que la configuration contractuelle effectivement applicable à One City restent à valider avant publication définitive.</p>
-      <LegalDetails rows={[["Traitement des demandes", `${legalIdentity.president}, pour ${organization.legalName}, par e-mail à ${contact.href.replace("mailto:", "")}.`], ["Prestataire de messagerie et autres accès éventuels", pending], ["Sous-traitants et garanties de transfert applicables", pending]]} />
+      <p>Des traitements hors de l’Union européenne sont possibles avec certains prestataires. Vercel et Resend publient des avenants de traitement des données incluant des clauses contractuelles types pour les transferts concernés. Google et Cloudflare publient également leurs propres engagements et mécanismes de transfert. Les traitements sont réalisés conformément aux conditions contractuelles applicables à chaque service.</p>
+      <LegalDetails rows={[["Traitement des demandes", `${legalIdentity.president}, pour ${organization.legalName}, par e-mail à ${contact.href.replace("mailto:", "")}.`], ["Acheminement du formulaire", "Resend (Plus Five Five, Inc.)"], ["Protection anti-spam", "Cloudflare Turnstile"], ["Hébergement", "Vercel Inc."], ["Mesure d’audience après consentement", "Google Analytics"]]} />
       <p>Informations des fournisseurs : <a href="https://vercel.com/legal/privacy-notice">Vercel</a>, <a href="https://resend.com/legal/dpa">Resend</a>, <a href="https://www.cloudflare.com/fr-fr/turnstile-privacy-policy/">Cloudflare Turnstile</a>, <a href="https://policies.google.com/privacy?hl=fr">Google</a> et <a href="https://osmfoundation.org/wiki/Privacy_Policy">OpenStreetMap Foundation</a>.</p>
     </> },
     { id: "conservation", title: "Durées de conservation", content: <>
       <LegalDetails rows={[
         ["Choix de consentement", "Six mois sur ce navigateur lorsque le stockage local est disponible."],
         ["Cookies Google Analytics", "180 jours configurés dans le site, sans prolongation à chaque visite."],
-        ["Données enregistrées dans GA4", "Durée de conservation de la propriété à vérifier dans Google Analytics ; elle est distincte de la durée des cookies."],
-        ["Demandes de contact et échanges par e-mail", "Aucune suppression automatique à la clôture n’est prévue. La durée maximale et les critères de conservation ou d’archivage restent à définir par One City avant publication définitive."], ["Journaux techniques et archives", pending],
+        ["Données enregistrées dans GA4", "14 mois. Cette durée est distincte de la durée des cookies Analytics configurés sur le site."],
+        ["Demandes de contact et échanges par e-mail", "Trois ans maximum à compter du dernier contact émanant du prospect, sauf conservation plus longue nécessaire au respect d’une obligation légale ou à la constatation, l’exercice ou la défense de droits."], ["Journaux techniques", "Conservés par les prestataires techniques selon leurs politiques applicables, pendant la durée nécessaire à la sécurité, au diagnostic et au fonctionnement des services."],
       ]} />
-      <p>Vous pouvez demander l’effacement de vos données en écrivant au contact indiqué ci-dessous. Cette possibilité ne remplace pas la définition d’une durée de conservation par One City. La présente version de travail ne fixe pas une conservation illimitée jusqu’à une demande d’effacement.</p>
+      <p>Vous pouvez demander l’effacement de vos données en écrivant au contact indiqué ci-dessous. Une demande d’effacement est appréciée selon les obligations légales applicables et les éventuels besoins de constatation, d’exercice ou de défense de droits.</p>
     </> },
     { id: "cookies", title: "Cookies et autres traceurs", content: <>
       <LegalDetails rows={[
