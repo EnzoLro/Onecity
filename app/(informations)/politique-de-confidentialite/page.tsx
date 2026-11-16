@@ -6,11 +6,11 @@ import { contact } from "@/data/navigation";
 import { legalIdentity } from "@/data/legal-identity";
 import { consentKey } from "@/lib/analytics";
 
-export const metadata = createPageMetadata({ path: "/politique-de-confidentialite", title: "Politique de confidentialité | One City Immobilier", description: "Informations sur les données, la mesure d’audience, les cookies et les droits. Document en attente de validation par One City.", indexable: false });
+export const metadata = createPageMetadata({ path: "/politique-de-confidentialite", title: "Politique de confidentialité | One City Immobilier", description: "Informations sur les données personnelles, la mesure d’audience, les cookies et vos droits." });
 const pending = "À confirmer par One City";
 
 export default function PrivacyPage() {
-  return <LegalPage title="Politique de confidentialité" path="/politique-de-confidentialite" description="Retrouvez les informations relatives au traitement de vos données personnelles." introduction="Cette page décrit le fonctionnement technique vérifié du site. Les pratiques internes et les informations juridiques restent à faire valider par One City." sections={[
+  return <LegalPage title="Politique de confidentialité" path="/politique-de-confidentialite" description="Retrouvez les informations relatives au traitement de vos données personnelles." introduction="Cette politique explique comment One City Immobilier traite les données personnelles et utilise les services nécessaires au fonctionnement du site." sections={[
     { id: "responsable", title: "Responsable du traitement", content: <LegalDetails rows={[
       ["Responsable du traitement", <>{organization.legalName}<br />{footer.address.join(", ")}</>],
       ["Contact données personnelles", <a href={contact.href}>{contact.href.replace("mailto:", "")}</a>], ["Délégué à la protection des données", "Aucun délégué à la protection des données n’est désigné à ce jour."],
