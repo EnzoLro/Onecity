@@ -16,24 +16,24 @@ export default function PrivacyPage() {
       ["Contact données personnelles", <a href={contact.href}>{contact.href.replace("mailto:", "")}</a>], ["Délégué à la protection des données", "Désignation éventuelle et coordonnées à confirmer par One City"],
     ]} /> },
     { id: "donnees", title: "Données collectées", content: <>
-      <p>Le formulaire prévoit prénom, nom, e-mail, téléphone facultatif, programme, préférence de logement et message facultatif. Les champs marqués d’un astérisque sont requis pour une demande via ce formulaire. Son envoi n’est actuellement pas activé ; les champs saisis ne sont pas transmis à Resend. Les échanges par e-mail ou téléphone sont distincts.</p>
+      <p>Le formulaire prévoit prénom, nom, e-mail, téléphone facultatif, programme, préférence de logement et message facultatif. Les champs marqués d’un astérisque sont requis pour une demande via ce formulaire. Lors de l’envoi, ces informations sont transmises au serveur One City puis à Resend afin d’acheminer la demande vers l’adresse de contact de One City. Les échanges ultérieurs par e-mail ou téléphone sont distincts.</p>
       <p>Après accord, Google Analytics mesure les pages consultées et les interactions avec les programmes, les logements et les moyens de contact. Le code de mesure ne reprend pas les informations saisies dans le formulaire, les paramètres libres d’URL ni les fragments. Google reçoit aussi les informations techniques nécessaires aux requêtes vers ses serveurs, notamment l’adresse IP ; cela ne permet pas de qualifier l’ensemble des données d’anonymes.</p>
-      <p>L’hébergement et le chargement des fonds de carte impliquent des requêtes techniques. Leurs modalités de journalisation et de conservation restent à confirmer avec les prestataires.</p>
+      <p>L’hébergement, la protection anti-spam et le chargement des fonds de carte impliquent des requêtes techniques. Cloudflare Turnstile traite les signaux techniques nécessaires à la détection des robots ; il ne reçoit pas le contenu des champs du formulaire. Les modalités de journalisation et de conservation propres aux prestataires restent décrites par leurs politiques et contrats applicables.</p>
     </> },
     { id: "finalites", title: "Finalités et bases légales", content: <>
       <LegalDetails rows={[
         ["Mesurer l’audience et les interactions", "Google Analytics, facultatif, uniquement après consentement. Aucun outil publicitaire n’est activé par ce site."],
-        ["Répondre aux demandes de contact", "Traitement par e-mail pour répondre à la demande du visiteur, sans prospection. L’envoi du formulaire reste désactivé. Base légale à confirmer par One City."],
-        ["Fonctionnement du site et de la carte", "Hébergement Vercel et fonds OpenStreetMap. Base légale et conditions applicables à confirmer par One City."],
+        ["Répondre aux demandes de contact", "Traitement du formulaire puis par e-mail pour répondre à la demande du visiteur, sans prospection. Base légale à confirmer par One City."],
+        ["Fonctionnement du site et de la carte", "Hébergement Vercel, protection anti-spam Cloudflare Turnstile et fonds OpenStreetMap. Base légale et conditions applicables à confirmer par One City."],
       ]} />
       <p>Les demandes de contact servent uniquement à répondre à votre demande. Elles ne sont pas utilisées pour la prospection commerciale. Aucun abonnement à une newsletter n’est proposé par ce site.</p>
     </> },
     { id: "destinataires", title: "Destinataires et transferts", content: <>
-      <p>Les services identifiés dans le site sont Vercel pour l’hébergement, Google Analytics pour la mesure d’audience après accord et OpenStreetMap pour le fond de carte. Resend est préparé pour l’envoi des demandes à l’équipe One City, mais cet envoi reste désactivé. Les liens Instagram et LinkedIn ouvrent des sites tiers ; aucun module social intégré n’est chargé.</p>
+      <p>Les services identifiés dans le site sont Vercel pour l’hébergement, Resend pour l’acheminement des demandes de contact, Cloudflare Turnstile pour la protection anti-spam, Google Analytics pour la mesure d’audience après accord et OpenStreetMap pour le fond de carte. Les liens Instagram et LinkedIn ouvrent des sites tiers ; aucun module social intégré n’est chargé.</p>
       <p>La carte charge des images depuis tile.openstreetmap.org lorsqu’elle approche de la zone visible. Ces requêtes communiquent au fournisseur l’adresse IP et les informations techniques habituelles du navigateur. Aucune géolocalisation du visiteur ni recherche d’adresse distante n’est utilisée.</p>
-      <p>Des traitements hors de l’Union européenne sont possibles avec les prestataires utilisés. L’entité contractuelle de chaque prestataire, les pays concernés, les garanties de transfert et les moyens d’en obtenir copie restent à vérifier avant publication définitive.</p>
+      <p>Des traitements hors de l’Union européenne sont possibles avec certains prestataires. Vercel et Resend publient des avenants de traitement des données incluant des clauses contractuelles types pour les transferts concernés. Les garanties propres à Google, Cloudflare et OpenStreetMap ainsi que la configuration contractuelle effectivement applicable à One City restent à valider avant publication définitive.</p>
       <LegalDetails rows={[["Traitement des demandes", `${legalIdentity.president}, pour ${organization.legalName}, par e-mail à ${contact.href.replace("mailto:", "")}.`], ["Prestataire de messagerie et autres accès éventuels", pending], ["Sous-traitants et garanties de transfert applicables", pending]]} />
-      <p>Informations des fournisseurs : <a href="https://vercel.com/legal/privacy-notice">Vercel</a>, <a href="https://policies.google.com/privacy?hl=fr">Google</a> et <a href="https://osmfoundation.org/wiki/Privacy_Policy">OpenStreetMap Foundation</a>.</p>
+      <p>Informations des fournisseurs : <a href="https://vercel.com/legal/privacy-notice">Vercel</a>, <a href="https://resend.com/legal/dpa">Resend</a>, <a href="https://www.cloudflare.com/fr-fr/turnstile-privacy-policy/">Cloudflare Turnstile</a>, <a href="https://policies.google.com/privacy?hl=fr">Google</a> et <a href="https://osmfoundation.org/wiki/Privacy_Policy">OpenStreetMap Foundation</a>.</p>
     </> },
     { id: "conservation", title: "Durées de conservation", content: <>
       <LegalDetails rows={[
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
       ]} />
       <p>Avant accord ou après refus, aucun script Google Analytics n’est chargé et aucun événement n’est conservé pour un envoi ultérieur. La mesure est désactivée en pré-production, même après acceptation.</p>
       <p>Vous pouvez accepter ou refuser depuis le bandeau et modifier votre choix à tout moment dans les <a href="/parametres-cookies">paramètres des cookies</a>, accessibles aussi en pied de page. Le refus conserve l’accès au site. Le retrait arrête la mesure, supprime les cookies Analytics accessibles au site et recharge la page pour retirer le script. Il ne supprime pas les données déjà reçues par Google.</p>
-      <p>Le choix de mesure d’audience est indépendant de l’accord demandé dans le formulaire de contact.</p>
+      <p>Le choix de mesure d’audience est indépendant de l’accord demandé dans le formulaire de contact. Cloudflare Turnstile est utilisé pour la sécurité du formulaire et ne dépend pas du choix Analytics.</p>
     </> },
     { id: "droits", title: "Vos droits", content: <>
       <p>Dans les conditions prévues par la réglementation, vous pouvez demander l’accès à vos données, leur rectification ou leur effacement, la limitation du traitement et, lorsque cela s’applique, leur portabilité. Vous pouvez également vous opposer à certains traitements.</p>
