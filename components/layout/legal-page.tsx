@@ -28,7 +28,6 @@ export function LegalPage({ title, path, description, introduction, sections }: 
       </nav>
       <article className="legal-page__article" aria-label={title}>
         <header className="legal-page__article-header"><Text as="h2" variant="heading">{title}</Text><p>{introduction}</p></header>
-        <aside className="legal-page__draft" aria-label="État de validation">Document de travail : les informations signalées « À confirmer par One City » restent à compléter et à faire valider avant publication définitive.</aside>
         {sections.map(({ id, title, content }) => <section id={id} key={id} aria-labelledby={`${id}-title`} className="legal-page__section"><h3 id={`${id}-title`}>{title}</h3>{content}</section>)}
         <div className="legal-page__end"><a href="#sommaire">Retour au sommaire ↑</a></div>
       </article>
