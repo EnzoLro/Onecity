@@ -2,6 +2,7 @@
 import { createRequire } from "node:module";
 import assert from "node:assert/strict";
 import process from "node:process";
+import console from "node:console";
 const { chromium } = createRequire(import.meta.url)("playwright");
 
 const base = process.argv[2] || "http://localhost:3120";
