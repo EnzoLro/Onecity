@@ -60,7 +60,7 @@
 .project-contact .project-contact__consent { flex-direction: row; align-items: flex-start; gap: var(--space-12); line-height: 1.6; }
 .project-contact__consent input { flex-shrink: 0; width: 18px; height: 18px; margin-top: 3px; accent-color: var(--color-primary); }
 .project-contact__trap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-.project-contact a { text-decoration: underline; overflow-wrap: anywhere; }
+.project-contact__security { width: 100%; min-height: 1px; }\n.project-contact__security > div:first-child { width: 100%; }\n.project-contact__security [role="status"] { margin-top: var(--space-8); color: var(--color-item-mid); }\n.project-contact a { text-decoration: underline; overflow-wrap: anywhere; }
 .project-contact [role="status"]:empty { display: none; }
 @media (max-width: 74.999rem) {
   .project-detail__hero-content, .project-detail__overview, .project-detail__homes-heading, .project-detail__contact, .project-detail__locality { gap: var(--space-40); }
