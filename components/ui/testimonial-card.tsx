@@ -18,7 +18,7 @@ export function TestimonialCard({ quote, author, location, image }: TestimonialC
         <blockquote className="onecity-text-body text-onecity-primary wrap-anywhere"><p>{quote}</p></blockquote>
         <figcaption className="mt-3 onecity-text-body wrap-anywhere">
           <p className="onecity-text-label text-onecity-primary">{author}</p>
-          <p className="mt-1 text-onecity-item-low">{location}</p>
+          <p className="mt-1 text-onecity-item-mid">{location}</p>
         </figcaption>
       </div>
     </figure>
