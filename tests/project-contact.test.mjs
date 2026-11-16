@@ -5,14 +5,20 @@ import { handleProjectContact } from '../lib/project-contact.ts';
 import { programs } from '../data/programs.ts';
 
 const payload = { project: 'c-premium', firstName: 'Test', lastName: 'Recette', email: 'qa@example.com', phone: '', interest: 't4-98', message: 'Informations sur ce T4.', consent: 'yes', website: '' };
-const config = { apiKey: 'test-only', from: 'test@example.com', recipient: 'projets@onecityimmobilier.fr' };
+const config = { apiKey: 'test-only', from: 'test@example.com', recipient: 'preview-recipient@example.com' };
 const key = '11111111-1111-4111-8111-111111111111';
 const request = (body = payload, headers = {}) => new Request('https://preview.example.com/api/project-contact', { method: 'POST', headers: { origin: 'https://preview.example.com', 'content-type': 'application/json', 'idempotency-key': key, ...headers }, body: JSON.stringify(body) });
 const unexpectedSend = () => { assert.fail('No email should be sent'); };
 
-test('missing Resend configuration returns 503 without pretending to send', async () => {
-  const response = await handleProjectContact(request(), programs, { recipient: config.recipient }, unexpectedSend);
-  assert.equal(response.status, 503);
+test('missing Resend or recipient configuration returns 503 without pretending to send', async () => {
+  for (const missing of [
+    { from: config.from, recipient: config.recipient },
+    { apiKey: config.apiKey, recipient: config.recipient },
+    { apiKey: config.apiKey, from: config.from },
+  ]) {
+    const response = await handleProjectContact(request(), programs, missing, unexpectedSend);
+    assert.equal(response.status, 503);
+  }
 });
 
 test('rejects invalid input, fabricated homes, non-commercial projects and absent consent before sending', async () => {
@@ -29,7 +35,7 @@ test('rejects foreign origins, wrong content type, missing request key and overs
   assert.equal((await handleProjectContact(request(null), programs, config, unexpectedSend)).status, 400);
 });
 
-test('Resend request uses a fixed recipient, verified sender config, visitor reply-to and stable idempotency', async () => {
+test('Resend request uses configured recipient, verified sender config, visitor reply-to and stable idempotency', async () => {
   const calls = [];
   const send = async (url, options) => { calls.push({ url, ...options }); return Response.json({ id: 'test-receipt' }); };
   for (let attempt = 0; attempt < 2; attempt++) assert.equal((await handleProjectContact(request({ ...payload, to: 'evil@example.com' }), programs, config, send)).status, 200);
