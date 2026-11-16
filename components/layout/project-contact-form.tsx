@@ -119,6 +119,8 @@ export function ProjectContactForm({
       setStatus("error");
       setFeedback(error instanceof Error ? error.message : "L’envoi a échoué. Veuillez réessayer ou nous contacter par e-mail.");
       resetSecurity();
+    } finally {
+      submitting.current = false;
     }
   }
 
