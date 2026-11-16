@@ -55,7 +55,7 @@
   top: -58.41%;
   left: 0.02%;
   width: 99.96%;
-  height: 165.26%;
+  height: auto;
 }
 
 .home-hero__cutout {
@@ -63,7 +63,7 @@
   bottom: -7.009%;
   left: 33.499%;
   width: 33.001%;
-  height: 165.573%;
+  height: auto;
 }
 
 @media (max-width: 63.999rem) {
