@@ -12,7 +12,7 @@ type TurnstileApi = {
     sitekey: string;
     action: string;
     theme: "light";
-    size: "flexible";
+    size: "flexible" | "compact";
     appearance: "interaction-only";
     callback: () => void;
     "expired-callback": () => void;
@@ -65,7 +65,7 @@ export function ProjectContactForm({
       sitekey: turnstileSiteKey,
       action: "contact",
       theme: "light",
-      size: "flexible",
+      size: window.matchMedia("(max-width: 380px)").matches ? "compact" : "flexible",
       appearance: "interaction-only",
       callback: () => {
         setSecurityReady(true);
