@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(seoConfig.origin),
   title: siteName,
   robots: { index: seoConfig.indexable, follow: true },
+  icons: {
+    icon: [{ url: "/brand/logos/onecity-mark.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({
