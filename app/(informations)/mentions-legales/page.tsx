@@ -23,7 +23,6 @@ export default function LegalNoticesPage() {
         ["Activité déclarée", legalIdentity.activity],
         ["E-mail et téléphone", <><a href={contact.href}>{contact.href.replace("mailto:", "")}</a><br /><a href={footer.phone.href}>{footer.phone.label}</a></>],
       ]} />
-      <p>Identité juridique : <a href={legalIdentity.source}>fiche Pappers fournie par One City</a>, consultée le 27 octobre 2026. Coordonnées : <a href="https://www.onecityimmobilier.fr/">site actuel de One City Immobilier</a>.</p>
       <p>One City Immobilier intervient uniquement dans le cadre de ses propres opérations immobilières et n’exerce pas d’activité d’intermédiation sur les biens de tiers.</p>
     </> },
     { id: "publication", title: "Directeur de publication", content: <LegalDetails rows={[["Nom et prénom", legalIdentity.president], ["Qualité / fonction", `Président de ${organization.legalName}`], ["Conception et gestion technique du site", <a href="https://www.enzolouro.fr/">Enzo Louro</a>]]} /> },
