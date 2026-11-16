@@ -19,12 +19,13 @@ try {
     assert.equal(response?.status(), 404);
     assert.equal(await page.locator("h1").count(), 1);
     assert.equal((await page.getByRole("heading", { level: 1 }).textContent())?.trim(), "Cette page n’existe pas.");
-    assert.equal(await page.getByRole("link", { name: "Retour à l’accueil", exact: true }).getAttribute("href"), "/");
-    assert.equal(await page.getByRole("link", { name: "Nous contacter", exact: true }).getAttribute("href"), "/contact");
+    const main = page.locator("#main-content");
+    assert.equal(await main.getByRole("link", { name: "Retour à l’accueil", exact: true }).getAttribute("href"), "/");
+    assert.equal(await main.getByRole("link", { name: "Nous contacter", exact: true }).getAttribute("href"), "/contact");
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
 
     for (const name of ["Retour à l’accueil", "Nous contacter"]) {
-      const target = page.getByRole("link", { name, exact: true });
+      const target = main.getByRole("link", { name, exact: true });
       await target.focus();
       await page.keyboard.press("Shift+Tab");
       await page.keyboard.press("Tab");
