@@ -44,7 +44,8 @@ export function ProjectContactForm({
   const [feedback, setFeedback] = useState("");
   const [securityReady, setSecurityReady] = useState(false);
   const [securityFeedback, setSecurityFeedback] = useState("");
-  const started = useRef(false);\n  const submitting = useRef(false);
+  const started = useRef(false);
+  const submitting = useRef(false);
   const requestKey = useRef<{ payload: string; key: string } | null>(null);
   const turnstileContainer = useRef<HTMLDivElement>(null);
   const turnstileWidget = useRef<string | null>(null);
@@ -93,7 +94,8 @@ export function ProjectContactForm({
       if (!securityReady) setSecurityFeedback("Patientez un instant, la vérification de sécurité doit se terminer avant l’envoi.");
       return;
     }
-    submitting.current = true;\n    const form = event.currentTarget;
+    submitting.current = true;
+    const form = event.currentTarget;
     const payload = Object.fromEntries(new FormData(form));
     const serialized = JSON.stringify(payload);
     if (requestKey.current?.payload !== serialized) requestKey.current = { payload: serialized, key: crypto.randomUUID() };
