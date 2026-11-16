@@ -1,26 +1,98 @@
 "use client";
 
+import Script from "next/script";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button, Text } from "@/components/ui";
 import { trackForm } from "@/lib/analytics-client";
 import { contact } from "@/data/navigation";
 import type { ProjectDetail } from "@/data/programs";
 
-export function ProjectContactForm({ projectSlug, projectLabel, homes, sendingEnabled }: { projectSlug: string; projectLabel: string; homes: ProjectDetail["homes"]["items"]; sendingEnabled: boolean }) {
+type TurnstileApi = {
+  render: (container: HTMLElement, options: {
+    sitekey: string;
+    action: string;
+    theme: "light";
+    size: "flexible";
+    appearance: "interaction-only";
+    callback: () => void;
+    "expired-callback": () => void;
+    "error-callback": () => void;
+  }) => string;
+  reset: (widgetId?: string) => void;
+  remove: (widgetId: string) => void;
+};
+
+function turnstileApi() {
+  return (window as typeof window & { turnstile?: TurnstileApi }).turnstile;
+}
+
+export function ProjectContactForm({
+  projectSlug,
+  projectLabel,
+  homes,
+  sendingEnabled,
+  turnstileSiteKey,
+}: {
+  projectSlug: string;
+  projectLabel: string;
+  homes: ProjectDetail["homes"]["items"];
+  sendingEnabled: boolean;
+  turnstileSiteKey: string;
+}) {
   const [interest, setInterest] = useState("unsure");
   const [status, setStatus] = useState<"idle" | "pending" | "success" | "error">("idle");
   const [feedback, setFeedback] = useState("");
+  const [securityReady, setSecurityReady] = useState(false);
+  const [securityFeedback, setSecurityFeedback] = useState("");
   const started = useRef(false);
   const requestKey = useRef<{ payload: string; key: string } | null>(null);
+  const turnstileContainer = useRef<HTMLDivElement>(null);
+  const turnstileWidget = useRef<string | null>(null);
 
   useEffect(() => {
     const selected = new URLSearchParams(window.location.search).get("logement");
     if (homes.some(({ id }) => id === selected)) setInterest(selected!);
   }, [homes]);
 
+  useEffect(() => () => {
+    if (turnstileWidget.current) turnstileApi()?.remove(turnstileWidget.current);
+  }, []);
+
+  function renderTurnstile() {
+    const api = turnstileApi();
+    if (!api || !turnstileContainer.current || turnstileWidget.current || !turnstileSiteKey) return;
+    turnstileWidget.current = api.render(turnstileContainer.current, {
+      sitekey: turnstileSiteKey,
+      action: "contact",
+      theme: "light",
+      size: "flexible",
+      appearance: "interaction-only",
+      callback: () => {
+        setSecurityReady(true);
+        setSecurityFeedback("");
+      },
+      "expired-callback": () => {
+        setSecurityReady(false);
+        setSecurityFeedback("La vérification de sécurité a expiré. Elle est relancée automatiquement.");
+      },
+      "error-callback": () => {
+        setSecurityReady(false);
+        setSecurityFeedback("La vérification de sécurité n’a pas pu aboutir. Vérifiez votre connexion puis réessayez.");
+      },
+    });
+  }
+
+  function resetSecurity() {
+    setSecurityReady(false);
+    if (turnstileWidget.current) turnstileApi()?.reset(turnstileWidget.current);
+  }
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!sendingEnabled || status === "pending") return;
+    if (!sendingEnabled || !securityReady || status === "pending") {
+      if (!securityReady) setSecurityFeedback("Patientez un instant, la vérification de sécurité doit se terminer avant l’envoi.");
+      return;
+    }
     const form = event.currentTarget;
     const payload = Object.fromEntries(new FormData(form));
     const serialized = JSON.stringify(payload);
@@ -29,7 +101,8 @@ export function ProjectContactForm({ projectSlug, projectLabel, homes, sendingEn
     setFeedback("");
     try {
       const response = await fetch("/api/project-contact", {
-        method: "POST", headers: { "Content-Type": "application/json", "Idempotency-Key": requestKey.current!.key },
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Idempotency-Key": requestKey.current!.key },
         body: serialized,
       });
       const result = await response.json();
@@ -41,14 +114,27 @@ export function ProjectContactForm({ projectSlug, projectLabel, homes, sendingEn
       form.reset();
       setInterest("unsure");
       requestKey.current = null;
+      resetSecurity();
     } catch (error) {
       setStatus("error");
       setFeedback(error instanceof Error ? error.message : "L’envoi a échoué. Veuillez réessayer ou nous contacter par e-mail.");
+      resetSecurity();
     }
   }
 
   return (
     <div className="project-contact-shell">
+      {turnstileSiteKey && (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+          strategy="afterInteractive"
+          onLoad={renderTurnstile}
+          onError={() => {
+            setSecurityReady(false);
+            setSecurityFeedback("La vérification de sécurité n’a pas pu être chargée. Rechargez la page ou contactez-nous par e-mail.");
+          }}
+        />
+      )}
       <form className="project-contact" onSubmit={submit} onChange={() => { if (!started.current && trackForm("form_start", projectSlug)) started.current = true; }} aria-label={`Demande d’informations ${projectLabel}`} aria-busy={status === "pending"}>
         <div className="project-contact__title"><Text variant="label">Votre demande · {projectLabel}</Text><Text variant="small">* Champs requis</Text></div>
         <Text variant="small" className="project-detail__muted">Laissez-nous vos coordonnées et dites-nous ce que vous recherchez.</Text>
@@ -60,7 +146,11 @@ export function ProjectContactForm({ projectSlug, projectLabel, homes, sendingEn
         <label>Votre message<textarea name="message" maxLength={5000} rows={4} placeholder="Dites-nous en quelques mots ce que vous recherchez…" /></label>
         <div className="project-contact__trap" aria-hidden="true"><label>Site internet<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
         <label className="project-contact__consent"><input type="checkbox" name="consent" value="yes" required /><span>J’accepte que One City Immobilier utilise ces informations pour me recontacter au sujet de ma demande. *</span></label>
-        <Button type="submit" size="large" disabled={!sendingEnabled || status === "pending"}>{status === "pending" ? "Envoi en cours…" : "Envoyer ma demande"}</Button>
+        <div className="project-contact__security">
+          <div ref={turnstileContainer} />
+          <p role="status" aria-live="polite" className="onecity-text-small">{securityFeedback}</p>
+        </div>
+        <Button type="submit" size="large" disabled={!sendingEnabled || !securityReady || status === "pending"}>{status === "pending" ? "Envoi en cours…" : "Envoyer ma demande"}</Button>
         <p role="status" aria-live="polite" className="onecity-text-small">{feedback}</p>
         <Text variant="small" className="project-detail__muted">Vos informations sont destinées au traitement de votre demande. Consultez notre <a href="/politique-de-confidentialite">politique de confidentialité</a> pour en savoir plus.</Text>
       </form>
