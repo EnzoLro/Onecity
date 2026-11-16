@@ -5,7 +5,7 @@ import { footer } from "@/data/footer";
 import { contact } from "@/data/navigation";
 import { legalIdentity } from "@/data/legal-identity";
 
-export const metadata = createPageMetadata({ path: "/mentions-legales", title: "Mentions légales | One City Immobilier", description: "Éditeur, hébergement et informations légales du site One City Immobilier. Document en attente de validation.", indexable: false });
+export const metadata = createPageMetadata({ path: "/mentions-legales", title: "Mentions légales | One City Immobilier", description: "Éditeur, directeur de publication, hébergement et informations légales du site One City Immobilier." });
 
 export default function LegalNoticesPage() {
   return <LegalPage title="Mentions légales" path="/mentions-legales" description="Retrouvez les informations relatives à l’édition du site." introduction="Cette partie identifie l’éditeur du site et précise les conditions d’utilisation de ses contenus." sections={[
