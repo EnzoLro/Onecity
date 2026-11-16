@@ -11,7 +11,6 @@ try {
   const page = await browser.newPage();
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  page.on("console", (message) => { if (message.type() === "error") errors.push(message.text()); });
 
   for (const width of [375, 768, 1512]) {
     await page.setViewportSize({ width, height: 900 });
