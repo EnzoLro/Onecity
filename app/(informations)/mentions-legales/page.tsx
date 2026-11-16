@@ -29,8 +29,8 @@ export default function LegalNoticesPage() {
     </> },
     { id: "publication", title: "Directeur de publication", content: <LegalDetails rows={[["Nom et prénom", legalIdentity.president], ["Qualité / fonction", `Président de ${organization.legalName}`], ["Conception et gestion technique du site", <a href="https://www.enzolouro.fr/">Enzo Louro</a>]]} /> },
     { id: "hebergement", title: "Hébergement", content: <>
-      <LegalDetails rows={[["Service utilisé pour ce site", "Vercel"], ["Raison sociale", "Vercel Inc."], ["Adresse publiée par Vercel", "440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis"], ["Téléphone de l’hébergeur", "À vérifier auprès de Vercel"]]} />
-      <p>Coordonnées issues de la <a href="https://vercel.com/legal/privacy-notice">notice officielle de Vercel</a>. Les coordonnées contractuelles applicables à l’hébergement restent à confirmer.</p>
+      <LegalDetails rows={[["Service utilisé pour ce site", "Vercel"], ["Raison sociale", "Vercel Inc."], ["Adresse publiée par Vercel", "440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis"], ["Téléphone public communiqué par Vercel", "+1 559 288 7060 (coordonnée publiée pour son agent DMCA)"], ["Support", <a href="https://vercel.com/contact">vercel.com/contact</a>]]} />
+      <p>Adresse issue de la <a href="https://vercel.com/legal/privacy-notice">notice officielle de Vercel</a>. Vercel ne publie pas de numéro général de support ; le numéro indiqué ci-dessus est celui publiquement communiqué pour son agent DMCA.</p>
     </> },
     { id: "propriete-intellectuelle", title: "Propriété intellectuelle", content: <>
       <p>Les textes, marques, logos, photographies, plans et autres contenus du site sont susceptibles d’être protégés par des droits de propriété intellectuelle.</p>
