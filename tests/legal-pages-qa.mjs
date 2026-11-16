@@ -27,7 +27,8 @@ try {
       assert.equal(await page.locator('h1').count(), 1);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, `${path} ${width}`);
       assert.match(await page.locator('meta[name="robots"]').getAttribute('content'), /noindex/);
-      assert.match(await page.locator('.legal-page__draft').innerText(), /faire valider/);
+      assert.equal(await page.locator('.legal-page__draft').count(), 0);
+      assert.doesNotMatch(await page.locator('main').innerText(), /Document de travail|À confirmer par One City|fiche Pappers fournie|site actuel de One City/i);
       const anchors = await page.locator('.legal-page__contents a').evaluateAll(links => links.map(link => ({ href: link.getAttribute('href'), exists: Boolean(document.getElementById(link.hash.slice(1))) })));
       assert.ok(anchors.length >= 5);
       assert.ok(anchors.every(link => link.exists), JSON.stringify(anchors));
@@ -57,5 +58,5 @@ try {
   assert.equal(new URL(page.url()).pathname, '/politique-de-confidentialite');
   assert.equal(analyticsRequests.length, 0);
   assert.deepEqual(errors, []);
-  process.stdout.write('Legal pages: responsive, draft disclosure, contents, footer, preferences and Preview network isolation passed.\n');
+  process.stdout.write('Legal pages: responsive, final public content, contents, footer, preferences and Preview network isolation passed.\n');
 } finally { await browser.close(); }
