@@ -18,7 +18,7 @@ try {
     const response = await page.goto(`${base}/page-inexistante`);
     assert.equal(response?.status(), 404);
     assert.equal(await page.locator("h1").count(), 1);
-    assert.equal(await page.getByRole("heading", { level: 1 }).innerText(), "Cette page n’existe pas.");
+    assert.equal((await page.getByRole("heading", { level: 1 }).textContent())?.trim(), "Cette page n’existe pas.");
     assert.equal(await page.getByRole("link", { name: "Retour à l’accueil", exact: true }).getAttribute("href"), "/");
     assert.equal(await page.getByRole("link", { name: "Nous contacter", exact: true }).getAttribute("href"), "/contact");
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
