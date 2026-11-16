@@ -8,6 +8,7 @@ import { mkdirSync } from 'node:fs';
 const { chromium } = createRequire(import.meta.url)('playwright');
 const base = process.argv[2] || 'http://localhost:3104';
 const screenshots = process.env.QA_SCREENSHOTS;
+const expectSendingEnabled = process.env.QA_CONTACT_SENDING === 'enabled';
 const browser = await chromium.launch({ headless: true });
 try {
   const page = await browser.newPage();
@@ -46,8 +47,18 @@ try {
     for (const img of await page.locator('main img').all()) { await img.scrollIntoViewIfNeeded(); await img.evaluate((image) => image.decode()); }
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `overflow at ${width}`);
     assert.equal(await page.locator('main img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0 && image.getBoundingClientRect().width > 0)), true);
-    assert.equal(await page.getByRole('button', { name: 'Envoyer ma demande' }).isDisabled(), true);
-    assert.match(await page.locator('.project-contact__notice a').getAttribute('href'), /^mailto:projets@onecityimmobilier\.fr\?subject=/);
+    const submit = page.getByRole('button', { name: 'Envoyer ma demande' });
+    if (expectSendingEnabled) {
+      await page.waitForFunction(() => {
+        const button = [...document.querySelectorAll('button')].find((item) => item.textContent?.trim() === 'Envoyer ma demande');
+        return button && !button.disabled;
+      }, null, { timeout: 20000 });
+      assert.equal(await submit.isDisabled(), false);
+      assert.equal(await page.locator('.project-contact__notice').count(), 0);
+    } else {
+      assert.equal(await submit.isDisabled(), true);
+      assert.match(await page.locator('.project-contact__notice a').getAttribute('href'), /^mailto:projets@onecityimmobilier\.fr\?subject=/);
+    }
     assert.equal(await page.getByRole('link', { name: '+33 7 85 01 04 57', exact: true }).first().getAttribute('href'), 'tel:+33785010457');
     assert.equal(await page.locator('.site-footer__navigation a').filter({ hasText: 'Contact' }).getAttribute('href'), '/contact');
     for (const selector of ['[name="firstName"]', '[name="lastName"]', '[name="email"]', '[name="phone"]', '[name="message"]', '[name="consent"]']) {
@@ -63,7 +74,7 @@ try {
     await page.getByLabel('Prénom *', { exact: true }).fill('   ');
     assert.equal(await page.locator('[name="firstName"]').evaluate((element) => element.checkValidity()), false);
     if (screenshots && [375, 768, 1512].includes(width)) { await page.screenshot({ path: `${screenshots}/contact-${width}.png`, fullPage: true }); }
-    console.log(`PASS contact ${width}px: assets, overflow, fields, disabled sending, keyboard and links`);
+    console.log(`PASS contact ${width}px: assets, overflow, fields, ${expectSendingEnabled ? 'enabled' : 'disabled'} sending, keyboard and links`);
   }
   for (const id of ['t4-98', 't4-103', 'invented']) {
     await page.goto(`${base}/contact?projet=c-premium&logement=${id}#demande-informations`);
