@@ -5,10 +5,10 @@ export type ContactProgram = {
   commercial: { commercializing?: boolean };
   editorial: { detail?: { homes: { items: readonly { id: string; type: string; area: number }[] } } };
 };
-export type ContactConfig = { apiKey?: string; from?: string; recipient: string };
+export type ContactConfig = { apiKey?: string; from?: string; recipient?: string };
 
-export function isContactConfigured(config: Pick<ContactConfig, "apiKey" | "from">) {
-  return Boolean(config.apiKey?.trim() && config.from?.trim());
+export function isContactConfigured(config: Pick<ContactConfig, "apiKey" | "from" | "recipient">) {
+  return Boolean(config.apiKey?.trim() && config.from?.trim() && config.recipient?.trim());
 }
 
 const emailPattern = /^[^\s@<>\r\n]+@[^\s@<>\r\n]+\.[^\s@<>\r\n]+$/;
