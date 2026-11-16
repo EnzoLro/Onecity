@@ -7,8 +7,6 @@ import { legalIdentity } from "@/data/legal-identity";
 import { consentKey } from "@/lib/analytics";
 
 export const metadata = createPageMetadata({ path: "/politique-de-confidentialite", title: "Politique de confidentialité | One City Immobilier", description: "Informations sur les données personnelles, la mesure d’audience, les cookies et vos droits." });
-const pending = "À confirmer par One City";
-
 export default function PrivacyPage() {
   return <LegalPage title="Politique de confidentialité" path="/politique-de-confidentialite" description="Retrouvez les informations relatives au traitement de vos données personnelles." introduction="Cette politique explique comment One City Immobilier traite les données personnelles et utilise les services nécessaires au fonctionnement du site." sections={[
     { id: "responsable", title: "Responsable du traitement", content: <LegalDetails rows={[
